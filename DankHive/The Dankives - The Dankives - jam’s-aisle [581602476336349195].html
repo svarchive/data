@@ -1,0 +1,1679 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Dankives - jam’s-aisle</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9947575e9a780b11d333eb6feb61b39d-69247.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">The Dankives</div>
+        <div class="preamble__entry">The Dankives / jam’s-aisle</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 12:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="581617797218697235" id="message-581617797218697235">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-2C4B5.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-2C4B5.png" alt="Image attachment" title="Image: image0.png (33.42 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image1-3D020.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image1-3D020.png" alt="Image attachment" title="Image: image1.png (29.22 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 12:27 AM</span>
+
+            <div class="chatlog__message " data-message-id="581624387422257162" id="message-581624387422257162">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-CD004.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-CD004.png" alt="Image attachment" title="Image: image0.png (38.7 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 12:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="581628303769731073" id="message-581628303769731073">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-E2B85.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-E2B85.png" alt="Image attachment" title="Image: image0.png (112.22 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581628327522074646" id="message-581628327522074646">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-D5346.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-D5346.png" alt="Image attachment" title="Image: image0.png (32.43 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581628351534333977" id="message-581628351534333977">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-7D9F7.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-7D9F7.png" alt="Image attachment" title="Image: image0.png (107.23 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 12:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="581630113565638670" id="message-581630113565638670">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image1-D0214.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image1-D0214.jpg" alt="Image attachment" title="Image: image1.jpg (14.63 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-3C035.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-3C035.jpg" alt="Image attachment" title="Image: image0.jpg (17.5 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581631476399865857" id="message-581631476399865857">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-4D8D4.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-4D8D4.png" alt="Image attachment" title="Image: image0.png (30.04 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 02:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="581656074847780864" id="message-581656074847780864">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-1EF69.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-1EF69.jpg" alt="Image attachment" title="Image: image0.jpg (13.55 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581656094766530563" id="message-581656094766530563">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-4C289.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-4C289.jpg" alt="Image attachment" title="Image: image0.jpg (9.61 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581656144712564757" id="message-581656144712564757">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-95253.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-95253.jpg" alt="Image attachment" title="Image: image0.jpg (11.18 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581656171417436172" id="message-581656171417436172">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-8CF0B.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-8CF0B.jpg" alt="Image attachment" title="Image: image0.jpg (21.37 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581656207232598057" id="message-581656207232598057">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-A8CC8.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-A8CC8.jpg" alt="Image attachment" title="Image: image0.jpg (9.17 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581656222902517786" id="message-581656222902517786">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-8C806.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-8C806.jpg" alt="Image attachment" title="Image: image0.jpg (13.07 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">26-May-19 03:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="582026375393968131" id="message-582026375393968131">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-6FF2B.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-6FF2B.jpg" alt="Image attachment" title="Image: image0.jpg (22.46 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="582027782473908254" id="message-582027782473908254">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-C7CE7.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-C7CE7.jpg" alt="Image attachment" title="Image: image0.jpg (56.75 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">27-May-19 06:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="582440023991779330" id="message-582440023991779330">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-0ADC7.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-0ADC7.jpg" alt="Image attachment" title="Image: image0.jpg (33.01 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">08-Jun-19 11:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="587046671209463831" id="message-587046671209463831">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-DB20C.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-DB20C.jpg" alt="Image attachment" title="Image: image0.jpg (17.11 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="587047928627986433" id="message-587047928627986433">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-7B2F1.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-7B2F1.jpg" alt="Image attachment" title="Image: image0.jpg (26.73 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">12-Jun-19 09:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="588277510043598848" id="message-588277510043598848">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image1-4DE59.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image1-4DE59.jpg" alt="Image attachment" title="Image: image1.jpg (19.84 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-65E3D.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-65E3D.jpg" alt="Image attachment" title="Image: image0.jpg (19.84 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">14-Jun-19 11:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="589220121004867664" id="message-589220121004867664">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-BD330.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-BD330.jpg" alt="Image attachment" title="Image: image0.jpg (18.93 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">18-Jun-19 11:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="590486459799044132" id="message-590486459799044132">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image1-E8E71.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image1-E8E71.jpg" alt="Image attachment" title="Image: image1.jpg (34.59 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-DAF10.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-DAF10.jpg" alt="Image attachment" title="Image: image0.jpg (30.6 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image2-94AF3.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image2-94AF3.jpg" alt="Image attachment" title="Image: image2.jpg (30.22 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">25-Jun-19 05:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="592941005271990302" id="message-592941005271990302">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-F472D.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-F472D.jpg" alt="Image attachment" title="Image: image0.jpg (40.76 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/4008f3bd2c17a619d660817f2c6d2da2-E3672.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="SillyPossibility#0498" data-user-id="203353033814310912" style="">SillyPossibility</span>
+
+
+        <span class="chatlog__timestamp">05-Aug-19 01:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="607725799398834192" id="message-607725799398834192">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-D79F1.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-D79F1.png" alt="Image attachment" title="Image: unknown.png (9.76 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">26-Aug-19 01:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="615346799678455818" id="message-615346799678455818">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-44AD5.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-44AD5.jpg" alt="Image attachment" title="Image: image0.jpg (7.98 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">29-Aug-19 01:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="616435375820243089" id="message-616435375820243089">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-C2028.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-C2028.jpg" alt="Image attachment" title="Image: image0.jpg (50.94 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/159b7db96b45941c204fceeb064126d5-5515B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="blueviper10#7486" data-user-id="477124835231662091" style="color: rgb(0,237,255)">blueviper10</span>
+
+
+        <span class="chatlog__timestamp">31-Aug-20 02:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="749797825319141397" id="message-749797825319141397">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-20A6C.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-20A6C.png" alt="Image attachment" title="Image: unknown.png (13.26 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/159b7db96b45941c204fceeb064126d5-5515B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="blueviper10#7486" data-user-id="477124835231662091" style="color: rgb(0,237,255)">blueviper10</span>
+
+
+        <span class="chatlog__timestamp">04-Sep-20 07:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="751510781413032108" id="message-751510781413032108">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-921E0.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-921E0.png" alt="Image attachment" title="Image: unknown.png (17.21 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(0,237,255)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">07-Sep-20 06:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="752393653422391328" id="message-752393653422391328">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-79CB2.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/image0-79CB2.png" alt="Image attachment" title="Image: image0.png (40.84 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/159b7db96b45941c204fceeb064126d5-5515B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="blueviper10#7486" data-user-id="477124835231662091" style="color: rgb(0,237,255)">blueviper10</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-20 02:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="759951163754807367" id="message-759951163754807367">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-19C4A.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-19C4A.png" alt="Image attachment" title="Image: unknown.png (14.59 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/159b7db96b45941c204fceeb064126d5-5515B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="blueviper10#7486" data-user-id="477124835231662091" style="color: rgb(0,237,255)">blueviper10</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 12:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="762644718440939562" id="message-762644718440939562">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-E8D6C.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-E8D6C.png" alt="Image attachment" title="Image: unknown.png (14.53 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(0,237,255)">TheTazMann</span>
+
+
+        <span class="chatlog__timestamp">06-Oct-20 05:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="763068580597596190" id="message-763068580597596190">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/317462818490286081/762893684701790279/unknown.png">https://cdn.discordapp.com/attachments/317462818490286081/762893684701790279/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-33675.png">
+                                            <img class="chatlog__embed-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-33675.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9ae12972731499d01a9472b21ed6f29b-92D96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PvPpoodles#8874" data-user-id="441778396947677194" style="color: rgb(0,237,255)">McLaren</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 07:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="774712698905821244" id="message-774712698905821244">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-290AE.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-290AE.png" alt="Image attachment" title="Image: unknown.png (49.55 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9ae12972731499d01a9472b21ed6f29b-92D96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PvPpoodles#8874" data-user-id="441778396947677194" style="color: rgb(0,237,255)">McLaren</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 04:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="775572404457177128" id="message-775572404457177128">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-F57D1.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-F57D1.png" alt="Image attachment" title="Image: unknown.png (30.78 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9ae12972731499d01a9472b21ed6f29b-92D96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PvPpoodles#8874" data-user-id="441778396947677194" style="color: rgb(0,237,255)">McLaren</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 08:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="778360392777859162" id="message-778360392777859162">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-7E242.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-7E242.png" alt="Image attachment" title="Image: unknown.png (8.14 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9ae12972731499d01a9472b21ed6f29b-92D96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PvPpoodles#8874" data-user-id="441778396947677194" style="color: rgb(0,237,255)">McLaren</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 08:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="779810658232303656" id="message-779810658232303656">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-F57BE.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-F57BE.png" alt="Image attachment" title="Image: unknown.png (17.16 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/9ae12972731499d01a9472b21ed6f29b-92D96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PvPpoodles#8874" data-user-id="441778396947677194" style="color: rgb(0,237,255)">McLaren</span>
+
+
+        <span class="chatlog__timestamp">27-Nov-20 07:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="781970704169828362" id="message-781970704169828362">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-30EFB.png">
+                                        <img class="chatlog__attachment-thumbnail" src="The%20Dankives%20-%20The%20Dankives%20-%20jam%E2%80%99s-aisle%20%5B581602476336349195%5D.html_Files/unknown-30EFB.png" alt="Image attachment" title="Image: unknown.png (7.97 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 36 message(s)</div>
+</div>
+
+</body>
+
+</html>
