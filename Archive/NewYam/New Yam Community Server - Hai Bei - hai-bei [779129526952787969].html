@@ -1,0 +1,2140 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>New Yam Community Server - hai-bei</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/e14aaace6268a9bca3f668344634881f-AB347.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">New Yam Community Server</div>
+        <div class="preamble__entry">Hai Bei / hai-bei</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 11:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="779133436174139393" id="message-779133436174139393">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">can i be the mayor?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,234,0)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 11:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="779133474685976606" id="message-779133474685976606">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i heard mnoor said you can be</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779133499919302717" id="message-779133499919302717">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MNoor1321#3954">@MNoor1321</span> you okay?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779133536821182525" id="message-779133536821182525">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">with Ning being mayor?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779133552414556220" id="message-779133552414556220">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">since you said before</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/512b51c185ad0962cba0cb653e65652f-B6E47.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MNoor1321#3954" data-user-id="513125454677540879" style="color: rgb(219,0,0)">MNoor1321</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-20 12:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="779148864502366210" id="message-779148864502366210">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779149363649314936" id="message-779149363649314936">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I vote Ning</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-20 05:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="779215556653481994" id="message-779215556653481994">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">:O</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779215562160996362" id="message-779215562160996362">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ty</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-20 03:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="779366809324486657" id="message-779366809324486657">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">As the mayor of this city</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779366851674505217" id="message-779366851674505217">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I will build fancy highrises and parks</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779366867159875616" id="message-779366867159875616">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">roof top pools</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779366919626686475" id="message-779366919626686475">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>AND A GAINT MALL</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779366937507135528" id="message-779366937507135528">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">If i can fit it</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128563;" title="&#128563;" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/1f633-F7868.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/512b51c185ad0962cba0cb653e65652f-B6E47.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MNoor1321#3954" data-user-id="513125454677540879" style="color: rgb(219,0,0)">MNoor1321</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-20 09:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="779463408940089354" id="message-779463408940089354">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I voted you for the mall</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 02:32 AM</span>
+
+            <div class="chatlog__message " data-message-id="779534742789816342" id="message-779534742789816342">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">LOL</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 06:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="783398129684447292" id="message-783398129684447292">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/780504218296778775/783397837437927424/Scan_20201201_2.png">https://cdn.discordapp.com/attachments/780504218296778775/783397837437927424/Scan_20201201_2.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/Scan_20201201_2-4D7D2.png">
+                                            <img class="chatlog__embed-thumbnail" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/Scan_20201201_2-4D7D2.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="783398177972682802" id="message-783398177972682802">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">VOTE FOR THE TALLEST BUILDING</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,234,0)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 06:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="783398261603827712" id="message-783398261603827712">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hrm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="783398280829861898" id="message-783398280829861898">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Ningzhang8#5942">@张宁|八|</span> i can ping</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 06:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="783398301537402902" id="message-783398301537402902">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nah dont</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="783398313990029342" id="message-783398313990029342">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">they will see it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,234,0)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 06:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="783398322537758722" id="message-783398322537758722">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">mk</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/512b51c185ad0962cba0cb653e65652f-B6E47.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MNoor1321#3954" data-user-id="513125454677540879" style="color: rgb(219,0,0)">MNoor1321</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 06:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="783406627986472972" id="message-783406627986472972">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">all three</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 07:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="783407545876086784" id="message-783407545876086784">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">:O the tree big buildings</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/512b51c185ad0962cba0cb653e65652f-B6E47.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MNoor1321#3954" data-user-id="513125454677540879" style="color: rgb(219,0,0)">MNoor1321</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 07:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="783410083144400906" id="message-783410083144400906">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="783410132188266556" id="message-783410132188266556">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">also where will mall be</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 07:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="783410499966205983" id="message-783410499966205983">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i will put it some where</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 12:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="785304618212786200" id="message-785304618212786200">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ships and protection weapons</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Dec-20 12:40 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785304645622431756" id="message-785304645622431756">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">will be built for protection</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785304746403299358" id="message-785304746403299358">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>STAY AT HOME ORDER IS NOW PASSED</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785305357656391680" id="message-785305357656391680">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We are now building navy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785306313176383548" id="message-785306313176383548">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Defense will be our mean priority!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785306347519475712" id="message-785306347519475712">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GET CANNED FOODS!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785306395498119221" id="message-785306395498119221">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">FIX UP YOUR UNDERGROUND GARDERNS</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785306422287269899" id="message-785306422287269899">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">WERE GOING UNDER!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785306514868011079" id="message-785306514868011079">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Get your guns ready to defened your home and land!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785306823964098610" id="message-785306823964098610">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">automatic turrets and emp are ready</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785306872504254484" id="message-785306872504254484">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Make sure your emp proof!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785308448345948182" id="message-785308448345948182">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We are now also building a tiny great wall!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/512b51c185ad0962cba0cb653e65652f-B6E47.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MNoor1321#3954" data-user-id="513125454677540879" style="color: rgb(219,0,0)">MNoor1321</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 01:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="785313139440615435" id="message-785313139440615435">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ning</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785313230460813313" id="message-785313230460813313">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what if they hit the nuclear power plants</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785313285015994389" id="message-785313285015994389">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you should shut them down until the war is over</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 01:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="785313693621157928" id="message-785313693621157928">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Moving the nuclear power plant in to the ground</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785313711736225813" id="message-785313711736225813">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">were moving under</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785313795814719539" id="message-785313795814719539">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">move everything under ground</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785313807349317662" id="message-785313807349317662">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">well be safe</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/512b51c185ad0962cba0cb653e65652f-B6E47.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MNoor1321#3954" data-user-id="513125454677540879" style="color: rgb(219,0,0)">MNoor1321</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 01:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="785322647940104202" id="message-785322647940104202">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">permession to build torpedos in my basement</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785322882787180544" id="message-785322882787180544">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yay</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 01:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="785323341568540722" id="message-785323341568540722">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you can</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785323360938491924" id="message-785323360938491924">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i will suport you</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785324606327750668" id="message-785324606327750668">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">All factories are now prepared to move under groud</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785324628423737365" id="message-785324628423737365">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if we get attacked</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="785549632850886676" id="message-785549632850886676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Expanding of home town 1 is starting</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785549693274030120" id="message-785549693274030120">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Everyone start moving to home town 1 are get ready</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785550181957238825" id="message-785550181957238825">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Food stocking has been expanded</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 07:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="785593077087600690" id="message-785593077087600690">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">everything over</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785593109735931964" id="message-785593109735931964">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you can leave your basements!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 08:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="785603748637835316" id="message-785603748637835316">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">traffic is very clear here</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785603759072870441" id="message-785603759072870441">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 04:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="795139592135114753" id="message-795139592135114753">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Emergency warning</strong>
+Each district is being evacuate to low rise and stable areas
+
+If your district is called
+Please use the highway your district is signed to(only for cars)
+
+Please do not be dumb</span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Jan-21 04:15 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795139981609009183" id="message-795139981609009183">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Please stay calm 
+And stay outside waiting</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795140497031168070" id="message-795140497031168070">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">If the earthquake hits
+Stay on the road and not be under something</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795140583890747442" id="message-795140583890747442">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Old chinese buildings are one of the safest places like a clear plans</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795140637707337739" id="message-795140637707337739">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>DO NOT STAY IN YOUR HOME</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795140714400972810" id="message-795140714400972810">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>YOU HAVE TIME TO EXIT FOR SAFETY REASONS</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795140826418118676" id="message-795140826418118676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>AND ARE GO TO THE SAFEST BUILDINGS FOR A ROOF</strong>
+Also the city basement</span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Jan-21 04:23 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 04:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="795143226364526643" id="message-795143226364526643">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">note public transport is free</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795143330161360966" id="message-795143330161360966">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And more to high land*</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 04:27 AM</span>
+
+            <div class="chatlog__message " data-message-id="795146219001086022" id="message-795146219001086022">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nuclear power plants will shut off if any signs of something</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795146226407309312" id="message-795146226407309312">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">happens</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 06:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="795356758963912734" id="message-795356758963912734">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="donia#9423">@donia</span> Is now banned from hai bei for trying to blame something that i did not do</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795356838542835763" id="message-795356838542835763">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Also there camera showing me helping people move to the mountains</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795357061855707218" id="message-795357061855707218">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And sttatements</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795357148284190781" id="message-795357148284190781">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We will also sue if he takes this</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128532;" title="&#128532;" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/1f614-D4BEE.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">04-Jan-21 08:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="795757522690113576" id="message-795757522690113576">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Chinese goverment has found</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795757532529557545" id="message-795757532529557545">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">donia</span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Jan-21 08:56 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795757615308603463" id="message-795757615308603463">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">guilty for corruption</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795757632466976809" id="message-795757632466976809">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/Screenshot_279-4867B.png">
+                                        <img class="chatlog__attachment-thumbnail" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/Screenshot_279-4867B.png" alt="Image attachment" title="Image: Screenshot_279.png (127.6 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795757640717566003" id="message-795757640717566003">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/Screenshot_281-BF4C6.png">
+                                        <img class="chatlog__attachment-thumbnail" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/Screenshot_281-BF4C6.png" alt="Image attachment" title="Image: Screenshot_281.png (136.44 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">04-Jan-21 09:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="795768873185050664" id="message-795768873185050664">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>BREAKING NEWS IT HAS JUST BEEN FOUND OUT ,DONIA HAS DADDY ISSUES </strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Jan-21 09:41 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128077;" title="&#128077;" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/1f44d-1485B.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="795770023289159681" id="message-795770023289159681">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Danio has been diagnose with compulsive lieing</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="New%20Yam%20Community%20Server%20-%20Hai%20Bei%20-%20hai-bei%20%5B779129526952787969%5D.html_Files/37ea1116874d31ffcf90000a301e59d5-466E0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ningzhang8#5942" data-user-id="556681838618345472" style="color: rgb(26,188,156)">张宁|八|</span>
+
+
+        <span class="chatlog__timestamp">10-Jan-21 05:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="797885049273974824" id="message-797885049273974824">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Everything is now safe</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 83 message(s)</div>
+</div>
+
+</body>
+
+</html>

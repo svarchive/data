@@ -1,0 +1,3155 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SV Chess Inc&#174; - t-announcements</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/05d1a16efc489a53dca549a557ac66d2-E2EC8.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">SV Chess Inc&#174;</div>
+        <div class="preamble__entry">tournament / t-announcements</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">02-Dec-20 02:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="783521243009253397" id="message-783521243009253397">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The first tournament will begin on the 12th</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">02-Dec-20 07:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="783772235977850901" id="message-783772235977850901">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sign ups start on the 6th</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 12:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="783857206399205446" id="message-783857206399205446">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">If you would like to sponsor the first bi-monthly SV Chess Inc™️ tournament dm me or asdia</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 11:45 AM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="785472020602552341" id="message-785472020602552341">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> remember to join the lichess group <a href="https://lichess.org/team/svchess">https://lichess.org/team/svchess</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/team/svchess">
+                                                    <div class="markdown preserve-whitespace">SVChess team</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">A team dedicated for the Vooperian chess players.</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="785907978485497896" id="message-785907978485497896">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span> sign ups end on the 10th.</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128512;" title="&#128512;" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/1f600-BB250.png">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="785908019996131329" id="message-785908019996131329">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">be sure to sign up</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="785909062008832050" id="message-785909062008832050">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> it would help if yall give me your lichess usernames</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="color: rgb(189,255,232)">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="785909149418258482" id="message-785909149418258482">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Uh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(222,222,222)">Comrade Chris</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="785909157206425621" id="message-785909157206425621">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ComradeChris</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="color: rgb(189,255,232)">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="785909180501590107" id="message-785909180501590107">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Am I meant to be able to talk here?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="785909207622877209" id="message-785909207622877209">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785909225955131424" id="message-785909225955131424">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">now shut</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="color: rgb(189,255,232)">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="785909247056674837" id="message-785909247056674837">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ah, it’s Olirules10</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="785909307497644090" id="message-785909307497644090">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://lichess.org/team/svchess">https://lichess.org/team/svchess</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/team/svchess">
+                                                    <div class="markdown preserve-whitespace">SVChess team</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">A team dedicated for the Vooperian chess players.</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="asdia#1556" style="color: rgb(20,144,34)">asdia</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;785909062008832050&#39;)">
+                    <span class="chatlog__reference-content">
+<span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> it would help if yall give me your lichess usernames                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/3f3d1f098211319af86cf6927e4da67c-B1884.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Danish#1473" data-user-id="442185279386681345" style="color: rgb(222,222,222)">Danish</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="785910602794270740" id="message-785910602794270740">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">notdanish</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785910804695744512" id="message-785910804695744512">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">How is the tournament gonna work?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785910842314063923" id="message-785910842314063923">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Is it going to be knockout rounds?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785910870844375139" id="message-785910870844375139">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And will there be a draw?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-CB3A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(215,187,153)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Dec-20 04:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="785910879317000232" id="message-785910879317000232">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Good job! <span class="mention" title="Danish#1473">@Danish</span> has reached level <strong>2</strong>.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 04:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="785910907695792188" id="message-785910907695792188">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">not here</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="asdia#1556" style="color: rgb(20,144,34)">asdia</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;785472020602552341&#39;)">
+                    <span class="chatlog__reference-content">
+<span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> remember to join the lichess group <a href="https://lichess.org/team/svchess">https://lichess.org/team/svchess</a>                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 05:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785914553326239804" id="message-785914553326239804">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">09-Dec-20 11:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="786188314033651742" id="message-786188314033651742">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GET MORE PEOPLE PLEASE</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">09-Dec-20 11:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="786192024923144243" id="message-786192024923144243">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> the tournament will be a 8 round swiss. ties will be decided with best of 3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="786192164048207912" id="message-786192164048207912">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">time control will be 15+0</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="786192410228949023" id="message-786192410228949023">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">tie time control will be 5+0</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">10-Dec-20 11:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="786554033519329280" id="message-786554033519329280">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> tournament will start at
+
+13-12: 0900 SGT
+13-12: 0100 UTC
+12-12: 2000 EST
+12-12: 1700 PST</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="786554294568091688" id="message-786554294568091688">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if you can&#39;t make it ping me in <span class="mention">#t-private</span> and i could try and fix the timing</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-20 12:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="786934218516725800" id="message-786934218516725800">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> reminder to create a lichess.org account and join our group at <a href="https://lichess.org/team/svchess">https://lichess.org/team/svchess</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/team/svchess">
+                                                    <div class="markdown preserve-whitespace">SVChess team</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">A team dedicated for the Vooperian chess players.</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-20 12:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="786934218969710612" id="message-786934218969710612">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://lichess.org/">https://lichess.org/</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/">
+                                                    <div class="markdown preserve-whitespace">The best free, adless Chess server</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/lichess-tile-wide-5E246.png">
+                                            <img class="chatlog__embed-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/lichess-tile-wide-5E246.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 11:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="787282178278293515" id="message-787282178278293515">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we will be proceeding with the above timings since there has not been any other objections</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787282704797270026" id="message-787282704797270026">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">also change of plans: there will be 7 rounds because an odd number of rounds is better</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 08:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="787419121167892481" id="message-787419121167892481">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> we will be delaying the tournament until finals are over</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787419197478928434" id="message-787419197478928434">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">good luck to those who are taking their exams</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="svc_nice" title="svc_nice" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/783845788333375489-6CC68.png">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 08:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="787420590042251294" id="message-787420590042251294">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">:)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 08:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="787421340226420736" id="message-787421340226420736">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if you fail youre no longer my son</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 08:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="787421405963747332" id="message-787421405963747332">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">noooooooooooooooooooooooooooo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787421443150708756" id="message-787421443150708756">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="😦" title="😦" src="https://twemoji.maxcdn.com/2/72x72/1f626.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">15-Dec-20 10:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="788351359497404427" id="message-788351359497404427">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> timing for the tournament. if you cant make it, ping me in <span class="mention">#t-private</span> 
+
+20-12: 0900 SGT
+20-12: 0100 UTC
+19-12: 2000 EST
+19-12: 1700 PST</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f9f221695ebe707c9707ecf122440134-E6901.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="SpikeViper#0001" data-user-id="148554809392234497" style="color: rgb(255,255,255)">SpikeViper</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 01:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="788941927688962068" id="message-788941927688962068">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Thats 8:00PM EST on the 19th for normal people</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Dec-20 01:33 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="yeah_okay" title="yeah_okay" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/768998766274412585-AC50F.png">
+                                <span class="chatlog__reaction-count">5</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">18-Dec-20 04:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="789355652380098581" id="message-789355652380098581">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">less than 2 days</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">18-Dec-20 03:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="789516175494611035" id="message-789516175494611035">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://lichess.org/swiss/MhVIFCGn">https://lichess.org/swiss/MhVIFCGn</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/swiss/MhVIFCGn">
+                                                    <div class="markdown preserve-whitespace">SV Chess Swiss 1: Standard 15+0 #MhVIFCGn</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">0 players compete in the Dec 20, 2020 SV Chess Swiss 1 swiss tournament organized by SVChess. Winner is not yet decided.</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">18-Dec-20 05:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="789546487184752641" id="message-789546487184752641">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://www.timeanddate.com/countdown/generic?p0=179&iso=20201219T20&year=2020&month=12&day=19&hour=20&min=0&sec=0&msg=Chess%2520tournament&csz=1">https://www.timeanddate.com/countdown/generic?p0=179&amp;iso=20201219T20&amp;year=2020&amp;month=12&amp;day=19&amp;hour=20&amp;min=0&amp;sec=0&amp;msg=Chess%20tournament&amp;csz=1</a> countdown because why not</span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://www.timeanddate.com/countdown/generic?p0=179&amp;iso=20201219T20&amp;year=2020&amp;month=12&amp;day=19&amp;hour=20&amp;min=0&amp;sec=0&amp;msg=Chess%20tournament&amp;csz=1">
+                                                    <div class="markdown preserve-whitespace">Chess tournament</div>
+                                                </a>
+                                        </div>
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/cdog-2ABA3.php">
+                                            <img class="chatlog__embed-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/cdog-2ABA3.php" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="789546552335007755" id="message-789546552335007755">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">also please be online at least 5 minutes before the tournament starts</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f9f221695ebe707c9707ecf122440134-E6901.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="SpikeViper#0001" data-user-id="148554809392234497" style="color: rgb(255,255,255)">SpikeViper</span>
+
+
+        <span class="chatlog__timestamp">19-Dec-20 02:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="789679951582330911" id="message-789679951582330911">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="asdia#1556">@asdia</span> I won&#39;t be there tomorrow</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="789679995001110538" id="message-789679995001110538">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You dont have to push it off, but something came up</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">19-Dec-20 02:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="789680027075215370" id="message-789680027075215370">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">aw</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="789680121275613224" id="message-789680121275613224">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">but i wanted to clickbait you :(</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 02:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="790037262665646101" id="message-790037262665646101">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> since <em>somebody</em> didnt make a schedule this tournament was practice one, the real one will be on the 21st or next saturday depending on what the <span class="mention" style="color: rgb(166, 34, 251); background-color: rgba(166, 34, 251, 0.1);">@Investor</span>s say</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-CB3A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(215,187,153)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Dec-20 02:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="790037263559819274" id="message-790037263559819274">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Good job! <span class="mention" title="D.J.Z.#2016">@D.J.Z.</span> has reached level <strong>13</strong>.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 02:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="790037396855062529" id="message-790037396855062529">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">this means <span class="mention">@everyone</span> can still enter</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790037817156829194" id="message-790037817156829194">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if you already applied but dropped out you can reenter free of charge</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 09:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="790156430711717900" id="message-790156430711717900">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790156661602910248" id="message-790156661602910248">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?poll &quot;real tournament when&quot; &quot;this sunday (20)&quot; &quot;next Saturday (26)&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Dec-20 10:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="790156662270066688" id="message-790156662270066688">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(51,127,213,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">real tournament when</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">1️⃣ this sunday (20)
+
+2️⃣ next Saturday (26)</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                                <div class="chatlog__embed-footer">
+
+                                    <span class="chatlog__embed-footer-text">
+Poll by asdia#1556
+ • 
+20-Dec-20 10:00 AM                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="1️⃣" title="1️⃣" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/31-20e3-E7180.png">
+                                <span class="chatlog__reaction-count">8</span>
+                            </div>
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="2️⃣" title="2️⃣" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/32-20e3-7B68A.png">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 03:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="790244126774919208" id="message-790244126774919208">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> 8 out of 9 have voted for the real tournament to be held today (or tomorrow, depends on where you live). timings will be the same as before. <a href="https://lichess.org/swiss/rydn0PvM">https://lichess.org/swiss/rydn0PvM</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/swiss/rydn0PvM">
+                                                    <div class="markdown preserve-whitespace">SV Chess Swiss 2: Standard 15+0 #rydn0PvM</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">0 players compete in the Dec 21, 2020 SV Chess Swiss 2 swiss tournament organized by SVChess. Winner is not yet decided.</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 04:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="790249851384102952" id="message-790249851384102952">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?poll &quot;have the tournament one hour earlier&quot; &quot;aye&quot; &quot;nay&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Dec-20 04:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="790249852260188221" id="message-790249852260188221">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(51,127,213,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">have the tournament one hour earlier</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">1️⃣ aye
+
+2️⃣ nay</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                                <div class="chatlog__embed-footer">
+
+                                    <span class="chatlog__embed-footer-text">
+Poll by asdia#1556
+ • 
+20-Dec-20 04:10 PM                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="1️⃣" title="1️⃣" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/31-20e3-E7180.png">
+                                <span class="chatlog__reaction-count">6</span>
+                            </div>
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="2️⃣" title="2️⃣" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/32-20e3-7B68A.png">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 04:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="790249864696561664" id="message-790249864696561664">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 05:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="790265914481573888" id="message-790265914481573888">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">tournament in 7 hours</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790265942243409970" id="message-790265942243409970">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">please join if you have not yet</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790266010955546634" id="message-790266010955546634">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if you have any questions please direct them to <span class="mention" title="D.J.Z.#2016">@D.J.Z.</span> as i will be asleep</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 05:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="790266135890231306" id="message-790266135890231306">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh no</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 05:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="790266258552651797" id="message-790266258552651797">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i gotta be in best condition tmr</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790267683403726848" id="message-790267683403726848">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Antonios#9464">@Antonios</span> <span class="mention" title="Comrade Chris#9088">@Comrade Chris</span> <span class="mention" title="Gumbo#2348">@Gumbo</span> please join the tournament</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790267694796505108" id="message-790267694796505108">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://lichess.org/swiss/rydn0PvM">https://lichess.org/swiss/rydn0PvM</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/swiss/rydn0PvM">
+                                                    <div class="markdown preserve-whitespace">SV Chess Swiss 2: Standard 15+0 #rydn0PvM</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">5 players compete in the Dec 21, 2020 SV Chess Swiss 2 swiss tournament organized by SVChess. Winner is not yet decided.</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="790267771870773328" id="message-790267771870773328">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">password in <span class="mention">#t-private</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 05:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="790267796868431892" id="message-790267796868431892">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Okay</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 06:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="790278590062526505" id="message-790278590062526505">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chris</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790278606697660426" id="message-790278606697660426">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if youre seeing this</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790278620626944030" id="message-790278620626944030">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">join the tournament</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790278648364138516" id="message-790278648364138516">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if you miss it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790278681754206208" id="message-790278681754206208">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you can request a refund</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/3f3d1f098211319af86cf6927e4da67c-B1884.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Danish#1473" data-user-id="442185279386681345" style="color: rgb(222,222,222)">Danish</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="790365687205593121" id="message-790365687205593121">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;ll give 5k to every person who beats Asdia</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="790365866951835670" id="message-790365866951835670">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="🥴" title="🥴" src="https://twemoji.maxcdn.com/2/72x72/1f974.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="790365880537841685" id="message-790365880537841685">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 15, 15); background-color: rgba(255, 15, 15, 0.1);">@Tournament Member</span> its in 8 minutes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="790365918366400522" id="message-790365918366400522">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh spikee</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="790365930612981790" id="message-790365930612981790">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">doesn&#39;t asdia beat themselves though?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Antonios#9464" style="color: rgb(222,222,222)">Antonios</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;790365930612981790&#39;)">
+                    <span class="chatlog__reference-content">
+doesn&#39;t asdia beat themselves though?                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/2f8f43230e00ed067cafc43b5a98da3e-BBD13.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gumbo#2348" data-user-id="495890216389705751" style="color: rgb(222,222,222)">Gumbo</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="790365992702181376" id="message-790365992702181376">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">rephrase that please</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Dec-20 11:52 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="790366000041820211" id="message-790366000041820211">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">( cough <span class="mention" title="SpikeViper#0001">@SpikeViper</span>  <span class="mention" title="PvPpoodles#8874">@PvPpoodles</span>  cough )</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Antonios#9464" style="color: rgb(222,222,222)">Antonios</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;790365930612981790&#39;)">
+                    <span class="chatlog__reference-content">
+doesn&#39;t asdia beat themselves though?                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="790366146506522654" id="message-790366146506522654">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">( ͡&#176; ͜ʖ ͡&#176;)( ͡&#176; ͜ʖ ͡&#176;)( ͡&#176; ͜ʖ ͡&#176;)( ͡&#176; ͜ʖ ͡&#176;)( ͡&#176; ͜ʖ ͡&#176;)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(166,34,251)">donia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="790366175065800704" id="message-790366175065800704">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wat</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="790366752893960202" id="message-790366752893960202">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hello yes 5 minutes til the tournament starts</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790366775451713546" id="message-790366775451713546">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">please get ready thank you</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/9ae12972731499d01a9472b21ed6f29b-92D96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PvPpoodles#8874" data-user-id="441778396947677194" style="color: rgb(222,222,222)">PvPpoodles</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="790366861304397864" id="message-790366861304397864">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">should we ping everyone</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#127475;" title="&#127475;" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/1f1f3-08F96.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#127476;" title="&#127476;" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/1f1f4-6C4DE.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="790366960084451339" id="message-790366960084451339">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">djz already did</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/9ae12972731499d01a9472b21ed6f29b-92D96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PvPpoodles#8874" data-user-id="441778396947677194" style="color: rgb(222,222,222)">PvPpoodles</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="790367025112285205" id="message-790367025112285205">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="790367121913806892" id="message-790367121913806892">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">unless he means @ everyone</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">20-Dec-20 11:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="790367688593637417" id="message-790367688593637417">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">1 minute</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">21-Dec-20 12:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="790368719868002314" id="message-790368719868002314">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span>chess tourny <strong><a href="https://lichess.org/swiss/rydn0PvM">https://lichess.org/swiss/rydn0PvM</a></strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Dec-20 12:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="790368720421781505" id="message-790368720421781505">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://lichess.org/">https://lichess.org/</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/">
+                                                    <div class="markdown preserve-whitespace">The best free, adless Chess server</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/lichess-tile-wide-478A3.png">
+                                            <img class="chatlog__embed-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/lichess-tile-wide-478A3.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/ecc0adb72370548f96aa2f218f40f244-C50AD.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Andy_myGUY#8245" data-user-id="650841272457625662" style="">Andy_myGUY</span>
+
+
+        <span class="chatlog__timestamp">21-Dec-20 12:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="790369466709835816" id="message-790369466709835816">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">K</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-21 07:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="795913793389199410" id="message-795913793389199410">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span> do yall want a tournament on feb 21st</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795913826268479489" id="message-795913826268479489">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">or jan 21</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795914793067872306" id="message-795914793067872306">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?poll &quot;tourny date&quot; &quot;jan 21&quot; &quot;feb 21&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Jan-21 07:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="795914793856270346" id="message-795914793856270346">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(51,127,213,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">tourny date</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">1️⃣ jan 21
+
+2️⃣ feb 21</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                                <div class="chatlog__embed-footer">
+
+                                    <span class="chatlog__embed-footer-text">
+Poll by asdia#1556
+ • 
+05-Jan-21 07:21 AM                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="1️⃣" title="1️⃣" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/31-20e3-E7180.png">
+                                <span class="chatlog__reaction-count">7</span>
+                            </div>
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="2️⃣" title="2️⃣" src="SV%20Chess%20Inc%C2%AE%20-%20tournament%20-%20t-announcements%20%5B782653184581042186%5D.html_Files/32-20e3-7B68A.png">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 95 message(s)</div>
+</div>
+
+</body>
+
+</html>

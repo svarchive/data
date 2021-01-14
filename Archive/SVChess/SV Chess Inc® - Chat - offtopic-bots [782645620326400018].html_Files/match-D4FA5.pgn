@@ -1,0 +1,10 @@
+[Event "IdleRPG Chess"]
+[Site "#offtopic-bots in SV Chess Inc."]
+[Date "2020-12-01"]
+[Round "1"]
+[White "AI"]
+[Black "D.J.Z.#2016"]
+[Result "1-0"]
+
+1. c4 c5 2. e3 Nc6 3. d4 Rb8 4. d5 Nb4 5. a3 Na6 6. Nc3 h5 7. Nb5 Ra8 8. Bd2 h4 9. Nf3 e6 10. e4 Be7 11. d6 b6 12. dxe7 Qxe7 13. e5 Nb4 14. Nc7+ Kd8 15. Nxa8 Rh5 16. Bg5 Nh6 17. Bxe7+ Kxe7 18. Qd6+ Kd8 19. Qf8# 1-0
+

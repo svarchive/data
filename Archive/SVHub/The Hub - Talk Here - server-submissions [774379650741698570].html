@@ -1,0 +1,3155 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Hub - server-submissions</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/306ad06a34cdfcdcef3d55a839525631-76BE8.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">The Hub</div>
+        <div class="preamble__entry">Talk Here / server-submissions</div>
+
+            <div class="preamble__entry preamble__entry--small">Send the description with the invite so we don&#39;t have to go in every server to check</div>
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 10:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="774403990448111636" id="message-774403990448111636">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/vvg9bvr">https://discord.gg/vvg9bvr</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774404884819607601" id="message-774404884819607601">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/h5458PKbrb">https://discord.gg/h5458PKbrb</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774404967498514462" id="message-774404967498514462">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/s8JYSdxP2D">https://discord.gg/s8JYSdxP2D</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774405078504570931" id="message-774405078504570931">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/zsYQdxBryX">https://discord.gg/zsYQdxBryX</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774405831960690758" id="message-774405831960690758">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/YkUByscK96">https://discord.gg/YkUByscK96</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774405952689537035" id="message-774405952689537035">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/RY9jWgEpcT">https://discord.gg/RY9jWgEpcT</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774406071947231245" id="message-774406071947231245">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/bt4ANE3dP7">https://discord.gg/bt4ANE3dP7</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774406217467822100" id="message-774406217467822100">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/p86T7Yf3fK">https://discord.gg/p86T7Yf3fK</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774406511233466418" id="message-774406511233466418">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/qSZADVmeP2">https://discord.gg/qSZADVmeP2</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774407152239902721" id="message-774407152239902721">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/Ek4uVHx8yR">https://discord.gg/Ek4uVHx8yR</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774407479421435935" id="message-774407479421435935">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/4jAF2sCEQC">https://discord.gg/4jAF2sCEQC</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774407580470476830" id="message-774407580470476830">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/PFwUTFdJVV">https://discord.gg/PFwUTFdJVV</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774408462067040317" id="message-774408462067040317">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://invite.gg/svnp">https://invite.gg/svnp</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://invite.gg/svnp">
+                                                    <div class="markdown preserve-whitespace">SVNews+</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">SVNews+ Is the largest News Company in Vooperia, responsible for many popular shows and podcasts.
+Details
+
+⬤ 15 Online  ⭘ 26 Members</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/6564c7211e2766502ebca74c0ae4c6d8-10AF1.png">
+                                            <img class="chatlog__embed-thumbnail" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/6564c7211e2766502ebca74c0ae4c6d8-10AF1.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 11:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="774408830888837131" id="message-774408830888837131">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so news?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 11:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="774408904007352380" id="message-774408904007352380">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(37,192,89)">donia</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 11:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="774412487306903563" id="message-774412487306903563">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I have one</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774412594873761802" id="message-774412594873761802">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/bcAqzmQu">https://discord.gg/bcAqzmQu</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 11:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="774414989146062880" id="message-774414989146062880">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/77fuFWxpJn">https://discord.gg/77fuFWxpJn</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/b28bf917090fcf82b62ff381b52074eb-A52D0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="✠ Red_Kaiser ✠#7719" data-user-id="438508633903595542" style="color: rgb(0,222,222)">✠ Red_Kaiser ✠</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 01:42 AM</span>
+
+            <div class="chatlog__message " data-message-id="774448773962661918" id="message-774448773962661918">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/PUXkByEt7w">https://discord.gg/PUXkByEt7w</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(37,192,89)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 04:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="774484335444361267" id="message-774484335444361267">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/y9MFad23">https://discord.gg/y9MFad23</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774484360057323560" id="message-774484360057323560">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/ZSseRepF">https://discord.gg/ZSseRepF</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774484506240483339" id="message-774484506240483339">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/tKXzkXsy">https://discord.gg/tKXzkXsy</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774484739514957824" id="message-774484739514957824">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/2SyHApwf">https://discord.gg/2SyHApwf</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774484770620833803" id="message-774484770620833803">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/GPJDcnUD">https://discord.gg/GPJDcnUD</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774484796004499456" id="message-774484796004499456">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/eGTjJJz9">https://discord.gg/eGTjJJz9</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774484962749448223" id="message-774484962749448223">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/EJhMVkQD">https://discord.gg/EJhMVkQD</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774485022584864808" id="message-774485022584864808">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/UwmkJuFC">https://discord.gg/UwmkJuFC</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774485884275916811" id="message-774485884275916811">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/u9tgYdDg">https://discord.gg/u9tgYdDg</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774485904324034560" id="message-774485904324034560">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/K77EzPmv">https://discord.gg/K77EzPmv</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774485938868453377" id="message-774485938868453377">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/PBvyty4J">https://discord.gg/PBvyty4J</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774485997420675112" id="message-774485997420675112">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/FFTEVkUA">https://discord.gg/FFTEVkUA</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774486179798188062" id="message-774486179798188062">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/UCQJSajg">https://discord.gg/UCQJSajg</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774486297905332234" id="message-774486297905332234">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">that&#39;s it from me</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774486327164928060" id="message-774486327164928060">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if you also want all the dead one&#39;s ping me</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(0,161,219)">asdia</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 07:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="774540412643311636" id="message-774540412643311636">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/rq7TbvH">https://discord.gg/rq7TbvH</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="774643353982599178" id="message-774643353982599178">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/MybxgrUD">https://discord.gg/MybxgrUD</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(0,161,219)">asdia</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="774643421876322315" id="message-774643421876322315">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">dummy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="774643442444664842" id="message-774643442444664842">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i already put it in <span class="mention">#bot-servers</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="774643822503264258" id="message-774643822503264258">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/MybxgrUD">https://discord.gg/MybxgrUD</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774643854447738890" id="message-774643854447738890">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">pls</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="774644013810319360" id="message-774644013810319360">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wat</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/b28bf917090fcf82b62ff381b52074eb-A52D0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="✠ Red_Kaiser ✠#7719" data-user-id="438508633903595542" style="color: rgb(0,222,222)">✠ Red_Kaiser ✠</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="774644050262491146" id="message-774644050262491146">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/Z5A7DqQzbW">https://discord.gg/Z5A7DqQzbW</a> graveyard server</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774644253191700480" id="message-774644253191700480">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/VpQhmV9K2S">https://discord.gg/VpQhmV9K2S</a> and another</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(255,121,78)">Caesar</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="774645410857222146" id="message-774645410857222146">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">shhh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774645518302576642" id="message-774645518302576642">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/Bbd5GWaY">https://discord.gg/Bbd5GWaY</a> dead
+<a href="https://discord.gg/Y5P5h2gY">https://discord.gg/Y5P5h2gY</a> dead</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Nov-20 02:45 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="774645713937235988" id="message-774645713937235988">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">doesnt look very SV to me</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Nov-20 02:45 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(255,121,78)">Caesar</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="774645752776884224" id="message-774645752776884224">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">its kinda SV</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774645760724828190" id="message-774645760724828190">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">well</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774645803267915806" id="message-774645803267915806">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">most people there are from SV</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="774645844536197130" id="message-774645844536197130">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="774645894158483457" id="message-774645894158483457">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/6tEVYa3h">https://discord.gg/6tEVYa3h</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774646082977923102" id="message-774646082977923102">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">it&#39;s an actual party and not a funny!!! <img class="emoji " alt="😡" title="😡" src="https://twemoji.maxcdn.com/2/72x72/1f621.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(255,121,78)">Caesar</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="774646112212221982" id="message-774646112212221982">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">funny</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="774646367414255646" id="message-774646367414255646">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">the fact that you&#39;re not putting the this party exists so i can have the sunglasses emoji at the debate party into <span class="mention">#political-parties</span> is a big racist moment tbh tbh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="774646472196227103" id="message-774646472196227103">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">uno momento</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="774646508174966845" id="message-774646508174966845">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">si</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774646979040903209" id="message-774646979040903209">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thank you</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(255,121,78)">Caesar</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="774647508470333460" id="message-774647508470333460">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what do we do with NS</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774647515378614272" id="message-774647515378614272">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and RAIN</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="774647595116134401" id="message-774647595116134401">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nationstates?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/b28bf917090fcf82b62ff381b52074eb-A52D0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="✠ Red_Kaiser ✠#7719" data-user-id="438508633903595542" style="color: rgb(0,222,222)">✠ Red_Kaiser ✠</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="774647675538112573" id="message-774647675538112573">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">TUF i think</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="774647692462653451" id="message-774647692462653451">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">like TUF and Urana Furma or whatever</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(37,192,89)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="774647740433039370" id="message-774647740433039370">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">It&#39;s rain</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774647747914629122" id="message-774647747914629122">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">RAIN</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774647819277041675" id="message-774647819277041675">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">because UF is too nsfw for someons christian parents</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="774647820929597441" id="message-774647820929597441">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774647834577862667" id="message-774647834577862667">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">o</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(0,161,219)">asdia</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="774648925042507816" id="message-774648925042507816">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">urana firma</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774648948501250059" id="message-774648948501250059">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sounds like ur anus firma</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Nov-20 02:58 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774648962430140436" id="message-774648962430140436">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so yeah kinda nsfw</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="774649028968316998" id="message-774649028968316998">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">whAt</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(0,161,219)">asdia</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="774649053308256307" id="message-774649053308256307">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ur anus</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774649073726783488" id="message-774649073726783488">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">urana</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="774649905666457631" id="message-774649905666457631">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">rythm is back</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774649918199562250" id="message-774649918199562250">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">cool</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774649968446799903" id="message-774649968446799903">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?help</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774649991272726559" id="message-774649991272726559">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!help</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Nov-20 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="774649992047624202" id="message-774649992047624202">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://rythmbot.co/">
+                                                    <div class="markdown preserve-whitespace">Rythm Help</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">✅ <a href="https://rythmbot.co/features#list">Click here</a> for a list of commands
+
+❓ New to Rythm? Check out our <a href="https://rythmbot.co/faq">FAQ</a>
+
+<img class="emoji " alt="📄" title="📄" src="https://twemoji.maxcdn.com/2/72x72/1f4c4.png"> Still need help? <a href="https://rythmbot.co/support">Click here</a> to join our Discord server</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="774650018643574794" id="message-774650018643574794">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yay</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(0,53,255)">xboy</span>
+
+
+        <span class="chatlog__timestamp">08-Nov-20 04:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="775034882942435368" id="message-775034882942435368">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/UZH4gGBcDw">https://discord.gg/UZH4gGBcDw</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">08-Nov-20 04:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="775034942366416897" id="message-775034942366416897">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775034984671084625" id="message-775034984671084625">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">was the other invite bad?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(0,53,255)">xboy</span>
+
+
+        <span class="chatlog__timestamp">08-Nov-20 04:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="775035013787287582" id="message-775035013787287582">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I made it so it won&#39;t run out</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(0,53,255)">xboy</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-20 07:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="775446562221850704" id="message-775446562221850704">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/wmdR4gtsEH">https://discord.gg/wmdR4gtsEH</a> dead server btw</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_391f55fe29f1a50a7c14b91a63ce3083-BA4A7.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gavincraft1#2624" data-user-id="480835532952174593" style="color: rgb(126,0,198)">Gavincraft1</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-20 11:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="775506845040640050" id="message-775506845040640050">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/urCFZMJ">https://discord.gg/urCFZMJ</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775507946977230849" id="message-775507946977230849">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/fU3bzeX">https://discord.gg/fU3bzeX</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/512b51c185ad0962cba0cb653e65652f-B6E47.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MNoor1321#3954" data-user-id="513125454677540879" style="color: rgb(126,0,198)">MNoor1321</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 12:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="775514516284375050" id="message-775514516284375050">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">#districts</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 12:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="775514564673536030" id="message-775514564673536030">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">its already there</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/6144c5d7cc809c671a581697fae20dcf-E44D1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ye ol&#39;guynext2u#8389" data-user-id="336567926280945664" style="color: rgb(0,255,7)">Ye ol&#39;guynext2u</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 01:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="775526007611719690" id="message-775526007611719690">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ok just an idea</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775526026780082176" id="message-775526026780082176">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">a server</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775526045725622284" id="message-775526045725622284">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">for vexollgay</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775526074263797832" id="message-775526074263797832">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">just for sharing flag and stuff</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 01:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="775526080575569930" id="message-775526080575569930">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">flags</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775526126651047936" id="message-775526126651047936">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i mean</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775526156933791745" id="message-775526156933791745">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you can make it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775526285002145812" id="message-775526285002145812">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and if you can get these weiners to join ill put it in <span class="mention">#runoff</span> unless you make it a company</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/6144c5d7cc809c671a581697fae20dcf-E44D1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ye ol&#39;guynext2u#8389" data-user-id="336567926280945664" style="color: rgb(0,255,7)">Ye ol&#39;guynext2u</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 01:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="775526304044548096" id="message-775526304044548096">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">eh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775526313708093461" id="message-775526313708093461">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">laxzy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 01:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="775526375339196477" id="message-775526375339196477">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&gt;:(</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775526427193769996" id="message-775526427193769996">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">why i gotta make all the good stuff smh</span>
+
+                                <span class="chatlog__edited-timestamp" title="10-Nov-20 01:05 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/6144c5d7cc809c671a581697fae20dcf-E44D1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ye ol&#39;guynext2u#8389" data-user-id="336567926280945664" style="color: rgb(0,255,7)">Ye ol&#39;guynext2u</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 01:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="775527209854697524" id="message-775527209854697524">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">cause you r butiful</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 01:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="775527239671873546" id="message-775527239671873546">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thx bby</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/6144c5d7cc809c671a581697fae20dcf-E44D1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ye ol&#39;guynext2u#8389" data-user-id="336567926280945664" style="color: rgb(0,255,7)">Ye ol&#39;guynext2u</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 11:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="776226641852104716" id="message-776226641852104716">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">a server just for vexoillogy is probaly a bad idea</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="776226697749725235" id="message-776226697749725235">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">should probaly be a genral worldbuilding server</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_a3e66a0b370771e3540d0cdd5b55ef98-F1A6E.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="arms™#0069" data-user-id="415629677001179147" style="">arms™</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-20 10:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="776942472222998558" id="message-776942472222998558">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Alright so we all know that Rats AV Inc  is a growing company, If anyone wants to be hired as a salesman/representative please DM me. Much appreciated.
+In the meantime:
+<a href="https://discord.gg/6MdT9pha">https://discord.gg/6MdT9pha</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="776942502812450836" id="message-776942502812450836">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">join the rat empire</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/c3335e988086b3b9e2537eaffa519138-DB674.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Salty_Cole#9497" data-user-id="622041347196715008" style="color: rgb(126,0,198)">Salty_Cole</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-20 10:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="776942678914105417" id="message-776942678914105417">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We are looking for salesmen and a representative so all applicants are welcome</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/185693b668dbe144ee91e56e82f059b1-00E57.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Squidface#0889" data-user-id="329448961746403328" style="color: rgb(126,0,198)">Squidface</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 11:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="778039323010138143" id="message-778039323010138143">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/3PRNFmJB5e">https://discord.gg/3PRNFmJB5e</a> i mean its space join if space also if interesnt in space also if play ksp just join ok its cool join join kust jkoin literallyt join now itidot</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Nov-20 11:30 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/7738ad345cb6cfb8f52859dfd39bfa21-3D867.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="brendanlane#0001" data-user-id="422415365742788618" style="">brendanlane</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 07:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="779071488770572299" id="message-779071488770572299">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/aDKCNvp4kn">https://discord.gg/aDKCNvp4kn</a> bot for the corporation and the bot server (The bot is <span class="mention" title="Unknown">@Unknown</span>)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-20 10:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="779477103950430238" id="message-779477103950430238">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Est.Chicago#8435">@Est.Chicago</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/5328df66b286c325a25b6929885eeeb9-B9847.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Est.Chicago#8435" data-user-id="701944872843739257" style="color: rgb(126,0,198)">Est.Chicago</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-20 10:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="779477146158366730" id="message-779477146158366730">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/rzWTWUb6ag">https://discord.gg/rzWTWUb6ag</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/159b7db96b45941c204fceeb064126d5-5515B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="blueviper10#7486" data-user-id="477124835231662091" style="color: rgb(244,0,0)">blueviper10</span>
+
+
+        <span class="chatlog__timestamp">26-Nov-20 04:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="781555130234961990" id="message-781555130234961990">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/aa2c4uPszS">https://discord.gg/aa2c4uPszS</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(126,0,198)">Comrade Chris</span>
+
+
+        <span class="chatlog__timestamp">27-Nov-20 02:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="781708490187210842" id="message-781708490187210842">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/UFuccBuvf7">https://discord.gg/UFuccBuvf7</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(126,0,198)">Comrade Chris</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="783968732623405067" id="message-783968732623405067">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/cNHRWtejxT">https://discord.gg/cNHRWtejxT</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/c3335e988086b3b9e2537eaffa519138-DB674.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Salty_Cole#9497" data-user-id="622041347196715008" style="color: rgb(126,0,198)">Salty_Cole</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 01:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="784044603325939713" id="message-784044603325939713">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/DAj9Y3bTG6">https://discord.gg/DAj9Y3bTG6</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="color: rgb(255,121,78)">Allegate</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 12:10 AM</span>
+
+            <div class="chatlog__message " data-message-id="784572407415308288" id="message-784572407415308288">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/xKVxM7ZQnn">https://discord.gg/xKVxM7ZQnn</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/c3335e988086b3b9e2537eaffa519138-DB674.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Salty_Cole#9497" data-user-id="622041347196715008" style="color: rgb(126,0,198)">Salty_Cole</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:31 AM</span>
+
+            <div class="chatlog__message " data-message-id="785362897328799744" id="message-785362897328799744">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/tHWuhUNPrS">https://discord.gg/tHWuhUNPrS</a> it’s an interactive book wishlist for me please make suggestions</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/a_391f55fe29f1a50a7c14b91a63ce3083-BA4A7.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gavincraft1#2624" data-user-id="480835532952174593" style="color: rgb(126,0,198)">Gavincraft1</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 02:32 AM</span>
+
+            <div class="chatlog__message " data-message-id="785695175053017109" id="message-785695175053017109">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/AAk5FhRNzr">https://discord.gg/AAk5FhRNzr</a> BIRDS ARE FAKE</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/26b8c0ed358a67bb7678319c8a956660-100C9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="anonymous_#5621" data-user-id="740419116678119454" style="color: rgb(244,0,0)">anonymous_</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-20 02:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="786958814468898827" id="message-786958814468898827">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/ss3wfhgHBq">https://discord.gg/ss3wfhgHBq</a> its a political party</span>
+
+                                <span class="chatlog__edited-timestamp" title="11-Dec-20 02:13 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/2f8f43230e00ed067cafc43b5a98da3e-BBD13.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gumbo#2348" data-user-id="495890216389705751" style="color: rgb(126,0,198)">Gumbo</span>
+
+
+        <span class="chatlog__timestamp">13-Dec-20 04:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="787711596775604294" id="message-787711596775604294">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/JbkS2CXq">https://discord.gg/JbkS2CXq</a> Guns good</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/7738ad345cb6cfb8f52859dfd39bfa21-3D867.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="brendanlane#0001" data-user-id="422415365742788618" style="">brendanlane</span>
+
+
+        <span class="chatlog__timestamp">15-Dec-20 07:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="788483324506144808" id="message-788483324506144808">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/atyXktTrSC">https://discord.gg/atyXktTrSC</a> &lt;-- Gamers add this or dum</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/26b8c0ed358a67bb7678319c8a956660-100C9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="anonymous_#5621" data-user-id="740419116678119454" style="color: rgb(244,0,0)">anonymous_</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 04:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="788992986637271080" id="message-788992986637271080">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">gun <a href="https://discord.gg/gxfwX64YCH">https://discord.gg/gxfwX64YCH</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/b4c862533266eae47fa60c6a27dfc4f3-0E2CC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Emperor Augustus Caesar#5603" data-user-id="694277296693182535" style="color: rgb(126,0,198)">Emperor Augustus Caesar</span>
+
+
+        <span class="chatlog__timestamp">21-Dec-20 12:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="790380088801492992" id="message-790380088801492992">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/67c2CkX8tx">https://discord.gg/67c2CkX8tx</a> Company</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="color: rgb(255,121,78)">Allegate</span>
+
+
+        <span class="chatlog__timestamp">11-Jan-21 06:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="798260750258798647" id="message-798260750258798647">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://discord.gg/pzPcR5QCBf">https://discord.gg/pzPcR5QCBf</a> new political coalition against the NVP, not led by me</span>
+
+                                <span class="chatlog__edited-timestamp" title="11-Jan-21 06:43 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Talk%20Here%20-%20server-submissions%20%5B774379650741698570%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="color: rgb(255,72,134)">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">11-Jan-21 10:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="798320584845033542" id="message-798320584845033542">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Okay people this is basically all of SV’s remaining written history <a href="https://discord.gg/m7KWAYP">https://discord.gg/m7KWAYP</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 125 message(s)</div>
+</div>
+
+</body>
+
+</html>

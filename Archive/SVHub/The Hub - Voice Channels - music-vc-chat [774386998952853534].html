@@ -1,0 +1,1694 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Hub - music-vc-chat</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/306ad06a34cdfcdcef3d55a839525631-76BE8.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">The Hub</div>
+        <div class="preamble__entry">Voice Channels / music-vc-chat</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 09:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="774387471244984380" id="message-774387471244984380">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!help</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Nov-20 09:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="774387471823667251" id="message-774387471823667251">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://rythmbot.co/">
+                                                    <div class="markdown preserve-whitespace">Rythm Help</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">✅ <a href="https://rythmbot.co/features#list">Click here</a> for a list of commands
+
+❓ New to Rythm? Check out our <a href="https://rythmbot.co/faq">FAQ</a>
+
+<img class="emoji " alt="📄" title="📄" src="https://twemoji.maxcdn.com/2/72x72/1f4c4.png"> Still need help? <a href="https://rythmbot.co/support">Click here</a> to join our Discord server</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 04:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="774673687596498944" id="message-774673687596498944">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what message?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774673858405990423" id="message-774673858405990423">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sure</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 04:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="774676932813783100" id="message-774676932813783100">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">why is he just playing minecraft now lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 01:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="778787121745231903" id="message-778787121745231903">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!p <a href="https://www.youtube.com/watch?v=m_mU7kp-JbU">https://www.youtube.com/watch?v=m_mU7kp-JbU</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(255,0,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+                                        <div class="chatlog__embed-author">
+
+                                                <span class="chatlog__embed-author-name">
+                                                        <a class="chatlog__embed-author-name-link" href="https://www.youtube.com/channel/UCfm4bBx0sW4NGAFzfGkLCMg">shadowatnoon</a>
+                                                </span>
+                                        </div>
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://www.youtube.com/watch?v=m_mU7kp-JbU">
+                                                    <div class="markdown preserve-whitespace">fewer thoughts, head emptier || nintendo music</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace"><em>my mind as I spill coffee all over my laptop</em>
+
+
+Hey everyone! I&#39;m back! And here with the highly requested sequel to no thoughts, head empty! As some of you may know, I wrecked my laptop and lost a lot of files and work (some was saved, thankfully!) and have spent the last co...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/maxresdefault-685DB.jpg">
+                                            <img class="chatlog__embed-thumbnail" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/maxresdefault-685DB.jpg" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 01:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="778787125231353868" id="message-778787125231353868">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="👍" title="👍" src="https://twemoji.maxcdn.com/2/72x72/1f44d.png"> <strong>Joined</strong> <span class="pre pre--inline">Music</span> :page_facing_up: <strong>And bound to</strong> <span class="pre pre--inline">music-vc-chat</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778787127709794374" id="message-778787127709794374">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="youtube" title="youtube" src="https://cdn.discordapp.com/emojis/335112740957978625.png"> <strong>Searching</strong> <img class="emoji " alt="🔎" title="🔎" src="https://twemoji.maxcdn.com/2/72x72/1f50e.png"> <span class="pre pre--inline">https://www.youtube.com/watch?v=m_mU7kp-JbU</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778787129659621426" id="message-778787129659621426">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Playing</strong> <img class="emoji " alt="🎶" title="🎶" src="https://twemoji.maxcdn.com/2/72x72/1f3b6.png"> <span class="pre pre--inline">fewer thoughts, head emptier || nintendo music</span> - Now!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 01:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="778791035668267038" id="message-778791035668267038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">whoops</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778791052805931011" id="message-778791052805931011">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!p <a href="https://www.youtube.com/watch?v=gmaIv5JaryU&list=RDgmaIv5JaryU&start_radio=1">https://www.youtube.com/watch?v=gmaIv5JaryU&amp;list=RDgmaIv5JaryU&amp;start_radio=1</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(255,0,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+                                        <div class="chatlog__embed-author">
+
+                                                <span class="chatlog__embed-author-name">
+                                                        <a class="chatlog__embed-author-name-link" href="https://www.youtube.com/channel/UCBUc9zdtUNTvXU1XRJosj5A">Dominic Ninmark</a>
+                                                </span>
+                                        </div>
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://www.youtube.com/watch?v=gmaIv5JaryU">
+                                                    <div class="markdown preserve-whitespace">Wii Shop Channel [Eurobeat Remix]</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Rest in peace Wii Shop Channel.
+
+This is just a fan tribute, I don&#39;t own the original composition.
+Original composition by Kazumi Totaka.
+The Wii and Wii Shop Channel is property of Nintendo.
+
+Check out my other social medias! 
+<a href="https://twitter.com/Dominic_Ninmark">https://twitter.com/Dominic_Ninmark</a>
+<a href="https://www.t">https://www.t</a>...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/maxresdefault-85E98.jpg">
+                                            <img class="chatlog__embed-thumbnail" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/maxresdefault-85E98.jpg" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 01:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="778791065124864021" id="message-778791065124864021">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="youtube" title="youtube" src="https://cdn.discordapp.com/emojis/335112740957978625.png"> <strong>Searching</strong> <img class="emoji " alt="🔎" title="🔎" src="https://twemoji.maxcdn.com/2/72x72/1f50e.png"> <span class="pre pre--inline">https://www.youtube.com/watch?v=gmaIv5JaryU&amp;list=RDgmaIv5JaryU&amp;start_radio=1</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778791068757393418" id="message-778791068757393418">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+                                        <div class="chatlog__embed-author">
+                                                <img class="chatlog__embed-author-icon" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/ac4f3e841943d337b076346d714cb79e-2A919.png" alt="Author icon">
+
+                                                <span class="chatlog__embed-author-name">
+                                                        <a class="chatlog__embed-author-name-link" href="https://rythmbot.co">Playlist added to queue</a>
+                                                </span>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace"><strong>Mix - Wii Shop Channel [Eurobeat Remix]</strong></div>
+                                        </div>
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field ">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Estimated time until playing</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">56:39</div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Position in queue</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">1</div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Enqueued</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace"><span class="pre pre--inline">25</span> songs</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 01:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="778791090370248706" id="message-778791090370248706">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!q</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 01:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="778791091335593996" id="message-778791091335593996">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(19,156,72,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://rythmbot.co">
+                                                    <div class="markdown preserve-whitespace">Queue for SpookVooper Hub</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace"><u>Now Playing:</u>
+<a href="https://www.youtube.com/watch?v=m_mU7kp-JbU">fewer thoughts, head emptier || nintendo music</a> | <span class="pre pre--inline">1:12:18 Requested by: D.J.Z.#2016</span>
+
+<u>Up Next:</u>
+<span class="pre pre--inline">1.</span> <a href="https://youtube.com/watch?v=gmaIv5JaryU">Wii Shop Channel [Eurobeat Remix]</a> | <span class="pre pre--inline">5:23 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">2.</span> <a href="https://youtube.com/watch?v=emUJ7c8-5ZE">F-Zero - Big Blue [Eurobeat Remix]</a> | <span class="pre pre--inline">4:58 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">3.</span> <a href="https://youtube.com/watch?v=fTFxE32onKs">GAS GAS GAS</a> | <span class="pre pre--inline">4:22 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">4.</span> <a href="https://youtube.com/watch?v=aW-CA_Pxxcc">The Legend of Zelda Ocarina of Time - Gerudo Valley [Eurobeat Remix]</a> | <span class="pre pre--inline">5:08 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">5.</span> <a href="https://youtube.com/watch?v=HY7madya75A">Undertale - Megalovania [Eurobeat Remix]</a> | <span class="pre pre--inline">5:37 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">6.</span> <a href="https://youtube.com/watch?v=EwFAneaz0nY">Doom - At Doom&#39;s Gate [Eurobeat Remix]</a> | <span class="pre pre--inline">4:33 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">7.</span> <a href="https://youtube.com/watch?v=U4lz8MN6MQA">DOOM CROSSING: Eternal Horizons ■ Music Video feat. Natalia Natchan</a> | <span class="pre pre--inline">1:35 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">8.</span> <a href="https://youtube.com/watch?v=U0TXIXTzJEY">il vento d&#39;oro</a> | <span class="pre pre--inline">4:56 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">9.</span> <a href="https://youtube.com/watch?v=3RcGCRTD7sA">September / Eurobeat Remix</a> | <span class="pre pre--inline">3:23 Requested by: D.J.Z.#2016</span>
+
+<span class="pre pre--inline">10.</span> <a href="https://youtube.com/watch?v=hzGmbwS_Drs">Rolling Down The Street, In My Katamari</a> | <span class="pre pre--inline">4:36 Requested by: D.J.Z.#2016</span>
+
+<strong>25 songs in queue | 1:50:46 total length</strong></div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                                <div class="chatlog__embed-footer">
+                                        <img class="chatlog__embed-footer-icon" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/ac4f3e841943d337b076346d714cb79e-2A919.png" alt="Footer icon">
+
+                                    <span class="chatlog__embed-footer-text">
+Page 1/3
+
+                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 01:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="778791101141876776" id="message-778791101141876776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hehe</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778791171450470463" id="message-778791171450470463">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-skip</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778791182145683526" id="message-778791182145683526">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!skip</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 01:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="778791182624227339" id="message-778791182624227339">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⏩ <em><strong>Skipped</strong></em> <img class="emoji " alt="👍" title="👍" src="https://twemoji.maxcdn.com/2/72x72/1f44d.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 01:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="778801645458161664" id="message-778801645458161664">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">w</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778801683575603250" id="message-778801683575603250">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!s</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 01:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="778801684200816650" id="message-778801684200816650">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⏩ <em><strong>Skipped</strong></em> <img class="emoji " alt="👍" title="👍" src="https://twemoji.maxcdn.com/2/72x72/1f44d.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 01:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="778801708541149234" id="message-778801708541149234">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!np</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 01:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="778801709249986570" id="message-778801709249986570">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(0,86,191,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+                                        <div class="chatlog__embed-author">
+                                                <img class="chatlog__embed-author-icon" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/rythm-8EA9E.gif" alt="Author icon">
+
+                                                <span class="chatlog__embed-author-name">
+                                                        <a class="chatlog__embed-author-name-link" href="https://rythmbot.co">Now Playing ♪</a>
+                                                </span>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace"><a href="https://youtube.com/watch?v=V7bQWveNpP0">Kirby Super Star - King Dedede&#39;s Theme [Eurobeat Remix]</a>
+
+<span class="pre pre--inline">&#128280;▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</span>
+
+<span class="pre pre--inline">0:05 / 5:01</span>
+
+<span class="pre pre--inline">Requested by:</span> D.J.Z.#2016</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(33,205,32)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 02:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="778811590086230026" id="message-778811590086230026">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-disconnect</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778811618859548673" id="message-778811618859548673">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!d</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778811644805120001" id="message-778811644805120001">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!disconnect</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 02:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="778811645786587156" id="message-778811645786587156">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="📭" title="📭" src="https://twemoji.maxcdn.com/2/72x72/1f4ed.png"> <strong>Successfully disconnected</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/c3335e988086b3b9e2537eaffa519138-DB674.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Salty_Cole#9497" data-user-id="622041347196715008" style="color: rgb(126,0,198)">Salty_Cole</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 05:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="778852203627937812" id="message-778852203627937812">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!p Glowing Eyes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 05:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="778852206362230784" id="message-778852206362230784">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="👍" title="👍" src="https://twemoji.maxcdn.com/2/72x72/1f44d.png"> <strong>Joined</strong> <span class="pre pre--inline">Music</span> :page_facing_up: <strong>And bound to</strong> <span class="pre pre--inline">music-vc-chat</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778852206950219776" id="message-778852206950219776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="youtube" title="youtube" src="https://cdn.discordapp.com/emojis/335112740957978625.png"> <strong>Searching</strong> <img class="emoji " alt="🔎" title="🔎" src="https://twemoji.maxcdn.com/2/72x72/1f50e.png"> <span class="pre pre--inline">Glowing Eyes</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778852208615227422" id="message-778852208615227422">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Playing</strong> <img class="emoji " alt="🎶" title="🎶" src="https://twemoji.maxcdn.com/2/72x72/1f3b6.png"> <span class="pre pre--inline">Twenty One Pilots - Glowing Eyes (Lyrics)</span> - Now!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/c3335e988086b3b9e2537eaffa519138-DB674.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Salty_Cole#9497" data-user-id="622041347196715008" style="color: rgb(126,0,198)">Salty_Cole</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 05:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="778852364982943756" id="message-778852364982943756">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!disconnect</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/16c197c4c3f0eb808f9bceb6e1075e71-CECF9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rythm#3722" data-user-id="235088799074484224" style="color: rgb(209,16,163)">Rythm</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Nov-20 05:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="778852365641449503" id="message-778852365641449503">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="📭" title="📭" src="https://twemoji.maxcdn.com/2/72x72/1f4ed.png"> <strong>Successfully disconnected</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Hub%20-%20Voice%20Channels%20-%20music-vc-chat%20%5B774386998952853534%5D.html_Files/c3335e988086b3b9e2537eaffa519138-DB674.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Salty_Cole#9497" data-user-id="622041347196715008" style="color: rgb(126,0,198)">Salty_Cole</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 05:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="778852395701764116" id="message-778852395701764116">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Rythm sucks</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Nov-20 05:21 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 35 message(s)</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,4643 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SV Chess Inc&#174; - chess-board</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/05d1a16efc489a53dca549a557ac66d2-E2EC8.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">SV Chess Inc&#174;</div>
+        <div class="preamble__entry">Chat / chess-board</div>
+
+            <div class="preamble__entry preamble__entry--small">challenge people and AI to games</div>
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">30-Nov-20 10:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="782920802767994890" id="message-782920802767994890">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">mmm chungus</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="color: rgb(189,255,232)">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">30-Nov-20 07:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="783049399303012352" id="message-783049399303012352">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sugnuhc mmm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/26a8fc34930e4ae9e9b3e64799501b5a-3C223.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="echotech#3188" data-user-id="557660275176767488" style="color: rgb(255,255,255)">echotech</span>
+
+
+        <span class="chatlog__timestamp">02-Dec-20 10:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="783826661627134022" id="message-783826661627134022">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-role lichess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Dec-20 10:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="783826661706563616" id="message-783826661706563616">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://lichess.org/">https://lichess.org/</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/">
+                                                    <div class="markdown preserve-whitespace">The best free, adless Chess server</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/lichess-tile-wide-DBD50.png">
+                                            <img class="chatlog__embed-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/lichess-tile-wide-DBD50.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(215,187,153)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Dec-20 10:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="783826663439073300" id="message-783826663439073300">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Gave you the role!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/5ab9138cf27d2689920f948f66e71f44-55404.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="[M] Maldivian Reich#6919" data-user-id="437727478736355328" style="color: rgb(255,255,255)">[M] Maldivian Reich</span>
+
+
+        <span class="chatlog__timestamp">02-Dec-20 10:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="783828210114101260" id="message-783828210114101260">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-role lichess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Dec-20 10:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="783828210810617916" id="message-783828210810617916">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://lichess.org/">https://lichess.org/</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/">
+                                                    <div class="markdown preserve-whitespace">The best free, adless Chess server</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/lichess-tile-wide-DBD50.png">
+                                            <img class="chatlog__embed-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/lichess-tile-wide-DBD50.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(215,187,153)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Dec-20 10:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="783828226795241502" id="message-783828226795241502">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Gave you the role!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(20,144,34)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">02-Dec-20 10:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="783828615589789716" id="message-783828615589789716">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">this is for playing chess with <span class="mention" title="IdleRPG#8939">@[$] IdleRPG</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="783828638654136341" id="message-783828638654136341">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">but ok</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/c3335e988086b3b9e2537eaffa519138-DB674.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Salty_Cole#9497" data-user-id="622041347196715008" style="color: rgb(255,255,255)">Salty_Cole</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 09:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="785070165670363137" id="message-785070165670363137">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-role lichess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 09:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="785070166286925824" id="message-785070166286925824">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://lichess.org/">https://lichess.org/</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(219,215,209,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://lichess.org/">
+                                                    <div class="markdown preserve-whitespace">The best free, adless Chess server</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/lichess-tile-wide-DBD50.png">
+                                            <img class="chatlog__embed-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/lichess-tile-wide-DBD50.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(215,187,153)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 09:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="785070172045967392" id="message-785070172045967392">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Gave you the role!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 12:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="785127179737759764" id="message-785127179737759764">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 12:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="785127180610961419" id="message-785127180610961419">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Please use <span class="pre pre--inline">$chess match</span> to play.
+If you want to play ELO-rated, you must use <span class="pre pre--inline">$chess register</span> first.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 12:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="785127180832735273" id="message-785127180832735273">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 12:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="785127223748853780" id="message-785127223748853780">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 12:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="785127224255709204" id="message-785127224255709204">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 12:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="785127390070177792" id="message-785127390070177792">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785127432540651540" id="message-785127432540651540">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">f3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785127769087410216" id="message-785127769087410216">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nc3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785127822582349884" id="message-785127822582349884">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785127852659048449" id="message-785127852659048449">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oops</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785127868367372288" id="message-785127868367372288">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 12:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="785127871407718420" id="message-785127871407718420">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Move 9: <span class="mention" title="Devin Last Name Not Included#0646">@Devin Last Name Not Included</span>&#39;s turn</strong>
+Simply type your move. You have 2 minutes to enter a valid move. I accept normal notation as well as <span class="pre pre--inline">resign</span> or <span class="pre pre--inline">draw</span>.
+Example: <span class="pre pre--inline">g1f3</span>, <span class="pre pre--inline">Nf3</span>, <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">xe3</span>.
+Moves are case-sensitive! Pieces uppercase: <span class="pre pre--inline">N</span>, <span class="pre pre--inline">Q</span> or <span class="pre pre--inline">B</span>, fields lowercase: <span class="pre pre--inline">a</span>, <span class="pre pre--inline">b</span> or <span class="pre pre--inline">h</span>. Castling is <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">0-0-0</span>.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-F7F4C.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-F7F4C.png" alt="Image attachment" title="Image: board.png (32.38 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 12:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128150782443531" id="message-785128150782443531">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess register</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 12:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128152053579776" id="message-785128152053579776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 12:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128152694521866" id="message-785128152694521866">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You have been registered with an ELO of 1000 as a default. Play matches against other registered users to increase it!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 12:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128234479517716" id="message-785128234479517716">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Who wants to go</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 12:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128294755336192" id="message-785128294755336192">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Idk what you say for knight moves</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128315228258315" id="message-785128315228258315">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hold onn</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 12:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128335042281502" id="message-785128335042281502">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Isnt it n?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 12:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128375848927274" id="message-785128375848927274">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You entered no valid move! You lost!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128377291636736" id="message-785128377291636736">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>White Resigned! 0-1</strong></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-E050D.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-E050D.png" alt="Image attachment" title="Image: board.png (32.38 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128379027554304" id="message-785128379027554304">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">For the nerds:</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <div class="chatlog__attachment-container">
+                                        <svg class="chatlog__attachment-icon" viewBox="0 0 720 960">
+                                            <path class="a"/>
+                                            <path class="b"/>
+                                            <path class="c"/>
+                                            <path class="d"/>
+                                        </svg>
+                                        <div class="chatlog__attachment-filename">
+                                            <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/match-EBBC6.pgn">
+                                                match.pgn
+                                            </a>
+                                        </div>
+                                        <div class="chatlog__attachment-filesize">
+                                            213 bytes
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128523979423754" id="message-785128523979423754">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh you just add N to the front</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128552400027678" id="message-785128552400027678">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ye</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128658665865267" id="message-785128658665865267">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 01:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128659383877652" id="message-785128659383877652">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="785128686163591198" id="message-785128686163591198">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128708666556446" id="message-785128708666556446">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nc3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128734051139595" id="message-785128734051139595">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nf3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128778786930738" id="message-785128778786930738">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nxe5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128839746682910" id="message-785128839746682910">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bc4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128901894340619" id="message-785128901894340619">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">dxc3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785128961855193148" id="message-785128961855193148">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bf4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129126305726464" id="message-785129126305726464">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">So how the hell do you play against another person</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129132060966923" id="message-785129132060966923">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nf3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785129162633248818" id="message-785129162633248818">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qe2</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129165476593705" id="message-785129165476593705">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Move 19: <span class="mention" title="asdia#1556">@asdia</span>&#39;s turn</strong>
+Simply type your move. You have 2 minutes to enter a valid move. I accept normal notation as well as <span class="pre pre--inline">resign</span> or <span class="pre pre--inline">draw</span>.
+Example: <span class="pre pre--inline">g1f3</span>, <span class="pre pre--inline">Nf3</span>, <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">xe3</span>.
+Moves are case-sensitive! Pieces uppercase: <span class="pre pre--inline">N</span>, <span class="pre pre--inline">Q</span> or <span class="pre pre--inline">B</span>, fields lowercase: <span class="pre pre--inline">a</span>, <span class="pre pre--inline">b</span> or <span class="pre pre--inline">h</span>. Castling is <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">0-0-0</span>.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-2049E.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-2049E.png" alt="Image attachment" title="Image: board.png (29.39 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129187026927616" id="message-785129187026927616">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">resign</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129188214439956" id="message-785129188214439956">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>White Resigned! 0-1</strong></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-790E9.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-790E9.png" alt="Image attachment" title="Image: board.png (29.39 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785129188960370690" id="message-785129188960370690">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">For the nerds:</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <div class="chatlog__attachment-container">
+                                        <svg class="chatlog__attachment-icon" viewBox="0 0 720 960">
+                                            <path class="a"/>
+                                            <path class="b"/>
+                                            <path class="c"/>
+                                            <path class="d"/>
+                                        </svg>
+                                        <div class="chatlog__attachment-filename">
+                                            <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/match-C70A4.pgn">
+                                                match.pgn
+                                            </a>
+                                        </div>
+                                        <div class="chatlog__attachment-filesize">
+                                            253 bytes
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129201438949386" id="message-785129201438949386">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Antonios#9464">@Antonios</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129214739218452" id="message-785129214739218452">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hi</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129228990545920" id="message-785129228990545920">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match [ping]</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129233018126358" id="message-785129233018126358">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/fb91f2bf3e2f1c37128822e960a7cf84-05F5D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Antonios#9464" data-user-id="527992742618595328" style="color: rgb(222,222,222)">Antonios</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785129265750474793" id="message-785129265750474793">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Cool</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="color: rgb(189,255,232)">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 02:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="785144935992918026" id="message-785144935992918026">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess register</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 02:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="785144936944238622" id="message-785144936944238622">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 02:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="785144937317924874" id="message-785144937317924874">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You have been registered with an ELO of 1000 as a default. Play matches against other registered users to increase it!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/b4c862533266eae47fa60c6a27dfc4f3-0E2CC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Emperor Augustus Caesar#5603" data-user-id="694277296693182535" style="color: rgb(255,255,255)">Emperor Augustus Caesar</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-20 03:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799055337422898" id="message-786799055337422898">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess register</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-20 03:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799055363768361" id="message-786799055363768361">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-20 03:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799056764010536" id="message-786799056764010536">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You have been registered with an ELO of 1000 as a default. Play matches against other registered users to increase it!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/b4c862533266eae47fa60c6a27dfc4f3-0E2CC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Emperor Augustus Caesar#5603" data-user-id="694277296693182535" style="color: rgb(255,255,255)">Emperor Augustus Caesar</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-20 03:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799208391770153" id="message-786799208391770153">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-20 03:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799209231417345" id="message-786799209231417345">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/b4c862533266eae47fa60c6a27dfc4f3-0E2CC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Emperor Augustus Caesar#5603" data-user-id="694277296693182535" style="color: rgb(255,255,255)">Emperor Augustus Caesar</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-20 03:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799325090545684" id="message-786799325090545684">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">d2</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="786799342248919040" id="message-786799342248919040">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">d3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-20 03:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799345067491338" id="message-786799345067491338">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Move 3: <span class="mention" title="Emperor Augustus Caesar#5603">@Emperor Augustus Caesar</span>&#39;s turn</strong>
+Simply type your move. You have 2 minutes to enter a valid move. I accept normal notation as well as <span class="pre pre--inline">resign</span> or <span class="pre pre--inline">draw</span>.
+Example: <span class="pre pre--inline">g1f3</span>, <span class="pre pre--inline">Nf3</span>, <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">xe3</span>.
+Moves are case-sensitive! Pieces uppercase: <span class="pre pre--inline">N</span>, <span class="pre pre--inline">Q</span> or <span class="pre pre--inline">B</span>, fields lowercase: <span class="pre pre--inline">a</span>, <span class="pre pre--inline">b</span> or <span class="pre pre--inline">h</span>. Castling is <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">0-0-0</span>.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-3D281.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-3D281.png" alt="Image attachment" title="Image: board.png (30.73 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/b4c862533266eae47fa60c6a27dfc4f3-0E2CC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Emperor Augustus Caesar#5603" data-user-id="694277296693182535" style="color: rgb(255,255,255)">Emperor Augustus Caesar</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-20 03:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799360255983626" id="message-786799360255983626">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">d3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="786799417742983188" id="message-786799417742983188">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">resign</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-20 03:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="786799418895892530" id="message-786799418895892530">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>White Resigned! 0-1</strong></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-30B62.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-30B62.png" alt="Image attachment" title="Image: board.png (30.73 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="786799419843674123" id="message-786799419843674123">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">For the nerds:</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <div class="chatlog__attachment-container">
+                                        <svg class="chatlog__attachment-icon" viewBox="0 0 720 960">
+                                            <path class="a"/>
+                                            <path class="b"/>
+                                            <path class="c"/>
+                                            <path class="d"/>
+                                        </svg>
+                                        <div class="chatlog__attachment-filename">
+                                            <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/match-D9E0C.pgn">
+                                                match.pgn
+                                            </a>
+                                        </div>
+                                        <div class="chatlog__attachment-filesize">
+                                            165 bytes
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/166951f9558fb6020bab2c19f51fba56-C231B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Blob#4014" data-user-id="790940064490192907" style="">Blob</span>
+
+
+        <span class="chatlog__timestamp">22-Dec-20 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="790957913572376576" id="message-790957913572376576">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">/play</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790957939875774494" id="message-790957939875774494">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">/help</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/12e00a90ceabee73edbd00f35745328f-162CB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Merope Mastermind#1808" data-user-id="757624552762376263" style="">Merope Mastermind</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Dec-20 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="790957940826701844" id="message-790957940826701844">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(1,25,54,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Merope Mastermind Help</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Here is a list of all current modules available to use in Merope Mastermind. 
+                    To get further information on each module use the command /help (moduleid).
+                    The moduleid is shown as the last line in the description of each module.
+                        
+                    <strong>SpookVooper Integration</strong>
+                    These are the commands that connect to SpookVooper to get info about your 
+                    account such as your balance or your discord stats.
+                    <em>svint</em>
+                        
+                    <strong>Permission Manager</strong>
+                    This is where you can set who has the power to use certain commands. 
+                    The current permission levels are : Administrator, Moderator, Everyone.
+                    <em>perms</em>
+
+                    <strong>District Role Manager</strong>
+                    This allows you set your server as a district server and give users 
+                    citizen/non-citizen roles automatically.
+                    <em>districtroles</em>
+
+                    <strong>DeepLog</strong>
+                    DeepLog allows you to log certain events in your server such as edited or
+                    deleted messages and members leaving or joining.
+                    <em>deeplog</em>
+
+                    <strong>Config</strong>
+                    Here you can change basic settings for the bot such as the command prefix
+                    <em>config</em> 
+
+                    <strong>General Commands</strong>
+                    Generic commands that provide information about the bot
+                    <em>general</em></div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/166951f9558fb6020bab2c19f51fba56-C231B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Blob#4014" data-user-id="790940064490192907" style="">Blob</span>
+
+
+        <span class="chatlog__timestamp">22-Dec-20 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="790957988047224873" id="message-790957988047224873">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!help</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="✅" title="✅" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/2705-6C755.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-CB3A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(215,187,153)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Dec-20 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="790957989427281930" id="message-790957989427281930">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(65,178,176,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+                                        <div class="chatlog__embed-author">
+                                                <img class="chatlog__embed-author-icon" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-DD784.png" alt="Author icon">
+
+                                                <span class="chatlog__embed-author-name">
+Arcane Commands                                                </span>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">The prefix for <span class="pre pre--inline">SV Chess Inc&#174;</span> is <span class="pre pre--inline">!</span>
+or <span class="pre pre--inline">@Arcane#7800</span></div>
+                                        </div>
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field ">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Useful Resources</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace"><a href="https://arcanebot.xyz/commands?prefix=!">Command List</a>
+<a href="https://arcanebot.xyz/dashboard">Dashboard</a>
+<a href="https://discord.gg/arcane">Support Server</a>
+<a href="https://arcanebot.xyz/status">Arcane Status</a>
+<a href="https://arcanebot.xyz/premium">Premium</a></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/166951f9558fb6020bab2c19f51fba56-C231B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Blob#4014" data-user-id="790940064490192907" style="">Blob</span>
+
+
+        <span class="chatlog__timestamp">22-Dec-20 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="790958061765787678" id="message-790958061765787678">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">What is the chess bot prefix</span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Dec-20 03:05 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Dec-20 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="790958062235156520" id="message-790958062235156520">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/166951f9558fb6020bab2c19f51fba56-C231B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Blob#4014" data-user-id="790940064490192907" style="">Blob</span>
+
+
+        <span class="chatlog__timestamp">22-Dec-20 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="790958132121436161" id="message-790958132121436161">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="790958161313267723" id="message-790958161313267723">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess help</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Dec-20 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="790958164195278848" id="message-790958164195278848">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/166951f9558fb6020bab2c19f51fba56-C231B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Blob#4014" data-user-id="790940064490192907" style="">Blob</span>
+
+
+        <span class="chatlog__timestamp">22-Dec-20 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="790958232918949919" id="message-790958232918949919">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?help</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 04:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="793158010313769000" id="message-793158010313769000">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 04:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="793158010695319572" id="message-793158010695319572">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 04:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="793158164781989939" id="message-793158164781989939">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793158542642905110" id="message-793158542642905110">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Kf3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793158555195932694" id="message-793158555195932694">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nope</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793158577372135425" id="message-793158577372135425">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Is it n</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793158589723181066" id="message-793158589723181066">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nf3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793158723442442272" id="message-793158723442442272">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bb5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793158812269019137" id="message-793158812269019137">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bc4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793158859526242365" id="message-793158859526242365">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bb3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159038421434390" id="message-793159038421434390">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ne5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159093622669362" id="message-793159093622669362">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">0-0</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159226394017812" id="message-793159226394017812">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qf3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159333532663879" id="message-793159333532663879">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nf7</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 04:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="793159336741568573" id="message-793159336741568573">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Move 19: <span class="mention" title="Devin Last Name Not Included#0646">@Devin Last Name Not Included</span>&#39;s turn</strong>
+Simply type your move. You have 2 minutes to enter a valid move. I accept normal notation as well as <span class="pre pre--inline">resign</span> or <span class="pre pre--inline">draw</span>.
+Example: <span class="pre pre--inline">g1f3</span>, <span class="pre pre--inline">Nf3</span>, <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">xe3</span>.
+Moves are case-sensitive! Pieces uppercase: <span class="pre pre--inline">N</span>, <span class="pre pre--inline">Q</span> or <span class="pre pre--inline">B</span>, fields lowercase: <span class="pre pre--inline">a</span>, <span class="pre pre--inline">b</span> or <span class="pre pre--inline">h</span>. Castling is <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">0-0-0</span>.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-645A7.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-645A7.png" alt="Image attachment" title="Image: board.png (32.79 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 04:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="793159359383339039" id="message-793159359383339039">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Fuck</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159397924012063" id="message-793159397924012063">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Didnt think that through</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159418585808966" id="message-793159418585808966">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Shit</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159506477449217" id="message-793159506477449217">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Fuuuuuuuuuuuuuuuuuuuuuuuuuck</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159520426917948" id="message-793159520426917948">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Resign</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159641092980786" id="message-793159641092980786">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 04:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="793159641478987796" id="message-793159641478987796">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 04:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="793159653382291466" id="message-793159653382291466">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Wait for the match here to end.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 04:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="793159692158369792" id="message-793159692158369792">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$Resign</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159776615661611" id="message-793159776615661611">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bruh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159797431861309" id="message-793159797431861309">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">resign</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 04:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="793159799012720670" id="message-793159799012720670">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>White Resigned! 0-1</strong></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-3D63D.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-3D63D.png" alt="Image attachment" title="Image: board.png (32.79 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793159799848173620" id="message-793159799848173620">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">For the nerds:</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <div class="chatlog__attachment-container">
+                                        <svg class="chatlog__attachment-icon" viewBox="0 0 720 960">
+                                            <path class="a"/>
+                                            <path class="b"/>
+                                            <path class="c"/>
+                                            <path class="d"/>
+                                        </svg>
+                                        <div class="chatlog__attachment-filename">
+                                            <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/match-DD729.pgn">
+                                                match.pgn
+                                            </a>
+                                        </div>
+                                        <div class="chatlog__attachment-filesize">
+                                            272 bytes
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 04:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="793159945960947763" id="message-793159945960947763">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 04:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="793159946224009238" id="message-793159946224009238">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 04:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="793160002768470026" id="message-793160002768470026">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160080454975537" id="message-793160080454975537">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">d4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160135383187476" id="message-793160135383187476">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qd4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160260994596865" id="message-793160260994596865">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qd5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160514124775494" id="message-793160514124775494">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bg5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160555384406047" id="message-793160555384406047">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bd8</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160828123742279" id="message-793160828123742279">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nc3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160856132648991" id="message-793160856132648991">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Fuck you too</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160889154273351" id="message-793160889154273351">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ass</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160931001630750" id="message-793160931001630750">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Fuck</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793160958892834866" id="message-793160958892834866">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Kd1</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793161050336788520" id="message-793161050336788520">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bc7</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793161443457237032" id="message-793161443457237032">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nb5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793161846138863668" id="message-793161846138863668">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bc4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793161920400064513" id="message-793161920400064513">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nf3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162279361314895" id="message-793162279361314895">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nd6</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162319609593897" id="message-793162319609593897">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">F</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162357055946752" id="message-793162357055946752">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bd6</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162443454545961" id="message-793162443454545961">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ne5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162609238605854" id="message-793162609238605854">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I imagine rooks a r</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162637826981978" id="message-793162637826981978">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Re1</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162692834754571" id="message-793162692834754571">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bb5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162838805184543" id="message-793162838805184543">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ndu</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162861761396767" id="message-793162861761396767">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nd7</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 05:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="793162864549429309" id="message-793162864549429309">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Move 37: <span class="mention" title="Devin Last Name Not Included#0646">@Devin Last Name Not Included</span>&#39;s turn</strong>
+Simply type your move. You have 2 minutes to enter a valid move. I accept normal notation as well as <span class="pre pre--inline">resign</span> or <span class="pre pre--inline">draw</span>.
+Example: <span class="pre pre--inline">g1f3</span>, <span class="pre pre--inline">Nf3</span>, <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">xe3</span>.
+Moves are case-sensitive! Pieces uppercase: <span class="pre pre--inline">N</span>, <span class="pre pre--inline">Q</span> or <span class="pre pre--inline">B</span>, fields lowercase: <span class="pre pre--inline">a</span>, <span class="pre pre--inline">b</span> or <span class="pre pre--inline">h</span>. Castling is <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">0-0-0</span>.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-63004.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-63004.png" alt="Image attachment" title="Image: board.png (26.24 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 05:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="793162872568938528" id="message-793162872568938528">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">free rook kek</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162916466786324" id="message-793162916466786324">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ng7+ wouldve been better</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162943785074718" id="message-793162943785074718">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wait no</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162952475541534" id="message-793162952475541534">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">im retarded</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793162959425372220" id="message-793162959425372220">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and blind</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 05:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="793163138517565471" id="message-793163138517565471">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Well now i dont know what to do to help my bishop</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 05:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="793163369707733062" id="message-793163369707733062">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You entered no valid move! You lost!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163371025399839" id="message-793163371025399839">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>White Resigned! 0-1</strong></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-74AFE.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-74AFE.png" alt="Image attachment" title="Image: board.png (26.24 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163372525912134" id="message-793163372525912134">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">For the nerds:</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <div class="chatlog__attachment-container">
+                                        <svg class="chatlog__attachment-icon" viewBox="0 0 720 960">
+                                            <path class="a"/>
+                                            <path class="b"/>
+                                            <path class="c"/>
+                                            <path class="d"/>
+                                        </svg>
+                                        <div class="chatlog__attachment-filename">
+                                            <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/match-82827.pgn">
+                                                match.pgn
+                                            </a>
+                                        </div>
+                                        <div class="chatlog__attachment-filesize">
+                                            391 bytes
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 05:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="793163410966577223" id="message-793163410966577223">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Damn</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163477652733962" id="message-793163477652733962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">K probabaly shpuld Re5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 05:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="793163694967750657" id="message-793163694967750657">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 05:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="793163695492038697" id="message-793163695492038697">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(20,144,34)">asdia</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-20 05:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="793163711631458314" id="message-793163711631458314">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163737040683070" id="message-793163737040683070">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nf3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163765213298708" id="message-793163765213298708">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nc3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163787078336534" id="message-793163787078336534">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bc4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163868318203934" id="message-793163868318203934">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">O-O</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163895300030475" id="message-793163895300030475">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bd5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163932331802664" id="message-793163932331802664">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Re1</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793163982407598121" id="message-793163982407598121">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">d4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793164036162322463" id="message-793164036162322463">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bxf7</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793164069666291782" id="message-793164069666291782">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">d5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793164155300872192" id="message-793164155300872192">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ne4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793164357679841290" id="message-793164357679841290">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bd2</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793164456695693332" id="message-793164456695693332">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Kf1</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793164562559270912" id="message-793164562559270912">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qc1</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793164669007167519" id="message-793164669007167519">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qa3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793164731509899335" id="message-793164731509899335">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qb4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Dec-20 05:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="793164735435505674" id="message-793164735435505674">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Move 33: <span class="mention" title="asdia#1556">@asdia</span>&#39;s turn</strong>
+Simply type your move. You have 2 minutes to enter a valid move. I accept normal notation as well as <span class="pre pre--inline">resign</span> or <span class="pre pre--inline">draw</span>.
+Example: <span class="pre pre--inline">g1f3</span>, <span class="pre pre--inline">Nf3</span>, <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">xe3</span>.
+Moves are case-sensitive! Pieces uppercase: <span class="pre pre--inline">N</span>, <span class="pre pre--inline">Q</span> or <span class="pre pre--inline">B</span>, fields lowercase: <span class="pre pre--inline">a</span>, <span class="pre pre--inline">b</span> or <span class="pre pre--inline">h</span>. Castling is <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">0-0-0</span>.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-83A5C.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-83A5C.png" alt="Image attachment" title="Image: board.png (31.23 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793165239582982240" id="message-793165239582982240">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You entered no valid move! You lost!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793165240963563520" id="message-793165240963563520">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>White Resigned! 0-1</strong></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-EC9A0.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-EC9A0.png" alt="Image attachment" title="Image: board.png (31.23 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="793165242061684778" id="message-793165242061684778">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">For the nerds:</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <div class="chatlog__attachment-container">
+                                        <svg class="chatlog__attachment-icon" viewBox="0 0 720 960">
+                                            <path class="a"/>
+                                            <path class="b"/>
+                                            <path class="c"/>
+                                            <path class="d"/>
+                                        </svg>
+                                        <div class="chatlog__attachment-filename">
+                                            <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/match-E6D3F.pgn">
+                                                match.pgn
+                                            </a>
+                                        </div>
+                                        <div class="chatlog__attachment-filesize">
+                                            332 bytes
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 10:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="795414164104675358" id="message-795414164104675358">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">$chess match</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-755C0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(215,187,153)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-21 10:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="795414164561592330" id="message-795414164561592330">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">chess</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 10:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="795414197231026177" id="message-795414197231026177">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795414238398513162" id="message-795414238398513162">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nf3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795414391310778378" id="message-795414391310778378">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bb5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795414461409919040" id="message-795414461409919040">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qe2</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795414509766180876" id="message-795414509766180876">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">0-0</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795414686509826089" id="message-795414686509826089">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ba4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795414761445392405" id="message-795414761445392405">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Bb3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795414822983958549" id="message-795414822983958549">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">fuc</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795414910858297383" id="message-795414910858297383">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qc4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795415041355808829" id="message-795415041355808829">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ba4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-CB3A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(215,187,153)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-21 10:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="795415042237005844" id="message-795415042237005844">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Good job! <span class="mention" title="Devin Last Name Not Included#0646">@Devin Last Name Not Included</span> has reached level <strong>6</strong>.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 10:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="795415236064706560" id="message-795415236064706560">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Qc3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-21 10:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="795415238684966942" id="message-795415238684966942">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Move 21: <span class="mention" title="Devin Last Name Not Included#0646">@Devin Last Name Not Included</span>&#39;s turn</strong>
+Simply type your move. You have 2 minutes to enter a valid move. I accept normal notation as well as <span class="pre pre--inline">resign</span> or <span class="pre pre--inline">draw</span>.
+Example: <span class="pre pre--inline">g1f3</span>, <span class="pre pre--inline">Nf3</span>, <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">xe3</span>.
+Moves are case-sensitive! Pieces uppercase: <span class="pre pre--inline">N</span>, <span class="pre pre--inline">Q</span> or <span class="pre pre--inline">B</span>, fields lowercase: <span class="pre pre--inline">a</span>, <span class="pre pre--inline">b</span> or <span class="pre pre--inline">h</span>. Castling is <span class="pre pre--inline">0-0</span> or <span class="pre pre--inline">0-0-0</span>.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-60C2E.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-60C2E.png" alt="Image attachment" title="Image: board.png (35.73 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(222,222,222)">Devin Last Name Not Included</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 10:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="795415375121481749" id="message-795415375121481749">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="🤝" title="🤝" src="https://twemoji.maxcdn.com/2/72x72/1f91d.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795415402884104252" id="message-795415402884104252">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">resign</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/58e26cd720175407ef3701eebf85713d-AE8FB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="IdleRPG#8939" data-user-id="424606447867789312" style="color: rgb(215,187,153)">IdleRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-21 10:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="795415404201771038" id="message-795415404201771038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>White Resigned! 0-1</strong></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-ACCEB.png">
+                                        <img class="chatlog__attachment-thumbnail" src="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/board-ACCEB.png" alt="Image attachment" title="Image: board.png (35.73 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795415405211549747" id="message-795415405211549747">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">For the nerds:</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <div class="chatlog__attachment-container">
+                                        <svg class="chatlog__attachment-icon" viewBox="0 0 720 960">
+                                            <path class="a"/>
+                                            <path class="b"/>
+                                            <path class="c"/>
+                                            <path class="d"/>
+                                        </svg>
+                                        <div class="chatlog__attachment-filename">
+                                            <a href="SV%20Chess%20Inc%C2%AE%20-%20Chat%20-%20chess-board%20%5B782920637072801813%5D.html_Files/match-93FF9.pgn">
+                                                match.pgn
+                                            </a>
+                                        </div>
+                                        <div class="chatlog__attachment-filesize">
+                                            283 bytes
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 191 message(s)</div>
+</div>
+
+</body>
+
+</html>
