@@ -1,0 +1,1749 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ty and Co. Barkives - m-e-m-e-s</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/2e8c2a9255627ef4d2297d21997ef4fb-B5DE7.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Ty and Co. Barkives</div>
+        <div class="preamble__entry">archives / m-e-m-e-s</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 03:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="581677472987349012" id="message-581677472987349012">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/clown-gif-8461832">https://tenor.com/view/clown-gif-8461832</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/tenor-393AC.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/tenor-393AC.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9e43a881c664259dc018d28eb23c7ac7-A6609.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack1rules#6228" data-user-id="346589197714456577" style="">Jack1rules</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 03:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="581677620937228304" id="message-581677620937228304">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Why the f<span class="spoiler spoiler--hidden" onclick="showSpoiler(event, this)"><span class="spoiler-text">lip</span></span>  n<span class="spoiler spoiler--hidden" onclick="showSpoiler(event, this)"><span class="spoiler-text">a</span></span>gger</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-May-19 03:59 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 03:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="581677672053080086" id="message-581677672053080086">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://media.discordapp.net/attachments/507653420023545856/571357017353093121/kittycat.gif">https://media.discordapp.net/attachments/507653420023545856/571357017353093121/kittycat.gif</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/kittycat-3CD6F.gif">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/kittycat-3CD6F.gif" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="581677782887694336" id="message-581677782887694336">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://media.discordapp.net/attachments/568940104207564820/578757142191013898/image0.gif">https://media.discordapp.net/attachments/568940104207564820/578757142191013898/image0.gif</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-26C4C.gif">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-26C4C.gif" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 11:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="581971408129753098" id="message-581971408129753098">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/568940104207564820/581663152534454292/SPOILER_1555381683555.gif">https://cdn.discordapp.com/attachments/568940104207564820/581663152534454292/SPOILER_1555381683555.gif</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/SPOILER_1555381683555-9C5CB.gif">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/SPOILER_1555381683555-9C5CB.gif" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="581972763447787550" id="message-581972763447787550">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://media.discordapp.net/attachments/532632797316251661/534806067788382219/image0.gif">https://media.discordapp.net/attachments/532632797316251661/534806067788382219/image0.gif</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-37D33.gif">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-37D33.gif" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="581973096039186444" id="message-581973096039186444">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/whats-the-tea-spill-the-tea-drama-gossip-whats-happening-gif-14057304">https://tenor.com/view/whats-the-tea-spill-the-tea-drama-gossip-whats-happening-gif-14057304</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/tenor-CBCCC.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/tenor-CBCCC.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="581973613297532934" id="message-581973613297532934">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/diet-monkey-fat-eating-cabbage-gif-12531472">https://tenor.com/view/diet-monkey-fat-eating-cabbage-gif-12531472</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/tenor-180B9.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/tenor-180B9.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">26-May-19 02:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="582020187121909817" id="message-582020187121909817">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/pepe-clown-dancing-gif-13579432">https://tenor.com/view/pepe-clown-dancing-gif-13579432</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/tenor-65355.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/tenor-65355.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">26-May-19 05:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="582249817661505575" id="message-582249817661505575">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/pie-clown-prank-gif-5154763">https://tenor.com/view/pie-clown-prank-gif-5154763</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/raw-D89CF">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/raw-D89CF" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">03-Jun-19 03:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="584928486888701963" id="message-584928486888701963">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/569151604482113539/583427192130633739/21399508_122385951825648_8122492852837023744_n.mp4">https://cdn.discordapp.com/attachments/569151604482113539/583427192130633739/21399508_122385951825648_8122492852837023744_n.mp4</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">04-Sep-19 12:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="618591482227458048" id="message-618591482227458048">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://media.discordapp.net/attachments/568940104207564820/616995003222458388/weird_dance-1.gif">https://media.discordapp.net/attachments/568940104207564820/616995003222458388/weird_dance-1.gif</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/weird_dance-1-6BE68.gif">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/weird_dance-1-6BE68.gif" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-20 06:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="726496334475034687" id="message-726496334475034687">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/317462818490286081/726496161841807470/video0.mp4">https://cdn.discordapp.com/attachments/317462818490286081/726496161841807470/video0.mp4</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="726496384081068094" id="message-726496384081068094">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-4EA02.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-4EA02.jpg" alt="Image attachment" title="Image: image0.jpg (66.39 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="726496404322648075" id="message-726496404322648075">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-B1BD2.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-B1BD2.png" alt="Image attachment" title="Image: image0.png (58.89 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">29-Jun-20 05:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="727200106826170390" id="message-727200106826170390">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-13F00.mp4" alt="Video attachment" title="Video: video0.mp4 (1001.09 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200111750283294" id="message-727200111750283294">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-ABD9B.mp4" alt="Video attachment" title="Video: video0.mp4 (455.22 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200114954862695" id="message-727200114954862695">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-CB27B.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-CB27B.png" alt="Image attachment" title="Image: image0.png (446.8 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200120072044606" id="message-727200120072044606">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-8B4E4.mp4" alt="Video attachment" title="Video: video0.mp4 (164.64 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200125453074442" id="message-727200125453074442">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-ECEAF.mp4" alt="Video attachment" title="Video: video0.mp4 (170.88 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200135234191421" id="message-727200135234191421">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-6088E.mp4" alt="Video attachment" title="Video: video0.mp4 (4.35 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200146323931157" id="message-727200146323931157">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-9ACAC.mp4" alt="Video attachment" title="Video: video0.mp4 (3.97 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200149981495356" id="message-727200149981495356">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-3B8B2.mp4" alt="Video attachment" title="Video: video0.mp4 (6.98 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200159653691464" id="message-727200159653691464">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-9A0E1.mp4" alt="Video attachment" title="Video: video0.mp4 (381.5 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200161259978792" id="message-727200161259978792">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-26E4E.mp4" alt="Video attachment" title="Video: video0.mp4 (889.58 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200167681589300" id="message-727200167681589300">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-D8082.mp4" alt="Video attachment" title="Video: video0.mp4 (2.47 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200168398815233" id="message-727200168398815233">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-61FD4.mp4" alt="Video attachment" title="Video: video0.mp4 (184.55 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200171427102750" id="message-727200171427102750">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-DE76D.mp4" alt="Video attachment" title="Video: video0.mp4 (938.5 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200190661918850" id="message-727200190661918850">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-E4F02.mp4" alt="Video attachment" title="Video: video0.mp4 (5.09 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200195242229762" id="message-727200195242229762">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-4D4B7.mp4" alt="Video attachment" title="Video: video0.mp4 (7.61 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200224564740236" id="message-727200224564740236">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-83223.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-83223.png" alt="Image attachment" title="Image: image0.png (1.33 MB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200224904216606" id="message-727200224904216606">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-19F84.mp4" alt="Video attachment" title="Video: video0.mp4 (275.29 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200370882904074" id="message-727200370882904074">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-4E048.mp4" alt="Video attachment" title="Video: video0.mp4 (889.58 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200397701283992" id="message-727200397701283992">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <div class="chatlog__attachment-container">
+                                        <svg class="chatlog__attachment-icon" viewBox="0 0 720 960">
+                                            <path class="a"/>
+                                            <path class="b"/>
+                                            <path class="c"/>
+                                            <path class="d"/>
+                                        </svg>
+                                        <div class="chatlog__attachment-filename">
+                                            <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-CC5B5.mov">
+                                                video0.mov
+                                            </a>
+                                        </div>
+                                        <div class="chatlog__attachment-filesize">
+                                            693.99 KB
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200401102733352" id="message-727200401102733352">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-E2C44.mp4" alt="Video attachment" title="Video: video0.mp4 (464.44 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200409223037010" id="message-727200409223037010">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-F50E1.mp4" alt="Video attachment" title="Video: video0.mp4 (991.52 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200413476061192" id="message-727200413476061192">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-7DDC2.mp4" alt="Video attachment" title="Video: video0.mp4 (5.09 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200437006237797" id="message-727200437006237797">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-078E3.mp4" alt="Video attachment" title="Video: video0.mp4 (3.64 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200445872865322" id="message-727200445872865322">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-07ECC.mp4" alt="Video attachment" title="Video: video0.mp4 (2.61 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200452906844160" id="message-727200452906844160">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-BCF70.gif">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-BCF70.gif" alt="Image attachment" title="Image: image0.gif (2.27 MB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200455100334111" id="message-727200455100334111">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-CB6B7.mp4" alt="Video attachment" title="Video: video0.mp4 (2.03 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200461488390236" id="message-727200461488390236">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-4795A.gif">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-4795A.gif" alt="Image attachment" title="Image: image0.gif (1.46 MB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200463610707971" id="message-727200463610707971">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-972BF.gif">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/image0-972BF.gif" alt="Image attachment" title="Image: image0.gif (2.01 MB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="727200474544996392" id="message-727200474544996392">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-1BC61.mp4" alt="Video attachment" title="Video: video0.mp4 (5.79 MB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/a38e97c314a39ed9a4701cf5c40446f6-61B3E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sh00b#1735" data-user-id="402154707981959169" style="color: rgb(26,188,156)">Sh00b</span>
+
+
+        <span class="chatlog__timestamp">29-Jun-20 08:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="727238332387688459" id="message-727238332387688459">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <video controls class="chatlog__attachment-thumbnail">
+                                        <source src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20m-e-m-e-s%20%5B581677251263856670%5D.html_Files/video0-838E8.mp4" alt="Video attachment" title="Video: video0.mp4 (161.42 KB)">
+                                    </video>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 45 message(s)</div>
+</div>
+
+</body>
+
+</html>

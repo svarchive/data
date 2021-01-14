@@ -1,0 +1,2759 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ty and Co. Barkives - spike-quotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/2e8c2a9255627ef4d2297d21997ef4fb-B5DE7.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Ty and Co. Barkives</div>
+        <div class="preamble__entry">archives / spike-quotes</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 01:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="581644498401099817" id="message-581644498401099817">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-1079A.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-1079A.jpg" alt="Image attachment" title="Image: image0.jpg (14.08 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581644563123535883" id="message-581644563123535883">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-1A9D9.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-1A9D9.jpg" alt="Image attachment" title="Image: image0.jpg (38.61 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581644651744722975" id="message-581644651744722975">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-DA99F.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-DA99F.jpg" alt="Image attachment" title="Image: image0.jpg (122.98 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581644793885491203" id="message-581644793885491203">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-68176.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-68176.jpg" alt="Image attachment" title="Image: image0.jpg (249.47 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581644877213859842" id="message-581644877213859842">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-D6478.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-D6478.jpg" alt="Image attachment" title="Image: image0.jpg (51.34 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581644934243811338" id="message-581644934243811338">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-26E55.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-26E55.jpg" alt="Image attachment" title="Image: image0.jpg (43.69 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581645268458405898" id="message-581645268458405898">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-DB59C.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-DB59C.jpg" alt="Image attachment" title="Image: image0.jpg (52.56 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581645401577357323" id="message-581645401577357323">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-12DFD.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-12DFD.jpg" alt="Image attachment" title="Image: image0.jpg (105.38 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581645454786166796" id="message-581645454786166796">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-42981.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-42981.jpg" alt="Image attachment" title="Image: image0.jpg (42.18 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 03:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="581674075974270979" id="message-581674075974270979">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-744D5.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-744D5.jpg" alt="Image attachment" title="Image: image0.jpg (158.87 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581674313879650306" id="message-581674313879650306">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-C02A1.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-C02A1.jpg" alt="Image attachment" title="Image: image0.jpg (57.85 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="581675098046595084" id="message-581675098046595084">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-8E324.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-8E324.jpg" alt="Image attachment" title="Image: image0.jpg (56.86 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-May-19 09:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="581947379205406761" id="message-581947379205406761">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-4CD74.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-4CD74.jpg" alt="Image attachment" title="Image: image0.jpg (10.48 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">26-May-19 01:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="582004903216414741" id="message-582004903216414741">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-2246F.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-2246F.jpg" alt="Image attachment" title="Image: image0.jpg (28.92 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="582004984497831937" id="message-582004984497831937">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-6B6B9.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-6B6B9.jpg" alt="Image attachment" title="Image: image0.jpg (144.99 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="582005092320935937" id="message-582005092320935937">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-486BB.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-486BB.jpg" alt="Image attachment" title="Image: image0.jpg (91.65 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="582005249120665628" id="message-582005249120665628">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-CA663.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-CA663.jpg" alt="Image attachment" title="Image: image0.jpg (173.66 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">27-May-19 06:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="582437533997072386" id="message-582437533997072386">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-5C468.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-5C468.jpg" alt="Image attachment" title="Image: image0.jpg (356.97 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">02-Jun-19 09:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="584834154877681694" id="message-584834154877681694">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-99850.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-99850.jpg" alt="Image attachment" title="Image: image0.jpg (12.99 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">15-Jun-19 06:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="589508278954754051" id="message-589508278954754051">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-792BB.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-792BB.jpg" alt="Image attachment" title="Image: image0.jpg (152.09 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">19-Jun-19 04:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="590751349512339457" id="message-590751349512339457">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-99F9F.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-99F9F.png" alt="Image attachment" title="Image: image0.png (329.44 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">26-Jun-19 08:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="593525094429491242" id="message-593525094429491242">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-459B6.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-459B6.jpg" alt="Image attachment" title="Image: image0.jpg (44.44 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">05-Jul-19 12:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="596486817121828876" id="message-596486817121828876">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-53F7B.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-53F7B.png" alt="Image attachment" title="Image: image0.png (41.62 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="596487901899128852" id="message-596487901899128852">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-0FD14.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-0FD14.png" alt="Image attachment" title="Image: image0.png (51.15 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">05-Jul-19 01:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="596491298488188931" id="message-596491298488188931">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-5561B.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-5561B.png" alt="Image attachment" title="Image: image0.png (58.43 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="596492673955790859" id="message-596492673955790859">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-8C581.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-8C581.png" alt="Image attachment" title="Image: image0.png (62.57 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">05-Jul-19 01:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="596494611661324289" id="message-596494611661324289">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-7CDDE.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-7CDDE.png" alt="Image attachment" title="Image: image0.png (84.83 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="596494624097304617" id="message-596494624097304617">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-43367.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-43367.png" alt="Image attachment" title="Image: image0.png (56.73 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">09-Jul-19 04:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="597986418282725378" id="message-597986418282725378">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-11FFF.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-11FFF.png" alt="Image attachment" title="Image: image0.png (51.83 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">11-Jul-19 02:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="598865847162765324" id="message-598865847162765324">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-EF1E3.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-EF1E3.jpg" alt="Image attachment" title="Image: image0.jpg (64.16 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">16-Jul-19 04:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="600703534517714956" id="message-600703534517714956">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-0DA72.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-0DA72.png" alt="Image attachment" title="Image: image0.png (47.87 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">16-Jul-19 08:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="600773710349074432" id="message-600773710349074432">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-8F1F1.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-8F1F1.png" alt="Image attachment" title="Image: image0.png (61.2 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">20-Jul-19 03:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="602144204541526016" id="message-602144204541526016">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-661C9.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-661C9.jpg" alt="Image attachment" title="Image: image0.jpg (100.93 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">18-Aug-19 03:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="612477057926168589" id="message-612477057926168589">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-896E1.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-896E1.png" alt="Image attachment" title="Image: image0.png (67.84 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">24-Aug-19 06:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="614689643375493135" id="message-614689643375493135">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-AFCBF.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-AFCBF.jpg" alt="Image attachment" title="Image: image0.jpg (27.81 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="614689654091808792" id="message-614689654091808792">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-9EF69.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-9EF69.jpg" alt="Image attachment" title="Image: image0.jpg (12.75 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="614689788154347560" id="message-614689788154347560">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-0F5D4.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-0F5D4.jpg" alt="Image attachment" title="Image: image0.jpg (10.42 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-19 03:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="624607526721290241" id="message-624607526721290241">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-943DB.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-943DB.jpg" alt="Image attachment" title="Image: image0.jpg (16.78 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-19 03:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="625516906681729024" id="message-625516906681729024">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-53357.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-53357.png" alt="Image attachment" title="Image: image0.png (84.31 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128078;" title="&#128078;" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/1f44e-1A8D9.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">29-Oct-19 01:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="638554847502663711" id="message-638554847502663711">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-BF5D3.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-BF5D3.png" alt="Image attachment" title="Image: image0.png (40.09 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="638554861717291049" id="message-638554861717291049">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-4E973.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-4E973.png" alt="Image attachment" title="Image: image0.png (70.2 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">30-Oct-19 02:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="639115327170674688" id="message-639115327170674688">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-C9C4A.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-C9C4A.png" alt="Image attachment" title="Image: image0.png (28.21 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-19 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="644194281904537600" id="message-644194281904537600">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-6EE9B.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-6EE9B.png" alt="Image attachment" title="Image: image0.png (34.18 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">26-Nov-19 10:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="649018371542876200" id="message-649018371542876200">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-60842.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-60842.jpg" alt="Image attachment" title="Image: image0.jpg (55.27 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">27-Nov-19 06:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="649138278397640706" id="message-649138278397640706">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-86FE9.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-86FE9.png" alt="Image attachment" title="Image: image0.png (117.92 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">29-Nov-19 04:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="650009226575609858" id="message-650009226575609858">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-62741.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-62741.png" alt="Image attachment" title="Image: image0.png (182.21 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">23-Dec-19 08:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="658774322462064640" id="message-658774322462064640">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-9415D.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-9415D.jpg" alt="Image attachment" title="Image: image0.jpg (15.84 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">22-Jan-20 05:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="669412025138675722" id="message-669412025138675722">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-0BA01.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-0BA01.jpg" alt="Image attachment" title="Image: image0.jpg (42.01 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="669412078527709189" id="message-669412078527709189">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-60CF4.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-60CF4.jpg" alt="Image attachment" title="Image: image0.jpg (36.95 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">18-Mar-20 02:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="689846653368139845" id="message-689846653368139845">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-62A74.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-62A74.jpg" alt="Image attachment" title="Image: image0.jpg (50.6 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="689846817457700914" id="message-689846817457700914">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-B1AD2.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-B1AD2.png" alt="Image attachment" title="Image: image0.png (48.93 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image1-62DB7.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image1-62DB7.png" alt="Image attachment" title="Image: image1.png (146.64 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">05-Apr-20 06:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="696223660901531710" id="message-696223660901531710">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">#1
+
+<div class="pre pre--multiline nohighlight">Ethosein had some time before he had to do anything, so She decided to have another flashback.
+
+It was just after the Karaoke. They had stepped of the stage to loud applause and were now looking at eachother.
+&quot;Hi&quot; Ethosein said, meekly.
+&quot;Hay&quot; Pope said, also meekly. Their confidence from moments ago had evaporated like alcohol.
+&quot;Do you want too...&quot;
+&quot;maybe..&quot;
+&quot;ok then.&quot;
+So they walked to the cloakroom.
+It wasn&#39;t long before their lips were together. Ethosein couldn&#39;t remember who made the first move. 
+She did remember the taste though. The taste of Pope.
+Pope tasted like gala apple on a summer noon.
+Refreshing and salty but also a bit sour.
+What had they been eating? Ethosein tried to work out it. It took much tung work.
+After a few minutes mouth to mouth pot holing, Pope guessed what Ethosein was doing. 
+&quot;I had avocado for lunch.&quot;
+&quot;oh&quot;
+&quot;you dont have to stop though&quot;
+&quot;oh. Good!&quot; Ethosein said, with great relief.
+They finally drew away after what seemed a whole eon but was only mere minutes. 
+The taste of Pope&#39;s lips  still lingered in Ethosein&#39;s mouth as they finally looked upon each other with new eyes.
+Relieved sighs came from both of them as both embraced, Pope snuggling against Ethosein&#39;s neck as he snuggled upto Pope&#39;s torso.</div></span>
+
+                                <span class="chatlog__edited-timestamp" title="05-Apr-20 06:20 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696223696355983431" id="message-696223696355983431">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight"> They had a lot of...&quot;fun&quot;.
+
+
+&quot;Sorry about that, I got a little carried away&quot; said Ethosein.
+&quot;Thats ok I.....enjoyed it.&quot; said Pope blushing in the way they always did.
+&quot;Tomorrow?&quot;
+&quot;Yes&quot; said Pope.
+&quot;I&#39;ll bring some of my toys next time for us to play with&quot; said Ethosein.
+
+And with that they left the cloakroom and returned to the party. The months that followed were fun but they never told their friends.
+
+
+---
+Ethosein took the unicorn towards Pope&#39;s Spaceelivator 
+
+When Ethosein arrived, she saw that Xbomber was waiting in front of the Pope&#39;s palace already.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696223814073450588" id="message-696223814073450588">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Not knowing about Xbomber &#39;s conspiracy, she greeting the loyal man and said &quot;I see you&#39;ve alredy geared up! I&#39;ve brought some additional things along. Here, take this,&quot; Ethosein said and gave Xbomber  the legendery dark golden Katamaran.
+
+For a brief moment, Ethosein was confused. Xbomber&#39;s really didn&#39;t seem to want to accept the blade.
+&quot;No, this is for you. You should weild this holy balde!&quot;
+&quot;Nonsense, Ethosein said, &quot;our love is so strong, this blade is the fierest of evertyhign. I want you to be safe. And I want you.... to follow in my footsteps as the greatest warrior of all.&quot;
+
+&quot;This is truly too much,&quot;Xbomber said. For a brief moment, Ethosein thought  Xbomber&#39;s eyes were a bit shifty. Was their love not the greatest?</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696224038359400568" id="message-696224038359400568">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">But quickly Ethosein didn&#39;t continue thinking about it. How dare she get this idea in her head? Their love was the greatest (a/n it was, untill Pope convinced Xbomber to switch over to his side! )
+
+So Ethosein went in and defeated all the Ninja and thehippocampi that Pope had hired until they finally came to the Bathroom Pope was hiding in.
+
+But there the betrayal started. Xbomber raised the sword. Ethosein turned around.
+&quot;Prepare to die! Xbomber shouted.
+
+Hahaa! said Ethosein, &quot;But you can&#39;t kill me. Because the only way this sword works, is through the strength of love. 
+
+&quot;Indeed, Ethosein said Xbomber. The strength of the love of the other! And with one fierce sweep, Xbomber stabbed Ethosein. &quot;The love of the other!&quot; Xbomber said.
+
+Because it was true, Ethosein still loved Xbomber very much. And that love now. That was her undooing.
+
+Pope kicked Ethosein once more. And then Ethosein died.
+
+The end.
+
+(a/n Ha! Got you there! Ethosein was stupid for loving Xbomber so much. This is what would happen if their relation was canon. (In case you wonder: IT&quot;S NOT! HAH!)</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696225003498373126" id="message-696225003498373126">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">#2
+
+<div class="pre pre--multiline nohighlight">In the darkness of that night, away from the preying eyes and ears of those who would judge, some strangers slipped by unnoticed.
+
+But they were not strangers, they knew each-other. And they knew each-other much closer then any of their friends did realize.
+They knew each-other both inside and out. But their friends did not know this. Their friends could not know. Their friends should not know this.
+Nor could they know. Because it was night, and thus away from their viscous, judging eyeballs.
+
+&quot;Is it safe?&quot; said the first stranger, who was not a stranger to the other stranger but will remain a stranger to us for the moment.
+
+&quot;I think so. Its dark so none of the others should see us here, even if they are nearby. I think our secret is safe.&quot;</div></span>
+
+                                <span class="chatlog__edited-timestamp" title="05-Apr-20 06:20 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696225141494906930" id="message-696225141494906930">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">&quot;Good. I couldn&#39;t take their judgement right now. My life is too stressful as it is. If it wasn&#39;t for you I don&#39;t know what Id do.&quot;
+&quot;Don&#39;t worry Tep, I will always be here for you - waiting in the dark&quot;
+&quot;Thanks, Mac. I will always be in the dark for you too&quot;
+
+With that the two shadows embraced - an embracement in the night full of passion and romance.
+A long long time ago, far far away,in a magical land, the legendary Nerdcraft was forged....
+
+
+For a moment time seemed to slowed down. Tep wondered why. Tep turned around slowly (due to the time seeming to have slowed down).
+Then the explanation - Mr. Mac was secretly looking at her. Looking at her in that special way.
+Teps soul lit up like a beacon in the night - even though it was day.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696225230179270708" id="message-696225230179270708">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">In all of this. In all of this mess. They had eachother, even if eachother was the only ones that knew.
+Mr. Mac turned away at that moment - Time jumped back to normal as Tep was no longer transfixiated by Mr. Mac.
+Fortunately no one else had noticed.
+Mac sat at the bar. It was empty save for him . Even the owner had already left him alone. Just Mr. Mac and the wiskey in his glass.
+
+Mac&#39;s friends had tried to stop him from going, but after that.... that event... Mr. Mac could no longer stay.
+
+Thinking about it made his eyes well up and to prevent bursting out in crying (as Mr. Mac really, deeply, wanted to) he lifted the wiskey and gulped it down. The burning liquid warmed his throat and heart. It was the only comfort Mac still had in this world.
+
+Mac tried to take his mind of the present. To slip into the past rather then wallow in sorrow...
+ 
+...but it didn&#39;t work. Mac was still just at a bar. Keeping the whisky company.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696225453941325936" id="message-696225453941325936">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Suddenly the door opened behind him. Footsteps. Then a figure sat down next to him and took the bottle.
+&quot;Long time,&quot; spoke Spike and he poored himself a glass as well.
+Before Mac realised it, his rage took over and he lunched at Spike. He ended with punching Spike in the face.
+&quot;I deserved that,&quot; Spike said and took a gulp from his whiskey. 
+&quot;Go away,&quot; Mac said.
+&quot;Not before you hear my offer,&quot; Spike said.
+&quot;I don&#39;t want to hear about it.&quot; Mac spoke. He really didn&#39;t want anything to do with Spike, not after... that. &quot;I don&#39;t want anything to do with you... not after... that.&quot;
+&quot;Dammit, that wasn&#39;t your fault,&quot; Spike, &quot;It was none of our fault.&quot;
+&quot;Yes it was, it was my fault. I could have stopped it.&quot; Mac said, &quot;I SHOULD HAVE STOPPED IT FROM HAPPENING.&quot;</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696225630957862962" id="message-696225630957862962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">&quot;Calm down, Mr. Mac,&quot; Spike, &quot;It wasn&#39;t your fault... that wasn&#39;t your fault.&quot;
+But no matter what Spike said, Mac still felt that that was his fault...
+&quot;I need you,&quot; said Spike. &quot;Just one more time. Just one more job and I&#39;ll leave you alone.&quot;
+Oh lonelyness, that would be nice. No one around. No one to remind Mr. Mac of...that.
+&quot;One more job,&quot; Mac muttered. &quot;Alright. One more job it is.&quot;
+And with that, he gulped down the remaining whiskey. Time for action!
+Some time later in their secret hide-away ;
+
+&quot;I am glade we found a way to survive all that and still be together&quot;
+&quot;Yes, our plan seems to have worked despite all the events&quot;
+&quot;Do you think anyone spotted us?&quot;
+&quot;No&quot;
+&quot;No&quot;
+&quot;Yes&quot;</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696225819990949920" id="message-696225819990949920">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Pricilla emerged from the shadows of the darkness.
+&quot;I know everything&quot; she said. 
+Tep and Mr. Mac gasped. Their secret was finally revealed!
+
+&quot;I dont love Mr. Mac like you do&quot; said Pricilla &quot;but I have always lusted a bit after them. So you see if Mr. Mac spends the night with me - I will never tell anyone.&quot;
+Tep breathed a sigh of relief. That was, after all, a reasonable request. They agreed to the bargain.
+&quot;Phwee...thats something we can go along with&quot; said Mr. Mac relieved.
+Pricilla was happy, and Tep and Mr. Mac thus got to live happily ever after together. With no one but Pricilla and themselves ever knowing.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696225984432701490" id="message-696225984432701490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Mr. Mac and his team went carefully through Vooperia. Mr. Mac looked very sexy, His nipples perked, firm and erect. His leather coat bilbogged in the breeze, extrapolating His sex mess. “It is time”, He said, His voice having a British nationality.
+“Yes, It is time to defeat Silly once and for all.” said Spike . He wore a Black corset covered in roses and a nice hat. His nails were iridescent black and he had a ruby skull ring on.
+
+And then they rushed into the base.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696226617487392861" id="message-696226617487392861">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Tyco roundhouse kicked a mook and then punched one with her glock. It exploded and she held up her middle finger to the explosion.Tyco then used her holy holy magics and summoned a giant bloody cross scythe that glowed black. She sliced everyone but it was okay because she dodged her friend. Blood spurted and went on everything, making a star of david one the walls. A rock bounced off Silly  as  she  entered, LOOKING FUCKING PISSSSED.
+“How dared you! I will kill u!!!!!!111!!!” she shoouted and took out a flame thrower (A/N geddit?)
+The fight was epic. Things burned black. Spike and Mac got distracted and started kissing in the corner  but then one died.
+Mac Ejaculated at the Silly, “LOOK BEHIND YOU!”
+And then he looked and Mac  ripped him in half.
+The end.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696227656961622069" id="message-696227656961622069">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">#3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="696227667908886578" id="message-696227667908886578">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Tep . is a weak, bald and splendid Communist from Vooperia. His life is going nowhere until he meets Mac ., a tall, handsome man with a passion for Socialism.
+
+Tep takes an instant disliking to Mac and the spiteful and brutal ways he learnt during his years in SpookVooper.
+
+However, when a cow tries to stab Tep, Mac springs to the rescue. Tep begins to notices that Mac is actually rather cute at heart.
+
+But, the pressures of Mac&#39;s job as a Murderer leave him blind to Tep&#39;s affections and Tep takes up Killing the rich to try an distract himself.
+
+Finally, when smelly Homeless, Tyco ., threatens to come between them, Mac has to act fast. But will they ever find the sensational love that they deserve?</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-20 12:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="700857205255307355" id="message-700857205255307355">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/581594669574520833/689688476160884917/image0.png">https://cdn.discordapp.com/attachments/581594669574520833/689688476160884917/image0.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-409E6.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-409E6.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-20 01:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="700860191314280528" id="message-700860191314280528">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/581594669574520833/693543497331900416/unknown.png">https://cdn.discordapp.com/attachments/581594669574520833/693543497331900416/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-136BA.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-136BA.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">25-Apr-20 02:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="703414289884512326" id="message-703414289884512326">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/581594669574520833/703117519707308122/unknown.png">https://cdn.discordapp.com/attachments/581594669574520833/703117519707308122/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-9819A.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-9819A.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">26-Apr-20 05:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="703823238018367529" id="message-703823238018367529">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-FB99B.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-FB99B.png" alt="Image attachment" title="Image: image0.png (72.35 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">26-Apr-20 05:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="703831746990309517" id="message-703831746990309517">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-8D20B.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-8D20B.png" alt="Image attachment" title="Image: image0.png (49.07 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">01-May-20 09:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="705882498323710024" id="message-705882498323710024">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/581594669574520833/705660460489375814/unknown.png">https://cdn.discordapp.com/attachments/581594669574520833/705660460489375814/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-64498.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-64498.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">05-May-20 11:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="707354009165365324" id="message-707354009165365324">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-6143E.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-6143E.png" alt="Image attachment" title="Image: unknown.png (94.58 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">23-May-20 12:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="713528526946435093" id="message-713528526946435093">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/581594669574520833/713245703195066398/unknown.png">https://cdn.discordapp.com/attachments/581594669574520833/713245703195066398/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-4860F.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-4860F.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">31-May-20 02:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="716458175326322778" id="message-716458175326322778">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/581594669574520833/716361557847834674/image0.png">https://cdn.discordapp.com/attachments/581594669574520833/716361557847834674/image0.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-FD22B.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-FD22B.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="716458598506692628" id="message-716458598506692628">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://media.discordapp.net/attachments/581594669574520833/716362336688013313/unknown.png">https://media.discordapp.net/attachments/581594669574520833/716362336688013313/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-82BFD.png">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-82BFD.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/a38e97c314a39ed9a4701cf5c40446f6-61B3E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sh00b#1735" data-user-id="402154707981959169" style="color: rgb(26,188,156)">Sh00b</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-20 05:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="720309009747279904" id="message-720309009747279904">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-A92A6.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-A92A6.png" alt="Image attachment" title="Image: image0.png (188.07 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(26,188,156)">Lenin</span>
+
+
+        <span class="chatlog__timestamp">23-Jun-20 02:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="724792583712407593" id="message-724792583712407593">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-B5061.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/unknown-B5061.png" alt="Image attachment" title="Image: unknown.png (21.95 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 06:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="762540777472655370" id="message-762540777472655370">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-F79DE.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-F79DE.png" alt="Image attachment" title="Image: image0.png (55.26 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">30-Oct-20 09:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="771853834859446312" id="message-771853834859446312">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-89B07.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/image0-89B07.png" alt="Image attachment" title="Image: image0.png (89.28 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(46,204,113)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 04:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="778303160945999883" id="message-778303160945999883">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/581594669574520833/746754254965964900/delete_the_server.PNG">https://cdn.discordapp.com/attachments/581594669574520833/746754254965964900/delete_the_server.PNG</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/delete_the_server-B35AE.PNG">
+                                            <img class="chatlog__embed-thumbnail" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/delete_the_server-B35AE.PNG" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128555;" title="&#128555;" src="Ty%20and%20Co.%20Barkives%20-%20archives%20-%20spike-quotes%20%5B581593857729495060%5D.html_Files/1f62b-FAE81.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 80 message(s)</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,2611 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Republic of Voopmont - bill-proposal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/f1c4ef0f2f29c380b86c80bce76c86fa-CCEBD.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Republic of Voopmont</div>
+        <div class="preamble__entry">People&#39;s Council / bill-proposal</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">07-Sep-20 04:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="752548149867839610" id="message-752548149867839610">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I propose that we propose the previously proposed bills</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="752548196856889374" id="message-752548196856889374">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Luckily I have an archive</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="752548339517751327" id="message-752548339517751327">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1JPeBy-PoZnixSGIayploqhiOQD5DIRQdxMitpzdNxXg/edit?usp=drivesdk">https://docs.google.com/document/d/1JPeBy-PoZnixSGIayploqhiOQD5DIRQdxMitpzdNxXg/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1JPeBy-PoZnixSGIayploqhiOQD5DIRQdxMitpzdNxXg/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//001//VCCA] Voopmontian Council Creation Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #1 July 28th, 2020 VOOPMONTIAN COUNCIL CREATION ACT Senator Coolio  Effective Immediately Description: The Voopmontian Council will be a body of citizens from Voopmont that have the ability to create district policies that will be voted on by the coun...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/Dwc79vJr_WRPm9q3vljSRmvs-Gn-xslkgo6HPD3XzS-8A07F">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/Dwc79vJr_WRPm9q3vljSRmvs-Gn-xslkgo6HPD3XzS-8A07F" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="752548427996463104" id="message-752548427996463104">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1otlpmP9COX9PclGR0z-DlGXROwkxhW28ZFDswyPTbbM/edit?usp=drivesdk">https://docs.google.com/document/d/1otlpmP9COX9PclGR0z-DlGXROwkxhW28ZFDswyPTbbM/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1otlpmP9COX9PclGR0z-DlGXROwkxhW28ZFDswyPTbbM/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//002//GPA] Governor Position Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #2 July 27th, 2020 GOVERNOR POSITION ACT Senator Coolio  Effective Immediately Description: This act will create the Governor position in the Voopmontian Government. Law: SEC. 1: Short Name VPT//002//GPA  SEC. 2: Governor’s Job in Government The Gover...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/ItGl3ornzGm3icMZ8VfP_qegsz7Aq1RuGq-L4mSVpt-AB5C5">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/ItGl3ornzGm3icMZ8VfP_qegsz7Aq1RuGq-L4mSVpt-AB5C5" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="752548486301483010" id="message-752548486301483010">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1IBklvu8Dz9K2STUmW71p7HZSdkbNGXeVrId6LAwPc9Q/edit?usp=drivesdk">https://docs.google.com/document/d/1IBklvu8Dz9K2STUmW71p7HZSdkbNGXeVrId6LAwPc9Q/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1IBklvu8Dz9K2STUmW71p7HZSdkbNGXeVrId6LAwPc9Q/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//003//DBTA] District Bill Tag Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #3 26 July 2020 District Bill Tag Act Senator Coolio  Effective immediately Description: An organisation of the referral tags of District Policies and Acts Short Title This Act may be cited as the District Bill Tag Act [VPT//003//DBTA]. Interpretation...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/snUr7mYwMRCvWUVk1AjOGZuxSdoGTo9KqikPgYNz0m-38C1D">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/snUr7mYwMRCvWUVk1AjOGZuxSdoGTo9KqikPgYNz0m-38C1D" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="752548524574376008" id="message-752548524574376008">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1rLMDXvtg7zmAJuSjIS-qxmP3Vsod5A2jjEAidG0KlGA/edit?usp=drivesdk">https://docs.google.com/document/d/1rLMDXvtg7zmAJuSjIS-qxmP3Vsod5A2jjEAidG0KlGA/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1rLMDXvtg7zmAJuSjIS-qxmP3Vsod5A2jjEAidG0KlGA/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//004//CA] Census Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #4 26 July 2020 Census Act Senator Coolio  Effective immediately Description: Creation of a District Public Census Short Title This Act may be cited as the Census Act [VPT//004//CA]. Interpretation   In this Act, unless the context otherwise requires ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/OUTQd_79li3vSJO8zPDJa_JLxXhV9DvOjYySH8TqKW-3E204">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/OUTQd_79li3vSJO8zPDJa_JLxXhV9DvOjYySH8TqKW-3E204" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="752548564563132416" id="message-752548564563132416">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1lLvTkOsMF0mWZY_DAPzEYDeUR-iE1tNcZwaPeG1MThE/edit?usp=drivesdk">https://docs.google.com/document/d/1lLvTkOsMF0mWZY_DAPzEYDeUR-iE1tNcZwaPeG1MThE/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1lLvTkOsMF0mWZY_DAPzEYDeUR-iE1tNcZwaPeG1MThE/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//005//EA] Education Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #5 INSERT DATE OF PROPOSED POLICY HERE Education Act Senator Coolio  Effective immediately Description: An Act relating to education and registration of schools Part I GENERAL Short Title This Act may be cited as the Education Act. Interpretation In t...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/WW30ElwLr7-yTy6smhioB80Fj7sBIl4-1XJ0zi_nhV-B1881">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/WW30ElwLr7-yTy6smhioB80Fj7sBIl4-1XJ0zi_nhV-B1881" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="752548880457007214" id="message-752548880457007214">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/12iHclDXF4j2RoapFSgTbQZTkqXEDvgNxmksrhSz3j_U/edit?usp=drivesdk">https://docs.google.com/document/d/12iHclDXF4j2RoapFSgTbQZTkqXEDvgNxmksrhSz3j_U/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/12iHclDXF4j2RoapFSgTbQZTkqXEDvgNxmksrhSz3j_U/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//006//IIA] Infrastructure Improvement Policy</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #6 July 27, 2020 Infrastructure Improvement Act  Effective Immediately Description: Will improve the Infrastructure of Voopmont Part I GENERAL Short Title This Act may be cited as the Infrastructure Improvement Act [VPT//006//IIA]. Interpretations In ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/fx4dKlsbVYjLp1-81R6XUtsokLgd2xGa1s2pPZxFS_-28B56">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/fx4dKlsbVYjLp1-81R6XUtsokLgd2xGa1s2pPZxFS_-28B56" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/42f1b6a790d0ef9d0b11097dbc025e5b-928F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="big aot fan#6914" data-user-id="725321317519458345" style="">big aot fan</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 12:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="754310007931142144" id="message-754310007931142144">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">that worked right?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="754311363735715890" id="message-754311363735715890">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nope</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/42f1b6a790d0ef9d0b11097dbc025e5b-928F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="big aot fan#6914" data-user-id="725321317519458345" style="">big aot fan</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="754311770470088744" id="message-754311770470088744">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Why</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="754311811851092009" id="message-754311811851092009">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Why did it not work</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="754311816590655490" id="message-754311816590655490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Already explained in private</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/42f1b6a790d0ef9d0b11097dbc025e5b-928F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="big aot fan#6914" data-user-id="725321317519458345" style="">big aot fan</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="754314868269514792" id="message-754314868269514792">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">No</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="754315104983449680" id="message-754315104983449680">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I’ll figure it out eventually</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/42f1b6a790d0ef9d0b11097dbc025e5b-928F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="big aot fan#6914" data-user-id="725321317519458345" style="">big aot fan</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="754321601079541825" id="message-754321601079541825">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hmm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="754321712451158088" id="message-754321712451158088">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Uhh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/42f1b6a790d0ef9d0b11097dbc025e5b-928F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="big aot fan#6914" data-user-id="725321317519458345" style="">big aot fan</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="754323871242387617" id="message-754323871242387617">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">uhm did that work?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="754323903051989034" id="message-754323903051989034">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&#196;h yes very good</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/42f1b6a790d0ef9d0b11097dbc025e5b-928F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="big aot fan#6914" data-user-id="725321317519458345" style="">big aot fan</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="754323975814905896" id="message-754323975814905896">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thank you</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 01:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="754324458637885560" id="message-754324458637885560">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hold on can we rename Small police department, neighborhood police department</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="754324516393582622" id="message-754324516393582622">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And medium police department just Police department</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="754324583976271913" id="message-754324583976271913">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And capital police department Police Headquarters</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="754325799045431408" id="message-754325799045431408">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1VZilnRqJm_pdZxxByTZ9h0HGtES1XedX18BB4sADqiQ/edit?usp=drivesdk">https://docs.google.com/document/d/1VZilnRqJm_pdZxxByTZ9h0HGtES1XedX18BB4sADqiQ/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1VZilnRqJm_pdZxxByTZ9h0HGtES1XedX18BB4sADqiQ/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//007//PFA] Police Funding Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District    Policy #7 September 12th,2020 Police Funding Act Council Member Big AOT Fan Effective: Progressive Description: To further fund the Police Force and to improve its coverage by building more detainment centers and Police stations in the district of Voopmont...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/OkXgvfCtFnXJ0mhCzxihuL4PZ9TT06s3y57Psja5oG-28BB7">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/OkXgvfCtFnXJ0mhCzxihuL4PZ9TT06s3y57Psja5oG-28BB7" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="754325921170980924" id="message-754325921170980924">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Submitted by <span class="mention" title="big aot fan#6914">@big aot fan</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">13-Sep-20 08:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="754597391319040053" id="message-754597391319040053">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1Mpum6DDQX3C-Ryg4Fuh5pNqo6hX9HxzzITZo_BtsQK8/edit?usp=drivesdk">https://docs.google.com/document/d/1Mpum6DDQX3C-Ryg4Fuh5pNqo6hX9HxzzITZo_BtsQK8/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1Mpum6DDQX3C-Ryg4Fuh5pNqo6hX9HxzzITZo_BtsQK8/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//008//BLA] Business Loan Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #8 August 13th, 2020 Business Loan Act Governor Comrade Chris  Effective Immediately Description:It is mandatory for businesses to have 100k credits to be allowed on the stock market according to the MOF. So to encourage more businesses to be created ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/ys9kvU-nfJUjmBOE3qH5zTz5f5Frudo8M_XsMkiZOh-A7769">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/ys9kvU-nfJUjmBOE3qH5zTz5f5Frudo8M_XsMkiZOh-A7769" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_ef157e0c83ea50c313703461a3e8f49b-4727D.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="willywonkapants#0069" data-user-id="535209261446463498" style="color: rgb(0,141,210)">#IcelesiaIndependence | MOF</span>
+
+
+        <span class="chatlog__timestamp">14-Sep-20 03:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="755070985471918120" id="message-755070985471918120">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/193IhrLW_5ESTRH0KfE9KoJWZfvBBd3p2FMYk5l9kWhM/edit?usp=sharing">https://docs.google.com/document/d/193IhrLW_5ESTRH0KfE9KoJWZfvBBd3p2FMYk5l9kWhM/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/193IhrLW_5ESTRH0KfE9KoJWZfvBBd3p2FMYk5l9kWhM/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//009//W&amp;SA]</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #9 September 13th, 2020 Welfare &amp; Subsidies Act Council Member A Human  Effective Immediately Description: This bill will provide welfare for the poor and to provide Subsidies for businesses. Law SEC. 1: Short Name VPT//009//W&amp;SA SEC. 2: Department of...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/Gw8lg3BvCxqkVvkkLgeLnUT0djYH68V1wUdnv6bzVW-69B17">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/Gw8lg3BvCxqkVvkkLgeLnUT0djYH68V1wUdnv6bzVW-69B17" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">14-Sep-20 03:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="755071621491851334" id="message-755071621491851334">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1Sr46vwbhMm_bQviFb29RYD7CI3JpviFI88bwZVcgW3g/edit?usp=sharing">https://docs.google.com/document/d/1Sr46vwbhMm_bQviFb29RYD7CI3JpviFI88bwZVcgW3g/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1Sr46vwbhMm_bQviFb29RYD7CI3JpviFI88bwZVcgW3g/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//010//DCRA] District Council Reformation Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont 9 - 14 - 2020   District Council Reformation Act Created By: Senator Taz    TITLE I - District Council Reformation Act  SECTION I - SHORT NAME DCRA  SECTION II - INFORMATION Summary of this Policy: The DCRA will reform the District Council. It is not an amendment to t...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/kgcRxxg-fAqLYJcLxAX8nszdEeLI12pIL_cOueWyG3-777F9">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/kgcRxxg-fAqLYJcLxAX8nszdEeLI12pIL_cOueWyG3-777F9" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-20 07:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="755851401309192276" id="message-755851401309192276">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1vsvCY5ARFFTkHTc2zvMXd_128Yfc4RHCDiczakz-cqE/edit?usp=sharing">https://docs.google.com/document/d/1vsvCY5ARFFTkHTc2zvMXd_128Yfc4RHCDiczakz-cqE/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1vsvCY5ARFFTkHTc2zvMXd_128Yfc4RHCDiczakz-cqE/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//003-1//DBTAA] District Bill Tag Act Amendment</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont 9 - 15 - 2020   District Bill Tag Act Amendment Created By: Senator Taz    TITLE I - District Bill Tag Act Amendment  SECTION I - SHORT NAME DBTAA  SECTION II - INFORMATION Summary of this Policy: The District Bill Tag Act Amendment shall nullify the previous DBTA and...</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-20 12:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="756118150751453266" id="message-756118150751453266">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/14PunSn5H9Ksi0aP6Yx4G1llZR7MEqTJ_7vzZXtgGu5U/edit?usp=sharing">https://docs.google.com/document/d/14PunSn5H9Ksi0aP6Yx4G1llZR7MEqTJ_7vzZXtgGu5U/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/14PunSn5H9Ksi0aP6Yx4G1llZR7MEqTJ_7vzZXtgGu5U/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//002-1//GPAA] Governor Position Act Amendment</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont 9 - 16 - 2020   Governor Position Act Amendment Created By: Senator Taz    TITLE I - Governor Position Act Amendment  SECTION I - SHORT NAME GPAA  SECTION II - INFORMATION Summary of this Policy: The GPAA does not nullify the entirety of the GPA. Only Secton IV is to ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/S6dLdUG5Lzx3Xezo4dZXwazU96i7qDWWfe-WbBD9_O-AEFAE">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/S6dLdUG5Lzx3Xezo4dZXwazU96i7qDWWfe-WbBD9_O-AEFAE" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-20 04:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="756539112084996209" id="message-756539112084996209">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1A38ayptWLNuKj9ipdGPQkVkfwbJnSD6FBeQBC8cf5EY/edit?usp=sharing">https://docs.google.com/document/d/1A38ayptWLNuKj9ipdGPQkVkfwbJnSD6FBeQBC8cf5EY/edit?usp=sharing</a>
+
+<a href="https://docs.google.com/document/d/16QI7SIDvtHtC4TN762JRySo8OfNz32a3WmrbYSpkgPk/edit?usp=sharing">https://docs.google.com/document/d/16QI7SIDvtHtC4TN762JRySo8OfNz32a3WmrbYSpkgPk/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1A38ayptWLNuKj9ipdGPQkVkfwbJnSD6FBeQBC8cf5EY/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//011//CIA] Citizen Inclusion Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont 9 - 17 - 2020   Citizen Inclusion Act Created By: Senator Taz    TITLE I - Citizen Initiative Act  SECTION I - SHORT NAME CIA  SECTION II - INFORMATION Summary of this Policy: The Citizen Inclusion Act enables Voopmont citizens to write Petitions for government change...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/waWsmgwKKC0Ougu0QzQkYOpcf_mj8k8w8uis7m2jd--E83C5">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/waWsmgwKKC0Ougu0QzQkYOpcf_mj8k8w8uis7m2jd--E83C5" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/16QI7SIDvtHtC4TN762JRySo8OfNz32a3WmrbYSpkgPk/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//010-1//DCRAA] District Council Reformation Act Amendment</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont 9 - 15 - 2020   District Council Reformation Act Amendment Created By: Senator Taz    TITLE I - District Council Reformation Act Amendment  SECTION I - SHORT NAME DCRAA  SECTION II - INFORMATION Summary of this Policy: The DCRAA will NOT nullify the DCRA, but will ins...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/62BXTSUR9si40h2u6Ars47XgMYQoOCqFZQbc8n3qpJ-53956">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/62BXTSUR9si40h2u6Ars47XgMYQoOCqFZQbc8n3qpJ-53956" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="756539217781457031" id="message-756539217781457031">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Voting starts after governor elections</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 02:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="759405761112965162" id="message-759405761112965162">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1mh7sCdPMdRIy7AK1CgWz-e_oDc6ln8fA9kH1HnXTr5g/edit?usp=sharing">https://docs.google.com/document/d/1mh7sCdPMdRIy7AK1CgWz-e_oDc6ln8fA9kH1HnXTr5g/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1mh7sCdPMdRIy7AK1CgWz-e_oDc6ln8fA9kH1HnXTr5g/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//012//WRA] Welfare Repeal Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont 9/26/2020   WELFARE REPEAL ACT Created By: Council Member Synthion    TITLE I - WELFARE REPEAL ACT  SECTION I - SHORT NAME WRA  SECTION II - INFORMATION Summary of this Policy: This policy aims to remove Welfare from Voopmont as it is unnecessary and not needed.     W...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/LgD8Esrwp34RzCWZPI9_uaqsKaXmgreHj8woutt0I6-636A3">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/LgD8Esrwp34RzCWZPI9_uaqsKaXmgreHj8woutt0I6-636A3" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 11:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="759546671910092862" id="message-759546671910092862">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Coolio youre not on the council and cant submit bills but i will propose this on your behalf</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 11:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="759547108645928970" id="message-759547108645928970">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">erm dude</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="759547117202833441" id="message-759547117202833441">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">it&#39;s my bill</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_ef157e0c83ea50c313703461a3e8f49b-4727D.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="willywonkapants#0069" data-user-id="535209261446463498" style="color: rgb(0,141,210)">#IcelesiaIndependence | MOF</span>
+
+
+        <span class="chatlog__timestamp">27-Sep-20 01:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="759567414463299667" id="message-759567414463299667">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">But your not a council member yet</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-20 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="760506663840383036" id="message-760506663840383036">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Create a new document and edit with others at the same time -- from your computer, phone or tablet. Get stuff done with or without an internet connection. Use Docs to edit Word files. Free from Google.</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128563;" title="&#128563;" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/1f633-F7868.png">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(134,142,146)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Sep-20 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="760506664767717396" id="message-760506664767717396">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GG <span class="mention" title="Comrade Chris#9088">@everyone</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-20 03:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="760506692143808553" id="message-760506692143808553">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">STUPID COPY</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="760506897962237982" id="message-760506897962237982">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1qGb7lh5OYykqMkcby50pNaTbWuxJ_iSw6dpa-H9_ak8/edit?usp=drivesdk">https://docs.google.com/document/d/1qGb7lh5OYykqMkcby50pNaTbWuxJ_iSw6dpa-H9_ak8/edit?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1qGb7lh5OYykqMkcby50pNaTbWuxJ_iSw6dpa-H9_ak8/edit?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">[VPT//013//CDA] Council Dissolution Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont District  Policy #13 29 SEPTEMBER 2020 Council Dissolution Act Senator Taz  Effective (immediately, or specific date) Description: This act dissolves the Council and allows all Voopmontian residents the rights to vote and submit bills freely  Short Title This Act may ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/6bfzhP3vDUI3gY3IQ1S-cx8VfWPL6OL70nKawiiTU8-31F16">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/6bfzhP3vDUI3gY3IQ1S-cx8VfWPL6OL70nKawiiTU8-31F16" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">01-Oct-20 01:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="761207585570422804" id="message-761207585570422804">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Proposed by Synthion</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="761207851980423208" id="message-761207851980423208">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ohhhhh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="761207877544706098" id="message-761207877544706098">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">But then</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="761207910524125185" id="message-761207910524125185">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Just vote the system previously?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="761207917289537556" id="message-761207917289537556">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Idk</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">01-Oct-20 01:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="761207940187029504" id="message-761207940187029504">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">that system has been repealed</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">01-Oct-20 01:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="761208018385240094" id="message-761208018385240094">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oh so you want to let Taz decide directly</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="761208029663723560" id="message-761208029663723560">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I see ok</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">01-Oct-20 01:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="761208502135160892" id="message-761208502135160892">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">well there&#39;s no other system atm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-20 01:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="761389189505089556" id="message-761389189505089556">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1SAMuHnrItF3R5EZqc2I_5zRIx--zAoTvSdoP1759K6o/edit?usp=sharing">https://docs.google.com/document/d/1SAMuHnrItF3R5EZqc2I_5zRIx--zAoTvSdoP1759K6o/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1SAMuHnrItF3R5EZqc2I_5zRIx--zAoTvSdoP1759K6o/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//013//PVA] People&#39;s Voting Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont 10/1/2020   People’s Voting Act Created By: Synthion     TITLE I - PEOPLE’S VOTING ACT  SECTION I - SHORT NAME PVA  SECTION II - INFORMATION Summary of this Policy: The People’s Voting Act will specify what exactly the people of Voopmont will be allowed to propose and...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/HBlLlYS5CtzPZaQ0MrT72-dTZwU7lgczdWHO-vuRLu-60F65">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/HBlLlYS5CtzPZaQ0MrT72-dTZwU7lgczdWHO-vuRLu-60F65" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="threeeyedthink" title="threeeyedthink" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/463767300705746944-CEC37.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128533;" title="&#128533;" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/1f615-C0BE7.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">28-Oct-20 01:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="771001176199004200" id="message-771001176199004200">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1zsCit_p5rCH91OC5DPbIYyMvQfqoPsjRyr-buSK59g4/edit?usp=sharing">https://docs.google.com/document/d/1zsCit_p5rCH91OC5DPbIYyMvQfqoPsjRyr-buSK59g4/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1zsCit_p5rCH91OC5DPbIYyMvQfqoPsjRyr-buSK59g4/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//014//PFAR] Police Funding Act Revision</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont October 26, 2020   Police Funding Act Revision Created By: Governor Taz    TITLE I - Police Funding Act Revision  SECTION I - SHORT NAME PFAR  SECTION II - INFORMATION Summary of this Policy:  Revamps the entirety of the Police Funding Act to ensure the Voopmont P.D. ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/OSlIhcNuKlYEZeZAeuvMyHa99NmnWxHSUuW2M3XF1N-6E002">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/OSlIhcNuKlYEZeZAeuvMyHa99NmnWxHSUuW2M3XF1N-6E002" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="771001184911622164" id="message-771001184911622164">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">poggers</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">28-Oct-20 01:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="771001895485440030" id="message-771001895485440030">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="Pog" title="Pog" src="https://cdn.discordapp.com/emojis/754530403666231317.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">29-Oct-20 03:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="771396347873067038" id="message-771396347873067038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>this is a serious bill i swear</em>
+<a href="https://docs.google.com/document/d/1vISgQjOIesvjX4YyHHZeWIM-Qk6nsaZXIajQhBy3sgI/edit?usp=sharing">https://docs.google.com/document/d/1vISgQjOIesvjX4YyHHZeWIM-Qk6nsaZXIajQhBy3sgI/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1vISgQjOIesvjX4YyHHZeWIM-Qk6nsaZXIajQhBy3sgI/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//015//DDA] Doomslayer Definition Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont October 29, 2020   Doomslayer Recognition Act Created By: Governor Taz    TITLE I - Doomslayer Definition Act  SECTION I - SHORT NAME DDA  SECTION II - INFORMATION Summary of this Policy:  Defines the Voopmont Doomslayer as a tactic of counterterrorism and a defense s...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/zwWFev1uyeSQGV5YSucB-RUx5eWF5rwIzv4CFv8pw3-88056">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/zwWFev1uyeSQGV5YSucB-RUx5eWF5rwIzv4CFv8pw3-88056" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_ef157e0c83ea50c313703461a3e8f49b-4727D.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="willywonkapants#0069" data-user-id="535209261446463498" style="color: rgb(0,141,210)">#IcelesiaIndependence | MOF</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 04:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="777940079909797949" id="message-777940079909797949">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/14cfQUzDd4T6u1dUA4BPA6AoOJ4pUo2nRh8jQnOjD4Ak/edit?usp=sharing">https://docs.google.com/document/d/14cfQUzDd4T6u1dUA4BPA6AoOJ4pUo2nRh8jQnOjD4Ak/edit?usp=sharing</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Nov-20 04:56 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/14cfQUzDd4T6u1dUA4BPA6AoOJ4pUo2nRh8jQnOjD4Ak/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">[VPT//016//IAA] Icelesia Autonomy Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Voopmont November 16, 2020   Icelesia Autonomy Acts Created By: willywonkapants    TITLE I - Icelesia Automnomy Act  SECTION I - SHORT NAME IAA  SECTION II - INFORMATION Summary of this Policy:  Increases the amount of autonomy Icelesia has from Voopmont by establishing a desi...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/CG8bqKyLAZ_hLNsp9b8aXSDOn83c1ZCdi5CmykcQvN-06A32">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/CG8bqKyLAZ_hLNsp9b8aXSDOn83c1ZCdi5CmykcQvN-06A32" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128064;" title="&#128064;" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/1f440-51DEA.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 10:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="778017434040008754" id="message-778017434040008754">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Timezone Change Vote</strong>
+Change the Voopmont Timezone to -6. Landing Cove&#39;s timezone is -6, and we are right on top of it, so it makes sense for us to share their timezone.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/realmap-C13A5.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/realmap-C13A5.png" alt="Image attachment" title="Image: realmap.png (107.27 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 02:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="778084008030240808" id="message-778084008030240808">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah it makes 0 sense we have different times one when we’re right above the</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(134,142,146)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Nov-20 02:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="778084008768307211" id="message-778084008768307211">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GG <span class="mention" title="TheTazMann#5087">@Taz | Doomslayer</span>, you just advanced to level 13!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 02:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="778084018574983169" id="message-778084018574983169">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Then</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778084031219630140" id="message-778084031219630140">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">They</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778084043764924426" id="message-778084043764924426">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Them</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 06:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="784312227384655882" id="message-784312227384655882">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Motion to activate the Doomslayer to send in Medievala.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20People%27s%20Council%20-%20bill-proposal%20%5B751187212762218599%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 02:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="784426277943115827" id="message-784426277943115827">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Motion for the Senator and Governor to contact the VSS regarding my existence. I feel that in the event I am deployed to Medievala, working with the VSS will increase efficiency. Not to mention, working with the VSS will help me protect citizens on a national scale.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 64 message(s)</div>
+</div>
+
+</body>
+
+</html>

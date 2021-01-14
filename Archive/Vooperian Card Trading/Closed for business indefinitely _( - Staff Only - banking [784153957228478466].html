@@ -1,0 +1,3952 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Closed for business indefinitely :( - banking</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8017998b0895807a0daf72b41e3a8dc0-D2DD4.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Closed for business indefinitely :(</div>
+        <div class="preamble__entry">Staff Only / banking</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="784154613900902441" id="message-784154613900902441">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="">@Accountants</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784154702144208987" id="message-784154702144208987">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hm works</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784155043996762173" id="message-784155043996762173">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Alright, well it&#39;s time to get this banking shit started</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="784155697180704808" id="message-784155697180704808">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">m</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="784155806559371285" id="message-784155806559371285">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yes, not loan to people</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784155813672517632" id="message-784155813672517632">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">go do it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784155822024163328" id="message-784155822024163328">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">now reee</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="784155900453453885" id="message-784155900453453885">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what is my job</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156145211277352" id="message-784156145211277352">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">To loan out moneys</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784156198584188928" id="message-784156198584188928">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">at 5% for 15 days</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/5312f85248a11fa643e95ea3700955a4-04AF6.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="mellow#0666" data-user-id="230827127971381248" style="color: rgb(0,5,255)">mellow</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156229073240135" id="message-784156229073240135">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i can loan out 25k don <img class="emoji " alt="DPFlurshed" title="DPFlurshed" src="https://cdn.discordapp.com/emojis/719325569170407525.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156246848307281" id="message-784156246848307281">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784156275591741511" id="message-784156275591741511">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">true true</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156282143768656" id="message-784156282143768656">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">with my own money?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156365727465492" id="message-784156365727465492">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nah, you message me and I send you the money and you send to the person</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156395796037723" id="message-784156395796037723">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">mmm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/5312f85248a11fa643e95ea3700955a4-04AF6.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="mellow#0666" style="color: rgb(0,5,255)">mellow</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;784156229073240135&#39;)">
+                    <span class="chatlog__reference-content">
+i can loan out 25k don <img class="emoji " alt="DPFlurshed" title="DPFlurshed" src="https://cdn.discordapp.com/emojis/719325569170407525.png">                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156513480212531" id="message-784156513480212531">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I miss you</em> <img class="emoji " alt="😢" title="😢" src="https://twemoji.maxcdn.com/2/72x72/1f622.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Dec-20 08:38 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784156598036856843" id="message-784156598036856843">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Olirules10#3047">@Olirules10</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784156664616976435" id="message-784156664616976435">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you also write it down here and I&#39;ll keep a record</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784156705909899324" id="message-784156705909899324">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you get 10% of the profits from the loan</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784156736563052585" id="message-784156736563052585">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so push people to get big loans</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156867676864522" id="message-784156867676864522">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ah yep ok</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156887049437215" id="message-784156887049437215">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yees</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156891952447518" id="message-784156891952447518">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Sounds like a good deal ngl</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="784156941030391820" id="message-784156941030391820">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">it is, I can also check peoples credit</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="784157033229320233" id="message-784157033229320233">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah that’s good</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="784157064984920115" id="message-784157064984920115">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">this is urs oli lmao</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-C7BF8.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-C7BF8.png" alt="Image attachment" title="Image: unknown.png (1.36 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="784157067853692949" id="message-784157067853692949">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We can undercut VTech loans</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784157128758919238" id="message-784157128758919238">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yay it’s over 800</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="784157153673478216" id="message-784157153673478216">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah, I plan to use their loans to fund ours, plus the central bank</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="784157181175398491" id="message-784157181175398491">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Do you have a spreadsheet then?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="784157219645816872" id="message-784157219645816872">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I do not want to make one tbh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784157255846723644" id="message-784157255846723644">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">just record it here and I&#39;ll pin it.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 08:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="784157318139871293" id="message-784157318139871293">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="784165539576545330" id="message-784165539576545330">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-33175.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-33175.png" alt="Image attachment" title="Image: unknown.png (66.98 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784165632350486590" id="message-784165632350486590">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Syntholion#3151">@Syntholion</span> <span class="mention" title="Olirules10#3047">@Olirules10</span> here&#39;s your first lead</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="784165678834778183" id="message-784165678834778183">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ah nice</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784166122890068000" id="message-784166122890068000">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Also, is it 5% interest per month</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="784166169136857109" id="message-784166169136857109">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="784166183145570304" id="message-784166183145570304">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">So a 4 month loan would have 20% interest on</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784166193468014622" id="message-784166193468014622">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Got it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="784166210098429962" id="message-784166210098429962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wait what</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784166246668828683" id="message-784166246668828683">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we&#39;re only doing 15 days at 5%</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="784166777243566120" id="message-784166777243566120">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784166788131848212" id="message-784166788131848212">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oops</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784166800635985960" id="message-784166800635985960">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Um</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="784166806964273211" id="message-784166806964273211">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">this is his credit score</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-47E8D.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-47E8D.png" alt="Image attachment" title="Image: unknown.png (1.12 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784166829518094336" id="message-784166829518094336">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what did you offer him?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="784166902812901407" id="message-784166902812901407">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I have offered him 10k for 4 months and to pay back 12.5k at the end</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="784166981800296458" id="message-784166981800296458">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh, nah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167033604538408" id="message-784167033604538408">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Should I raise it?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167064897191936" id="message-784167064897191936">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">offer him 10k for 15 days</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167078822805565" id="message-784167078822805565">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167090512461874" id="message-784167090512461874">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">at 5%</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784167153074700288" id="message-784167153074700288">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">unless you can get him to take more</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784167199191072829" id="message-784167199191072829">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and if he wants more lower it to 4% at 30k</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167514757660682" id="message-784167514757660682">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I’ve got him at 40% interest for 4 months</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784167543594024971" id="message-784167543594024971">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Which seems good to me</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167587214655519" id="message-784167587214655519">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what???</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784167628964888580" id="message-784167628964888580">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">only 15 days lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167676217131018" id="message-784167676217131018">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oh, I thought it could go for longer</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167743057690714" id="message-784167743057690714">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nah, we&#39;re doing 15 day intervals for now</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167758858289192" id="message-784167758858289192">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="🤦" title="🤦" src="https://twemoji.maxcdn.com/2/72x72/1f926.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167790700789810" id="message-784167790700789810">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">because we&#39;re targeting poor people.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="784167857868242985" id="message-784167857868242985">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/image0-BE5D5.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/image0-BE5D5.png" alt="Image attachment" title="Image: image0.png (608.01 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784167948377653258" id="message-784167948377653258">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Um, hmm what should I say</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784168037133320232" id="message-784168037133320232">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Maybe just block him and let sytholion deal with him</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="784168054094561310" id="message-784168054094561310">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784168073556131840" id="message-784168073556131840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;ll speak to him</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="784168119295016991" id="message-784168119295016991">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ok thanks</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784168140002689106" id="message-784168140002689106">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I messed up</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784168172794150942" id="message-784168172794150942">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">But I know what to sell now</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="784168466725994516" id="message-784168466725994516">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah, it&#39;s all good.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="784169352731164744" id="message-784169352731164744">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="donia#9423">@daddy</span> ?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784169392799219722" id="message-784169392799219722">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what&#39;s up? i got pinged</span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Dec-20 09:29 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="784169427545227274" id="message-784169427545227274">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Loans, I am giving them out.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784169469441212486" id="message-784169469441212486">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">FInd people to give loans to</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="784169482670440459" id="message-784169482670440459">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">alright, you told me i had a lead?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784169548722077696" id="message-784169548722077696">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">did you give him to another banker</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="784169566326095913" id="message-784169566326095913">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Well, I&#39;m handling it rn</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="784169577772875776" id="message-784169577772875776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">k</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="784169639176699946" id="message-784169639176699946">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">but if you want to seek out people to give loans too at 4-5% for 15 days</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784169662581440552" id="message-784169662581440552">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">up to 30k per person</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784169676396953621" id="message-784169676396953621">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lemme know</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="784169753673334804" id="message-784169753673334804">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i&#39;d love to seek out people</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784169808010149888" id="message-784169808010149888">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">but like jacob said, we might not be able to get a lot of people tbh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784169848761876490" id="message-784169848761876490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">the banking industry already peaked</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="784170029243432980" id="message-784170029243432980">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Well, yeah. Which is why I will be lending to people to invest in the market</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="784170164668596305" id="message-784170164668596305">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">okay nice</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784170186991337532" id="message-784170186991337532">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so we&#39;re basically just seeking out new people?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="784170267085373490" id="message-784170267085373490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784170390427009034" id="message-784170390427009034">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">new people are the blood of the economy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784170448630972466" id="message-784170448630972466">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so seek them out</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784170582773465159" id="message-784170582773465159">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Also, if any loans go bad and we have to sue. No biggie I will handle that</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="784174696631369778" id="message-784174696631369778">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah, loan lawsuits are quick usually</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 09:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="784175020246564895" id="message-784175020246564895">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 10:54 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="784190777663160340" id="message-784190777663160340">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-E1AAE.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-E1AAE.png" alt="Image attachment" title="Image: unknown.png (111.11 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="donia#9423" style="color: rgb(0,5,255)">daddy</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;784190777663160340&#39;)">
+                    <span class="chatlog__reference-content">
+                            <em>Click to see original message</em>
+                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 10:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="784190791307886612" id="message-784190791307886612">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="784191023735242782" id="message-784191023735242782">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-E11AC.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-E11AC.png" alt="Image attachment" title="Image: unknown.png (79.7 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="donia#9423" style="color: rgb(0,5,255)">daddy</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;784191023735242782&#39;)">
+                    <span class="chatlog__reference-content">
+                            <em>Click to see original message</em>
+                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 10:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="784191036171485184" id="message-784191036171485184">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 11:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="784192947927121950" id="message-784192947927121950">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(btw, you can loan to eachother to participate in the market)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 02:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="784611920829349929" id="message-784611920829349929">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">20k loaned to coolio</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 09:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="784705995220713505" id="message-784705995220713505">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Good</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/5312f85248a11fa643e95ea3700955a4-04AF6.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="mellow#0666" data-user-id="230827127971381248" style="color: rgb(0,5,255)">mellow</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 06:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="784845111829725245" id="message-784845111829725245">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">its funny how dons banking procedures are the same as old school POT</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 07:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="784861562833207307" id="message-784861562833207307">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah, I love them <span class="mention" title="mellow#0666">@mellow</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 07:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="784865294744420352" id="message-784865294744420352">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Also, most banks are doing an &quot;automatic loaning system,&quot; and I&#39;m just going to totally exploit them</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 07:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="784869753189695508" id="message-784869753189695508">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>legality has left the chat</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 07:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="784870167834263554" id="message-784870167834263554">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">well, kind of</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784870336184320010" id="message-784870336184320010">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">It&#39;s legal because I&#39;m going to be using the lowest interest rate bank and using it to loan out at higher interest rate while also getting loans from the CB</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784870374981763153" id="message-784870374981763153">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">legal, and competitive.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-20 06:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="787026609831280740" id="message-787026609831280740">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/Screenshot_2020-12-11-12-39-08-407-782D7.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/Screenshot_2020-12-11-12-39-08-407-782D7.jpg" alt="Image attachment" title="Image: Screenshot_2020-12-11-12-39-08-407.jpg (236.28 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="787427729137205288" id="message-787427729137205288">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(20, 255, 0); background-color: rgba(20, 255, 0, 0.1);">@Bank-workers</span> has anyone made any loans?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="787427771637825546" id="message-787427771637825546">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;ve been to busy with other things</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 09:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="787427869995302922" id="message-787427869995302922">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">No, I’ve have approached and dmed 5 or 6 people</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787427956234518579" id="message-787427956234518579">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">2 already had a loan and the others didn’t in the end</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787428066502377502" id="message-787428066502377502">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">But if nerdcraft releases soon, lots of people will want loans</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 09:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="787429032530280489" id="message-787429032530280489">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">all g</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787429108094468146" id="message-787429108094468146">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">well, nerdcraft won&#39;t be a thing</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 09:56 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="787437633487765524" id="message-787437633487765524">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-3251C.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-3251C.png" alt="Image attachment" title="Image: unknown.png (69.86 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787437669050875905" id="message-787437669050875905">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;m wheeling and dealing these loans LOL</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787437906947604480" id="message-787437906947604480">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">2000 Weekly from him for 8 weeks</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="787439613790781471" id="message-787439613790781471">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hm. How do I get more people to do loans</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">13-Dec-20 12:36 AM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="787477994381377565" id="message-787477994381377565">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-C5736.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-C5736.png" alt="Image attachment" title="Image: unknown.png (130.82 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="donia#9423" style="color: rgb(0,5,255)">daddy</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;787477994381377565&#39;)">
+                    <span class="chatlog__reference-content">
+                            <em>Click to see original message</em>
+                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 06:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="789204458662920252" id="message-789204458662920252">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="donia#9423" style="color: rgb(0,5,255)">daddy</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;787437633487765524&#39;)">
+                    <span class="chatlog__reference-content">
+                            <em>Click to see original message</em>
+                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 06:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="789204474043826198" id="message-789204474043826198">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="donia#9423" style="color: rgb(0,5,255)">daddy</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;787026609831280740&#39;)">
+                    <span class="chatlog__reference-content">
+                            <em>Click to see original message</em>
+                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 06:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="789204491647057930" id="message-789204491647057930">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 07:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219538927353871" id="message-789219538927353871">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Love it when people change their names, so I have to track them down.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="789219548700213308" id="message-789219548700213308">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-E7E36.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/unknown-E7E36.png" alt="Image attachment" title="Image: unknown.png (36.27 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="789219572443643921" id="message-789219572443643921">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">YTGB gaming^</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219637954478120" id="message-789219637954478120">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">should just store their discord id</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219694103232543" id="message-789219694103232543">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">True, I should make a doc for all this shit</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219695059795988" id="message-789219695059795988">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">/bal 290616424953544704</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/12e00a90ceabee73edbd00f35745328f-162CB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Merope Mastermind#1808" data-user-id="757624552762376263" style="">Merope Mastermind</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Dec-20 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219701438808064" id="message-789219701438808064">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(1,25,54,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">donia&#39;s Balance</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field ">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">&#162;17.3429503070</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219754698604564" id="message-789219754698604564">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">/bal 694277296693182535</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/12e00a90ceabee73edbd00f35745328f-162CB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Merope Mastermind#1808" data-user-id="757624552762376263" style="">Merope Mastermind</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Dec-20 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219760285679617" id="message-789219760285679617">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(1,25,54,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Mr_Destoyer&#39;s Balance</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field ">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">&#162;591.3340885882</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219764165017601" id="message-789219764165017601">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">/bal 694277296693182535</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/12e00a90ceabee73edbd00f35745328f-162CB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Merope Mastermind#1808" data-user-id="757624552762376263" style="">Merope Mastermind</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Dec-20 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219767298424833" id="message-789219767298424833">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(1,25,54,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Mr_Destoyer&#39;s Balance</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field ">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">&#162;591.3340885882</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 07:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="789219921195434045" id="message-789219921195434045">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">HMM</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="789219973280694294" id="message-789219973280694294">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Maybe I can make smth real quick to track all of this</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">17-Dec-20 08:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="789222731245813780" id="message-789222731245813780">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wait</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="789223378882920470" id="message-789223378882920470">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hmm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-21 05:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="794620391955496990" id="message-794620391955496990">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hey guys i want to wish you all a happy new year. Discord is full of copypasted new years messages, that people don&#39;t even read and just forward to other servers. I don&#39;t like that. I like to write what i deeply wish and what comes from my heart. Our friendships, from the most deep ones to the most virtual ones are very important and will never be represented by a simple message copied from elsewhere. This being said I would like to thank all of you. You are the best hockey team i&#39;ve ever played with. A big hug, Matt</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-21 11:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="794702553383174164" id="message-794702553383174164">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="jambon123456789#6669">@Jambon</span> look in pins</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/91b9c7a4dc101832d756bc535337bd1c-10622.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="jambon123456789#6669" data-user-id="388791068382199811" style="color: rgb(52,152,219)">Jambon</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-21 11:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="794708302620917773" id="message-794708302620917773">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/spreadsheets/d/1YX9ivzPFZxSwALIeeBBSvZaFRojN9lC4GJT27PPlnp8/edit?usp=sharing">https://docs.google.com/spreadsheets/d/1YX9ivzPFZxSwALIeeBBSvZaFRojN9lC4GJT27PPlnp8/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/spreadsheets/d/1YX9ivzPFZxSwALIeeBBSvZaFRojN9lC4GJT27PPlnp8/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">Conglomerate Statistics</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Not Trash Document
+
+Blood Corp
+Date:,01/01/2021
+All Data as of the 1st of The Month or closest point
+Originally Made By jambon123456789#6669
+Assets,November 2020,December 2020,January 2021
+Current Assets
+Cash,440000,458708.07,458677.32
+Other Stock Ownership,314,720,314,720,314,720
+Investments,0,0...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/Qfmx9xt2ZnmV2gY6cCKUSRP41Szg1eXDL6FIADnVSJ-020E0">
+                                            <img class="chatlog__embed-thumbnail" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/Qfmx9xt2ZnmV2gY6cCKUSRP41Szg1eXDL6FIADnVSJ-020E0" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="794708315061354538" id="message-794708315061354538">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Line 61 and below</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-21 11:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="794708536852348988" id="message-794708536852348988">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ahh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/91b9c7a4dc101832d756bc535337bd1c-10622.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="jambon123456789#6669" data-user-id="388791068382199811" style="color: rgb(52,152,219)">Jambon</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-21 11:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="794709133260750848" id="message-794709133260750848">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">mind me announcing it?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="794709170191335466" id="message-794709170191335466">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">As we have 30 minutes untill Jacob kills us all</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Staff%20Only%20-%20banking%20%5B784153957228478466%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-21 11:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="794709751413211148" id="message-794709751413211148">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">go ahead</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 149 message(s)</div>
+</div>
+
+</body>
+
+</html>

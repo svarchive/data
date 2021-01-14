@@ -1,0 +1,4058 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Closed for business indefinitely :( - trading-6</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/8017998b0895807a0daf72b41e3a8dc0-D2DD4.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Closed for business indefinitely :(</div>
+        <div class="preamble__entry">Archived / trading-6</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-20 07:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="776898945649213461" id="message-776898945649213461">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">no</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(153,45,34)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-20 07:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="776898950078529546" id="message-776898950078529546">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">stop</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="777003628913360946" id="message-777003628913360946">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-shop</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 02:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="777003634260967424" id="message-777003634260967424">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Available Packs</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">10 Card</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">A regular pack with 10 cards of any type
+Price : 5000 tokens
+Shop ID : 10card</div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">1 Card</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">A regular pack with 1 card of any type
+Price : 700 tokens
+Shop ID : 1card</div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">3 Card</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">A regular pack with 3 cards of any type
+Price : 2000 tokens
+Shop ID : 3card</div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">5 Card</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">A regular pack with 5 cards of any type
+Price : 3000 tokens
+Shop ID : 5card</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="777003634713034793" id="message-777003634713034793">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">E</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="777003998816632854" id="message-777003998816632854">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-buypack 1card <span class="mention" title="Allegate#2876">@Allegate</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 02:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004000809713685" id="message-777004000809713685">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(255,0,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Error</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Pack unavailable</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004053502099476" id="message-777004053502099476">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">just without the @</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004082547392542" id="message-777004082547392542">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ok</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004090663895091" id="message-777004090663895091">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I got tokens</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004094266015744" id="message-777004094266015744">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yees</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004120603099176" id="message-777004120603099176">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">do ya</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004145261150248" id="message-777004145261150248">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">do -bal</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004160519766067" id="message-777004160519766067">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-bal</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 02:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004163975741489" id="message-777004163975741489">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">donia&#39;s account</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">20083 tokens</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004167835287583" id="message-777004167835287583">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-bal</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 02:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004171433476116" id="message-777004171433476116">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Allegate&#39;s account</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">4875 tokens</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004517988106260" id="message-777004517988106260">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Wha</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004529651548191" id="message-777004529651548191">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I paid 5k</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004539344715778" id="message-777004539344715778">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Heccin taxes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004544256901170" id="message-777004544256901170">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">taxes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004552431206451" id="message-777004552431206451">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeeep</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004584605450302" id="message-777004584605450302">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I want exactly 5k tokens</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004612921851904" id="message-777004612921851904">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">get a senator to lower taxes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004644571807744" id="message-777004644571807744">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">125 is 1/8 of 1000</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004648925102101" id="message-777004648925102101">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">So</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777004656844079115" id="message-777004656844079115">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Taxes are</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004661444968458" id="message-777004661444968458">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we can&#39;t pay for that for everyone lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 02:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="777004696497815553" id="message-777004696497815553">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">1/40</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="777005083820163103" id="message-777005083820163103">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeeep</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="777005858356985856" id="message-777005858356985856">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-bal</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 03:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="777005861661835276" id="message-777005861661835276">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Allegate&#39;s account</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">5000 tokens</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="777005873704730665" id="message-777005873704730665">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Math <img class="emoji " alt="😎" title="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="777005920843857922" id="message-777005920843857922">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006085584191508" id="message-777006085584191508">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-buypack 10card</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 03:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006087886471178" id="message-777006087886471178">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(0,255,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Success</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Successfuly bought pack 10 Card</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006120807694366" id="message-777006120807694366">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ok hmm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777006126080065548" id="message-777006126080065548">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">What now</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777006176956842034" id="message-777006176956842034">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006232380375070" id="message-777006232380375070">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-openpack</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006241876672532" id="message-777006241876672532">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-openpack 10card</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 03:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006246683344896" id="message-777006246683344896">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(0,255,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">10 Card</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">You opened the following cards!</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">ye ol&#39;guynext2u</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 18
+Rarity : Gold
+Collection : VCT Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776293486302855168/GuyVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">dab</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 31
+Rarity : Green
+Collection : SV Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776530880662339624/dabVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">All_names_were_took</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 30
+Rarity : Green
+Collection : SV Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776527919056814120/All_names_were_tookVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Jam_Bam_52</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 29
+Rarity : Green
+Collection : SV Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776523692385370162/Jam_Bam_52VCard2.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">xbomber125</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 25
+Rarity : Green
+Collection : SV Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776504447270125568/xbomber125VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Falight</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 20
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776310933449474068/FalightVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">madman</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 16
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776277844396867624/madmanVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Est.Chicago</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 17
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776287801531564032/Est.ChicagoVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">MNoor1321</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 23
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776319996917055508/MNoor1321VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">GavinCraft1</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 24
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776456860165210112/Gavincraft1VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006299392507925" id="message-777006299392507925">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Gold!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777006580565540866" id="message-777006580565540866">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Mfw I get 4 Sv staff</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006585889161246" id="message-777006585889161246">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oooooo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777006592532545537" id="message-777006592532545537">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">fancy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="777006681301319681" id="message-777006681301319681">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">gren</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="777009607011729419" id="message-777009607011729419">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ok I am hereby claiming this channel</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="777009665543897108" id="message-777009665543897108">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">LOL</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777009671734689812" id="message-777009671734689812">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">alright</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="777051788826247171" id="message-777051788826247171">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-bal</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="777051794304008223" id="message-777051794304008223">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Allegate&#39;s account</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">5000 tokens</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="777051803917221900" id="message-777051803917221900">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="😎" title="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777051842034925578" id="message-777051842034925578">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">This is what I took precalculus for apparently</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="777051904408289362" id="message-777051904408289362">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">just use a calculator stupid</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="777051916609388554" id="message-777051916609388554">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-buypack 10card</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="777051918966980630" id="message-777051918966980630">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(0,255,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Success</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Successfuly bought pack 10 Card</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="777051926948610049" id="message-777051926948610049">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="777051986670518302" id="message-777051986670518302">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Can&#39;t do the formula if you don&#39;t know how</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052006228819968" id="message-777052006228819968">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-openpack 10card</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 06:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052011014389761" id="message-777052011014389761">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(0,255,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">10 Card</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">You opened the following cards!</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">SillyPossibility</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 26
+Rarity : Green
+Collection : SV Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776504504048812102/SillyPossibilityVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Jam_Bam_52</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 29
+Rarity : Green
+Collection : SV Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776523692385370162/Jam_Bam_52VCard2.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Cabostein</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 33
+Rarity : Green
+Collection : SV Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776535651536470056/CabosteinVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Zukor</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 32
+Rarity : Green
+Collection : SV Staff
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776533640665759794/ZukorVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Sol</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 19
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776302782923145216/SolVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">GavinCraft1</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 24
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776456860165210112/Gavincraft1VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">MNoor1321</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 23
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776319996917055508/MNoor1321VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Arms</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 22
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776317172963475456/armsVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">madman</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 16
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776277844396867624/madmanVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">GavinCraft1</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 24
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776456860165210112/Gavincraft1VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052040236498954" id="message-777052040236498954">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">AYYY I GOT SILLY</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052105663578133" id="message-777052105663578133">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">A lot of whites there</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052110922973224" id="message-777052110922973224">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">just google the formula if you dont know <img class="emoji " alt="🤔" title="🤔" src="https://twemoji.maxcdn.com/2/72x72/1f914.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052123665661963" id="message-777052123665661963">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ew</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052196109025290" id="message-777052196109025290">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes the good cards are gone</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052226090827806" id="message-777052226090827806">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sad</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052242289229896" id="message-777052242289229896">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">get me the melon set smh smh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052316318171157" id="message-777052316318171157">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ok so there are no duplicate cards right?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052325859950612" id="message-777052325859950612">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Or are there</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052338979733524" id="message-777052338979733524">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-inv</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052373901639690" id="message-777052373901639690">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sad I hoped taht would work</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052529980735489" id="message-777052529980735489">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052551312965662" id="message-777052551312965662">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">there are</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052553728622592" id="message-777052553728622592">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-inventory</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052557436649472" id="message-777052557436649472">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Allegate&#39;s Inventory</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Seems a little empty, check out the available packs by using -shop</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052573005643776" id="message-777052573005643776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wowowow</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052603405041674" id="message-777052603405041674">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Now this</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052610406252564" id="message-777052610406252564">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-collection</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052611010101268" id="message-777052611010101268">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">is not epic</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052613770346507" id="message-777052613770346507">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">DJZ_Ibty&#39;s Collection</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Syntholion</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 6
+Rarity : Purple
+Collection : Senators
+Value : 400
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/775773610174316574/SyntholionVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Jambon</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 9
+Rarity : Purple
+Collection : Senators
+Value : 400
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/775773864545615912/JambonVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">just_a_potato</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 14
+Rarity : Purple
+Collection : Senators
+Value : 400
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/775780859604238406/just_a_potatoVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Danish</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 15
+Rarity : Purple
+Collection : Senators
+Value : 400
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/775783252920631296/DanishVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052628475052083" id="message-777052628475052083">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ok fiiiine</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(26,188,156)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052630181609472" id="message-777052630181609472">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">dum dum</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052641024278539" id="message-777052641024278539">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-collection</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052645957173260" id="message-777052645957173260">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Allegate&#39;s Collection</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">madman</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 16
+Rarity : White
+Collection : Average Vooperian
+Value : 50
+Amount : 2
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776277844396867624/madmanVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Est.Chicago</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 17
+Rarity : White
+Collection : Average Vooperian
+Value : 50
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776287801531564032/Est.ChicagoVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">ye ol&#39;guynext2u</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 18
+Rarity : Gold
+Collection : VCT Staff
+Value : 700
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776293486302855168/GuyVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Sol</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 19
+Rarity : White
+Collection : Average Vooperian
+Value : 50
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776302782923145216/SolVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Falight</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 20
+Rarity : White
+Collection : Average Vooperian
+Value : 50
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776310933449474068/FalightVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Arms</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 22
+Rarity : White
+Collection : Average Vooperian
+Value : 50
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776317172963475456/armsVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">MNoor1321</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 23
+Rarity : White
+Collection : Average Vooperian
+Value : 50
+Amount : 2
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776319996917055508/MNoor1321VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">GavinCraft1</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 24
+Rarity : White
+Collection : Average Vooperian
+Value : 50
+Amount : 3
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776456860165210112/Gavincraft1VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">xbomber125</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 25
+Rarity : Green
+Collection : SV Staff
+Value : 150
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776504447270125568/xbomber125VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">SillyPossibility</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 26
+Rarity : Green
+Collection : SV Staff
+Value : 150
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776504504048812102/SillyPossibilityVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Jam_Bam_52</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 29
+Rarity : Green
+Collection : SV Staff
+Value : 150
+Amount : 2
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776523692385370162/Jam_Bam_52VCard2.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">All_names_were_took</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 30
+Rarity : Green
+Collection : SV Staff
+Value : 150
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776527919056814120/All_names_were_tookVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">dab</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 31
+Rarity : Green
+Collection : SV Staff
+Value : 150
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776530880662339624/dabVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Zukor</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 32
+Rarity : Green
+Collection : SV Staff
+Value : 150
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776533640665759794/ZukorVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Cabostein</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 33
+Rarity : Green
+Collection : SV Staff
+Value : 150
+Amount : 1
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776535651536470056/CabosteinVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777052691607060530" id="message-777052691607060530">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wait I have 3 gavincraft</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777052696271126538" id="message-777052696271126538">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="777053806080163840" id="message-777053806080163840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">LOL</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777053828809490492" id="message-777053828809490492">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">gj</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/4a825f4793c6675d5a4a12c6582ffc3a-73F62.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AmphaTheBobRoss#3235" data-user-id="758500649557295114" style="">Ampha The Rich Card Collector</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="777186994974490654" id="message-777186994974490654">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">FIRST COMMENT ON NOVEMBER 14 GET REKT NERRRRRRRRRRDSSSSSSSSSSSSSSS</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 06:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="777232127817023498" id="message-777232127817023498">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Begone thot</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/4a825f4793c6675d5a4a12c6582ffc3a-73F62.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AmphaTheBobRoss#3235" data-user-id="758500649557295114" style="">Ampha The Rich Card Collector</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 11:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="778039880180695060" id="message-778039880180695060">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">What does thot even mean tbh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/91b9c7a4dc101832d756bc535337bd1c-10622.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="jambon123456789#6669" data-user-id="388791068382199811" style="color: rgb(52,152,219)">Jambon</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 11:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="778040935224836146" id="message-778040935224836146">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">That whore over there</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b4c862533266eae47fa60c6a27dfc4f3-0E2CC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Emperor Augustus Caesar#5603" data-user-id="694277296693182535" style="">Emperor Augustus Caesar</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 12:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="779862436022321204" id="message-779862436022321204">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-balance</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 12:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="779862437641977886" id="message-779862437641977886">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(255,0,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">VCT Bot Error</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">You have not set a card trading channel. Please use -settradingchannel (channel)</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 06:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="780131923800358952" id="message-780131923800358952">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Begone</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780131957807382548" id="message-780131957807382548">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-balance</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 06:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="780131964484059176" id="message-780131964484059176">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Allegate&#39;s account</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">0 tokens</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 06:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="780132511573213214" id="message-780132511573213214">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-balance</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 06:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="780132516480811039" id="message-780132516480811039">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Allegate&#39;s account</div>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Balance</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">5000 tokens</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 06:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="780132536600363009" id="message-780132536600363009">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Perfect</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780132629848522752" id="message-780132629848522752">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-buypack 10card</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 06:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="780132632226168842" id="message-780132632226168842">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(0,255,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">Success</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Successfuly bought pack 10 Card</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 06:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="780132656624042015" id="message-780132656624042015">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">-openpack 10card</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 06:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="780132664145215549" id="message-780132664145215549">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(0,255,0,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <div class="markdown preserve-whitespace">10 Card</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">You opened the following cards!</div>
+                                        </div>
+
+                                        <div class="chatlog__embed-fields">
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Topc200</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 13
+Rarity : Purple
+Collection : Senators
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/775775679127879700/Topc200VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Jambon</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 9
+Rarity : Purple
+Collection : Senators
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/775773864545615912/JambonVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">GavinCraft1</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 24
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776456860165210112/Gavincraft1VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Arms</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 22
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776317172963475456/armsVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">GavinCraft1</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 24
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776456860165210112/Gavincraft1VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Est.Chicago</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 17
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776287801531564032/Est.ChicagoVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">madman</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 16
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776277844396867624/madmanVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">MNoor1321</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 23
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776319996917055508/MNoor1321VCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Squidface</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 21
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776314153027239956/SquidfaceVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                                <div class="chatlog__embed-field chatlog__embed-field--inline">
+                                                        <div class="chatlog__embed-field-name">
+                                                            <div class="markdown preserve-whitespace">Arms</div>
+                                                        </div>
+
+                                                        <div class="chatlog__embed-field-value">
+                                                            <div class="markdown preserve-whitespace">Card Number : 22
+Rarity : White
+Collection : Average Vooperian
+<a href="https://cdn.discordapp.com/attachments/770252162579169290/776317172963475456/armsVCard.png">View</a></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="">Allegate</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 06:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="780132734457872414" id="message-780132734457872414">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I got topc and Jambon!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Closed%20for%20business%20indefinitely%20_%28%20-%20Archived%20-%20trading-6%20%5B776895597482737684%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(0,5,255)">daddy</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 06:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="780137494729326663" id="message-780137494729326663">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 107 message(s)</div>
+</div>
+
+</body>
+
+</html>

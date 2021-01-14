@@ -1,0 +1,2246 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Republic of Voopmont - economy-feed</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/f1c4ef0f2f29c380b86c80bce76c86fa-CCEBD.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Republic of Voopmont</div>
+        <div class="preamble__entry">Voopmont Town Hall / economy-feed</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">12-Sep-20 03:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="754169811872907305" id="message-754169811872907305">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span>  So basically once every two weeks every Sunday I&#39;ll update on Voopmont&#39;s economy</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128077;" title="&#128077;" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/1f44d-1485B.png">
+                                <span class="chatlog__reaction-count">5</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">13-Sep-20 07:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="754586591913181214" id="message-754586591913181214">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://drive.google.com/file/d/14onqzBsGLkWEWazkmzAzydcqGENXCwif/view?usp=drivesdk">https://drive.google.com/file/d/14onqzBsGLkWEWazkmzAzydcqGENXCwif/view?usp=drivesdk</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="27-Sep-20 06:28 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://drive.google.com/file/d/14onqzBsGLkWEWazkmzAzydcqGENXCwif/view?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">Economic Feed Week 2 Sep 2020.txt</div>
+                                                </a>
+                                        </div>
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/FHbj6c6MWL9fP3SB4XejviJvm5fLMA3QZyIGvJHNS1-303CE">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/FHbj6c6MWL9fP3SB4XejviJvm5fLMA3QZyIGvJHNS1-303CE" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="754586771882508409" id="message-754586771882508409">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Voopmont&#39;s rank: 7th/15 <img class="emoji " alt="Abstain_Vote" title="Abstain_Vote" src="https://cdn.discordapp.com/emojis/754291779582558228.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="13-Sep-20 07:20 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="754588381115056209" id="message-754588381115056209">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Voopmont&#39;s wealth:  1039668.4965216315  <img class="emoji " alt="Abstain_Vote" title="Abstain_Vote" src="https://cdn.discordapp.com/emojis/754291779582558228.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="13-Sep-20 07:24 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">27-Sep-20 06:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="759646246713163836" id="message-759646246713163836">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://drive.google.com/file/d/1wkWg4Wu2rtxY38Hd36eJhrA-Att0lKo3/view?usp=drivesdk">https://drive.google.com/file/d/1wkWg4Wu2rtxY38Hd36eJhrA-Att0lKo3/view?usp=drivesdk</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="27-Sep-20 06:28 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://drive.google.com/file/d/1wkWg4Wu2rtxY38Hd36eJhrA-Att0lKo3/view?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">Economic Feed Week 4 Sep 2020.txt</div>
+                                                </a>
+                                        </div>
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/hi-SVHO4th9MPUaWtuPw1tyrtTYF0N-Ndd7G-6DiHg-F9509">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/hi-SVHO4th9MPUaWtuPw1tyrtTYF0N-Ndd7G-6DiHg-F9509" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="759646371958751252" id="message-759646371958751252">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Voopmont&#39;s rank: 6th/15 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="759646668110299147" id="message-759646668110299147">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Voopmont&#39;s wealth: 1785692.3892701245 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">27-Sep-20 02:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="759764998389497876" id="message-759764998389497876">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="Pog" title="Pog" src="https://cdn.discordapp.com/emojis/754530403666231317.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Pog" title="Pog" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/754530403666231317-BBB1D.png">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">27-Sep-20 02:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="759765724935094355" id="message-759765724935094355">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="Pog" title="Pog" src="https://cdn.discordapp.com/emojis/754530403666231317.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Pog" title="Pog" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/754530403666231317-BBB1D.png">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">11-Oct-20 04:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="764685327168176159" id="message-764685327168176159">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Comrade Chris#9088">@everyone</span> shouldn&#39;t this be updated soon?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">11-Oct-20 05:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="764702242678243328" id="message-764702242678243328">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah but I was busy just now Imma do it right now</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">11-Oct-20 05:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="764702508642861077" id="message-764702508642861077">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">k</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(31,139,76)">everyone</span>
+
+
+        <span class="chatlog__timestamp">11-Oct-20 05:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="764705192204959755" id="message-764705192204959755">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://drive.google.com/file/d/1vEpgChjED3gcV0sdOnzp-1xBR3X4WKWW/view?usp=drivesdk">https://drive.google.com/file/d/1vEpgChjED3gcV0sdOnzp-1xBR3X4WKWW/view?usp=drivesdk</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://drive.google.com/file/d/1vEpgChjED3gcV0sdOnzp-1xBR3X4WKWW/view?usp=drivesdk">
+                                                    <div class="markdown preserve-whitespace">Economic Feed Week 2 Oct 2020.txt</div>
+                                                </a>
+                                        </div>
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/TaZmVlXuRbQ95ED4_S517hSEuNbqmDdsoiejRXcb-c-912F8">
+                                            <img class="chatlog__embed-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/TaZmVlXuRbQ95ED4_S517hSEuNbqmDdsoiejRXcb-c-912F8" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="764705348417749022" id="message-764705348417749022">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Voopmont&#39;s rank: 6th/15 <img class="emoji " alt="Abstain_Vote" title="Abstain_Vote" src="https://cdn.discordapp.com/emojis/754291779582558228.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="764705442550120458" id="message-764705442550120458">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Voopmont&#39;s wealth: 2061363.2682374269 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="11-Oct-20 05:26 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(187,129,42)">asdia</span>
+
+
+        <span class="chatlog__timestamp">11-Oct-20 05:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="764711682525364234" id="message-764711682525364234">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&gt;⅓ <img class="emoji " alt="😳" title="😳" src="https://twemoji.maxcdn.com/2/72x72/1f633.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">16-Oct-20 07:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="766726732262014976" id="message-766726732262014976">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="TheTazMann#5087">@Taz | Doomslayer</span> coming up</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">16-Oct-20 07:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="766727479108304966" id="message-766727479108304966">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="766727499513724959" id="message-766727499513724959">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Sunday ill record it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">16-Oct-20 07:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="766728206731968562" id="message-766728206731968562">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">k</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-20 10:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="767499705122291752" id="message-767499705122291752">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Voopmont Rank:</strong> 12/15 <img class="emoji " alt="📉" title="📉" src="https://twemoji.maxcdn.com/2/72x72/1f4c9.png"> 
+
+<strong>Voopmont Wealth:</strong> 1,129,115.4654488398 <img class="emoji " alt="📉" title="📉" src="https://twemoji.maxcdn.com/2/72x72/1f4c9.png"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/945376df7a427345a31c29d15db66540-93192.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/945376df7a427345a31c29d15db66540-93192.png" alt="Image attachment" title="Image: 945376df7a427345a31c29d15db66540.png (31.49 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767499885133037618" id="message-767499885133037618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="😔" title="😔" src="https://twemoji.maxcdn.com/2/72x72/1f614.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-20 10:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="767506372496982027" id="message-767506372496982027">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oh that&#39;s not good</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767506436304535562" id="message-767506436304535562">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Still not as bad as new spudland</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-20 11:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="767507665348722699" id="message-767507665348722699">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">New Spudland only has ~4 people</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767507737906905088" id="message-767507737906905088">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We have ~27</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767507854864941057" id="message-767507854864941057">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we have roughly 9 times the people but only 3 times the wealth</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767507861844131841" id="message-767507861844131841">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sad!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-20 11:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="767509433210109973" id="message-767509433210109973">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Well that&#39;s what happens when we have inactive people</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767509451833344000" id="message-767509451833344000">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The inactivity tax takes a hold</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-20 11:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="767510029124239371" id="message-767510029124239371">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">true, that too</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(187,129,42)">asdia</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-20 01:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="767542501140856832" id="message-767542501140856832">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i definitely didn&#39;t put all my 1m in vnb</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Gulag" title="Gulag" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/754184144476438528-BD4CF.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-20 01:27 AM</span>
+
+            <div class="chatlog__message " data-message-id="767544366910144522" id="message-767544366910144522">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">bruh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="color: rgb(187,129,42)">asdia</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-20 08:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="767654549787115520" id="message-767654549787115520">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so we dont have any inactive people who got taxed yet lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">24-Oct-20 08:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="769647462968852550" id="message-769647462968852550">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Voomont Rank:</strong> 10/15 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"> 
+
+<strong>Voopmont Wealth:</strong> 1,273,537.51 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0c90bd50667de094d073f391f5554563-7D43D.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0c90bd50667de094d073f391f5554563-7D43D.png" alt="Image attachment" title="Image: 0c90bd50667de094d073f391f5554563.png (24.03 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">24-Oct-20 08:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="769647598507655169" id="message-769647598507655169">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we&#39;ve gone back up</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="769647604417822772" id="message-769647604417822772">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">pog</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">24-Oct-20 08:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="769648195856760863" id="message-769648195856760863">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">A lot of districts dropped by ~100k</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="769648269881507851" id="message-769648269881507851">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Not us tho <img class="emoji " alt="pepeOK" title="pepeOK" src="https://cdn.discordapp.com/emojis/764981110651224075.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">24-Oct-20 08:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="769648314018037820" id="message-769648314018037820">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="😎" title="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">05-Nov-20 08:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="774008924013592576" id="message-774008924013592576">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Voopmont Rank:</strong> 9/15 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"> 
+
+<strong>Voopmont Wealth:</strong> 1,330,624.95 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"> 
+<em>Wealth Increase: 57,087.44</em></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/d5e80aed8283e084fe70474941e3bfd5-B4A1A.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/d5e80aed8283e084fe70474941e3bfd5-B4A1A.png" alt="Image attachment" title="Image: d5e80aed8283e084fe70474941e3bfd5.png (23.75 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774009088392429628" id="message-774009088392429628">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">holy fuck servers past jumped up a whole million</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="774009261717848084" id="message-774009261717848084">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Syntholion#3151">@Syntholion</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 04:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="774130062822998016" id="message-774130062822998016">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">jesus</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 03:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="774293048477614130" id="message-774293048477614130">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ah because of Vooperian Cards</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 04:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="774667994134609961" id="message-774667994134609961">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We&#39;re in the top 10 again</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#129326;" title="&#129326;" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/1f92e-D0B81.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 07:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="774713448789180416" id="message-774713448789180416">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">How is that bad?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 01:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="778245921166721035" id="message-778245921166721035">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">aight i need somewhere to save this link so fuck t\</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="778245933682786344" id="message-778245933682786344">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://spookvooper.com/api/eco/GetDistrictWealth?id=Voopmont">https://spookvooper.com/api/eco/GetDistrictWealth?id=Voopmont</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+                <span class="chatlog__reference-name" title="TheTazMann#5087" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;778245933682786344&#39;)">
+                    <span class="chatlog__reference-content">
+<a href="https://spookvooper.com/api/eco/GetDistrictWealth?id=Voopmont">https://spookvooper.com/api/eco/GetDistrictWealth?id=Voopmont</a>                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 01:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="778245944742641674" id="message-778245944742641674">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 01:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="778248427925929985" id="message-778248427925929985">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Voopmont Rank:</strong> 9/15 <img class="emoji " alt="Abstain_Vote" title="Abstain_Vote" src="https://cdn.discordapp.com/emojis/754291779582558228.png"> 
+
+<strong>Voopmont Wealth:</strong> 2,126,445.87 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"> 
+<em>Wealth Increase: 795,820.92</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Nov-20 01:21 PM">(edited)</span>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/232d612c8235e3e0cc3b765b179c8949-8609E.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/232d612c8235e3e0cc3b765b179c8949-8609E.png" alt="Image attachment" title="Image: 232d612c8235e3e0cc3b765b179c8949.png (20.64 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 01:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="778248465384734751" id="message-778248465384734751">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nice</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 12:52 AM</span>
+
+            <div class="chatlog__message " data-message-id="779871844135469088" id="message-779871844135469088">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Voopmont Rank:</strong> 8/15 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"> 
+
+Voopmont Wealth: 2,229,990.34 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"> 
+Wealth Increase: 103,544.47 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/ca0cc42a5f0be4e4406eecc49c4fae20-99DC8.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/ca0cc42a5f0be4e4406eecc49c4fae20-99DC8.png" alt="Image attachment" title="Image: ca0cc42a5f0be4e4406eecc49c4fae20.png (27.96 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779871881955508224" id="message-779871881955508224">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">One of the only districts to not lose money this week!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 01:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="779878249269690418" id="message-779878249269690418">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="😳" title="😳" src="https://twemoji.maxcdn.com/2/72x72/1f633.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779878262083682325" id="message-779878262083682325">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we went up</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779878553806045194" id="message-779878553806045194">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we are almost back at our record rank</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 11:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="783475761872896000" id="message-783475761872896000">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="TheTazMann#5087">@Taz | Doomslayer</span> economy pls</span>
+
+                                <span class="chatlog__edited-timestamp" title="01-Dec-20 11:32 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="baguetteSpin" title="baguetteSpin" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/463030163454558209-515D8.gif">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 07:32 AM</span>
+
+            <div class="chatlog__message " data-message-id="784321308493873183" id="message-784321308493873183">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Voopmont Rank:</strong> 7/15 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png">
+
+Voopmont Wealth: 2,334,865.72 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"> 
+Wealth Increase: 104,875.38 <img class="emoji " alt="📈" title="📈" src="https://twemoji.maxcdn.com/2/72x72/1f4c8.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Dec-20 07:34 AM">(edited)</span>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/unknown-7F4FE.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/unknown-7F4FE.png" alt="Image attachment" title="Image: unknown.png (17.29 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#129313;" title="&#129313;" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/1f921-7AE5E.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="784321840746463262" id="message-784321840746463262">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we went up!</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#129313;" title="&#129313;" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/1f921-7AE5E.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="784321926888685579" id="message-784321926888685579">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">san vooperisco dropped hard</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128077;" title="&#128077;" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/1f44d-1485B.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/a_266ec21d37683bca8200376a874838a2-FB675.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheTazMann#5087" data-user-id="115191919708995586" style="color: rgb(215,52,42)">Taz | Doomslayer</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 01:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="784404927539314698" id="message-784404927539314698">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hey shitass
+include the side bar in the screenshots to see the # rankings</span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Dec-20 01:05 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784405013228683275" id="message-784405013228683275">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh wait i just realized i didnt either</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784405015443931226" id="message-784405015443931226">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">fuck</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Republic%20of%20Voopmont%20-%20Voopmont%20Town%20Hall%20-%20economy-feed%20%5B754168504957272111%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 01:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="784405146196377650" id="message-784405146196377650">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="😡" title="😡" src="https://twemoji.maxcdn.com/2/72x72/1f621.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 65 message(s)</div>
+</div>
+
+</body>
+
+</html>
